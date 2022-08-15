@@ -1,0 +1,82 @@
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 300;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-300.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-300.woff") format("woff");
+}
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-regular.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 700;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-700.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-700.woff") format("woff");
+}
+
+// Файл обнуляющих стилей
+@import "_nullstyle";
+
+// Библиотека noUiSlider: range-ползунки
+@import "nouislider/dist/nouislider.css";
+
+// Переменные для цвета
+$grey1: #4e4d4d; // основной для шрифта
+$grey2: #545454; // светлее - под цвет рюкзака-корзины
+$eggshell: #f0ead6; // Eggshell - основной для фона
+$sea-green-dark: #3d5446;
+$green-dark: #272d24; // .noUi-handle
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	max-width: 100%;
+	min-height: 100vh;
+	// overflow-x: hidden;
+	min-width: 600px;
+	font-size: 35px;
+	font-weight: 400;
+	line-height: 30px;
+	font-family: "Roboto", sans-serif;
+
+	color: $grey1;
+	// background: url(../asset/noise_transparent@2x.png) $eggshell; // Eggshell
+	background: $eggshell; // Eggshell
+}
+
+.wrapper {
+	min-height: 100%;
+
+	display: flex;
+	flex-direction: column;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+._container {
+	max-width: 1200px;
+	padding: 0px 15px; // secure
+	margin: 0px auto;
+	box-sizing: content-box; // чтобы паддинг не считался частью max-width
+}
+
+//========  ======================================================================================
+
+//========  ======================================================================================
+
+//========  =============================================================================
+
+//========  ================================================================================
+
+//================================================================================================
