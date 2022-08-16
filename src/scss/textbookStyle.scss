@@ -1,0 +1,113 @@
+.textbook-nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.textbook-nav-btn {
+  width: 100px;
+  height: 30px;
+  font-weight: bold;
+  border: solid 2px black;
+  border-radius: 5px;
+}
+
+.regular-chapter-btn {
+  background-color: rgb(11, 128, 79);
+}
+
+.difficult-chapter-btn {
+  background-color: rgb(118, 36, 234);
+}
+
+.world-list-container {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  gap: 20px;
+}
+
+.word-container {
+  padding: 5px;
+  background-color: rgb(207, 175, 134);
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.base-word-content {
+  display: flex;
+  gap: 20px;
+}
+
+.word-main-data {
+  display: flex;
+  gap: 20px;
+  background-color: rgb(245, 239, 218);
+  border-radius: 5px;
+  padding: 5px;
+  border: solid 2px rgb(148, 27, 12);
+}
+
+.word-audio-button {
+  background: url('../asset/svg/audio-icon.svg');
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.authorize-word-content {
+  display: flex;
+  gap: 20px;
+  margin: 10px 10px 10px 50px;
+}
+
+.word-btn {
+  width: 150px;
+  height: 30px;
+  font-weight: bold;
+  border: solid 2px black;
+  border-radius: 5px;
+}
+
+.learned-button {
+  background-color: rgb(47, 239, 95);
+}
+
+.difficult-button {
+  background-color: rgb(118, 36, 234);
+}
+
+.textbook-footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.game-btn {
+  width: 200px;
+  height: 40px;
+  font-weight: bold;
+  border: solid 2px black;
+  border-radius: 5px;
+  background-color: rgb(244, 152, 32);
+}
+
+.page-nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.page-nav-btn, .page-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: solid 2px black;
+  border-radius: 50%;
+  background-color: rgb(11, 128, 79);
+}
