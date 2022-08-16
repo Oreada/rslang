@@ -2,7 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
     devtool: 'eval-source-map',
@@ -50,17 +50,14 @@ const baseConfig = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Online Store',
+            title: 'RS-Lang',
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
             // favicon: 'public/favicon.ico',
         }),
         new CleanWebpackPlugin(),
         new CopyPlugin({
-            patterns: [
-                { from: 'src/asset', to: 'asset' },
-                { from: 'src/api', to: 'api' },
-            ],
+            patterns: [{ from: 'src/asset', to: 'asset' }],
         }),
     ],
 };
