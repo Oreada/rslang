@@ -1,7 +1,5 @@
 export interface IWord {
-  "_id": {
-    "$oid": string;
-  };
+  "id": string;
   "group": number,
   "page": number,
   "word": string,

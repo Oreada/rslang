@@ -9,7 +9,7 @@ export function renderPage(data: Array<IWord>): string {
 }
 
 function renderWord(word: IWord): string {
-  const str = `<div class="word-container" id="word-${word._id.$oid}">
+  const str = `<div class="word-container" id="word-${word.id}">
     <div class="base-word-content">
       <div class="word-img-wrapper">
         <img class="word-img" src="${(word.image)}" alt="${word.word}-image">
@@ -19,7 +19,7 @@ function renderWord(word: IWord): string {
           <span class="word-original">${word.word}</span>
           <span class="word-transcription">${word.transcription}</span>
           <span class="word-translate">${word.wordTranslate}</span>
-          <button class="word-audio-button" id="audio-${word._id.$oid}"></button>
+          <button class="word-audio-button" id="audio-${word.id}"></button>
         </div>
         <div class="word-sentences">
           <p class="sentence">${word.textMeaning}</p>
@@ -30,10 +30,10 @@ function renderWord(word: IWord): string {
       </div>
     </div>
     <div class="authorize-word-content">
-      <button class="word-btn learned-button" id="learned-${word._id.$oid}">
+      <button class="word-btn learned-button" id="learned-${word.id}">
         Добавить в изученные
       </button>
-      <button class="word-btn difficult-button" id="difficult-${word._id.$oid}">
+      <button class="word-btn difficult-button" id="difficult-${word.id}">
         Добавить в сложные
       </button>
     </div>
