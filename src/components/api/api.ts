@@ -1,15 +1,21 @@
 import { BASE_API } from '../../constants/constants';
-import { Word, UserBodyForCreation, UserCardWithId, UserBodyForSignIn, AuthorizationResult } from '../../types/types';
+import {
+    IWord,
+    IUserBodyForCreation,
+    IUserCardWithId,
+    IUserBodyForSignIn,
+    IAuthorizationResult,
+} from '../../types/types';
 
 //! Get a chunk of words certain GROUP and PAGE
-export async function getWords(group: string, page: string): Promise<Array<Word>> {
+export async function getWords(group: string, page: string): Promise<Array<IWord>> {
     const response = await fetch(`${BASE_API}/words?group=${group}&page=${page}`);
     const wordsList = await response.json();
     return wordsList;
 }
 
 //! Get a word with assets by ID
-export async function getWordById(id: string): Promise<Word> {
+export async function getWordById(id: string): Promise<IWord> {
     const response = await fetch(`${BASE_API}/words/${id}`);
     const wordById = await response.json();
     return wordById;
@@ -17,7 +23,7 @@ export async function getWordById(id: string): Promise<Word> {
 
 //! Create a new user with Request body (OBJ)
 //! в документации - возврат name, email, password, на деле вместо password - id
-export async function createUser(obj: UserBodyForCreation): Promise<UserCardWithId | undefined> {
+export async function createUser(obj: IUserBodyForCreation): Promise<IUserCardWithId | undefined> {
     const response = await fetch(`${BASE_API}/users`, {
         method: 'POST',
         headers: {
@@ -45,7 +51,7 @@ export async function createUser(obj: UserBodyForCreation): Promise<UserCardWith
 
 //! Login a user and return an object with token
 //! сохранить результат вызова в объект, а потом из него вытягивать токен и т.д.
-export async function loginUser(obj: UserBodyForSignIn): Promise<AuthorizationResult | undefined> {
+export async function loginUser(obj: IUserBodyForSignIn): Promise<IAuthorizationResult | undefined> {
     try {
         const response = await fetch(`${BASE_API}/signin`, {
             method: 'POST',
@@ -70,7 +76,7 @@ export async function loginUser(obj: UserBodyForSignIn): Promise<AuthorizationRe
 
 //! Get user by ID and TOKEN
 //! в документации - возврат name, email, password, на деле вместо password - id
-export async function getUser(id: string, token: string): Promise<UserCardWithId | undefined> {
+export async function getUser(id: string, token: string): Promise<IUserCardWithId | undefined> {
     const response = await fetch(`${BASE_API}/users/${id}`, {
         method: 'GET',
         headers: {
@@ -98,8 +104,8 @@ export async function getUser(id: string, token: string): Promise<UserCardWithId
 export async function updateUser(
     id: string,
     token: string,
-    obj: UserBodyForCreation
-): Promise<UserCardWithId | undefined> {
+    obj: IUserBodyForCreation
+): Promise<IUserCardWithId | undefined> {
     const response = await fetch(`${BASE_API}/users/${id}`, {
         method: 'PUT',
         headers: {
