@@ -1,27 +1,7 @@
-//! интерфейс Ильи
 export interface IWord {
-    "id": string;
-    "group": number,
-    "page": number,
-    "word": string,
-    "image": string,
-    "audio": string,
-    "audioMeaning": string,
-    "audioExample": string,
-    "textMeaning": string,
-    "textExample": string,
-    "transcription": string,
-    "__v": number,
-    "textExampleTranslate": string,
-    "textMeaningTranslate": string,
-    "wordTranslate": string
-}
-
-//! интерфейс Оли
-export interface Word {
     id: string;
-    group: 0;
-    page: 0;
+    group: number;
+    page: number;
     word: string;
     image: string;
     audio: string;
@@ -35,24 +15,24 @@ export interface Word {
     textExampleTranslate: string;
 }
 
-export interface UserBodyForCreation {
+export interface IUserBodyForCreation {
     name: string;
     email: string;
     password: string;
 }
 
-export interface UserCardWithId {
+export interface IUserCardWithId {
     id: string;
     name: string;
     email: string;
 }
 
-export interface UserBodyForSignIn {
+export interface IUserBodyForSignIn {
     email: string;
     password: string;
 }
 
-export interface AuthorizationResult {
+export interface IAuthorizationResult {
     message: string;
     token: string;
     refreshToken: string;
