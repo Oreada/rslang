@@ -1,10 +1,17 @@
 import './scss/style.scss';
-import { createUser } from './components/api/api';
+import { createUser, loginUser, getTokenAfterLogin } from './components/api/api';
 
-const objTest = {
+const objTestForCreate = {
     name: 'Peter Parker',
     email: 'parker@gmail.com',
     password: 'spider666',
 };
 
-console.log(createUser(objTest));
+const objTestForLogin = {
+    email: 'parker@gmail.com',
+    password: 'spider666',
+};
+
+// console.log(createUser(objTestForCreate));
+console.log(loginUser(objTestForLogin));
+// console.log(await getTokenAfterLogin(objTestForLogin));

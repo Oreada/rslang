@@ -42,7 +42,7 @@ export async function createUser(obj: UserBodyForCreation): Promise<UserCardWith
     }
 }
 
-//! Login a user and return a JWT-token
+//! Login a user and return an object with token
 export async function loginUser(obj: UserBodyForSignIn): Promise<AuthorizationResult | undefined> {
     try {
         const response = await fetch(`${BASE_API}/signin`, {
@@ -58,6 +58,11 @@ export async function loginUser(obj: UserBodyForSignIn): Promise<AuthorizationRe
     } catch (error) {
         console.log('Incorrect e-mail or password');
     }
+}
+
+export async function getTokenAfterLogin(obj: UserBodyForSignIn) {
+    const authUser = await loginUser(obj);
+    return authUser?.token;
 }
 
 //! Get user by ID
