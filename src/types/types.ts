@@ -1,3 +1,23 @@
+//! интерфейс Ильи
+export interface IWord {
+  "id": string;
+  "group": number,
+  "page": number,
+  "word": string,
+  "image": string,
+  "audio": string,
+  "audioMeaning": string,
+  "audioExample": string,
+  "textMeaning": string,
+  "textExample": string,
+  "transcription": string,
+  "__v": number,
+  "textExampleTranslate": string,
+  "textMeaningTranslate": string,
+  "wordTranslate": string
+}
+
+//! интерфейс Оли
 export interface Word {
     id: string;
     group: 0;
@@ -39,3 +59,6 @@ export interface AuthorizationResult {
     userId: string;
     name: string;
 }
+
+
+
