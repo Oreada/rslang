@@ -1,64 +1,49 @@
-//! интерфейс Ильи
 export interface IWord {
-  "id": string;
-  "group": number,
-  "page": number,
-  "word": string,
-  "image": string,
-  "audio": string,
-  "audioMeaning": string,
-  "audioExample": string,
-  "textMeaning": string,
-  "textExample": string,
-  "transcription": string,
-  "__v": number,
-  "textExampleTranslate": string,
-  "textMeaningTranslate": string,
-  "wordTranslate": string
+  id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  wordTranslate: string;
+  textMeaningTranslate: string;
+  textExampleTranslate: string;
 }
 
-//! интерфейс Оли
-export interface Word {
-    id: string;
-    group: 0;
-    page: 0;
-    word: string;
-    image: string;
-    audio: string;
-    audioMeaning: string;
-    audioExample: string;
-    textMeaning: string;
-    textExample: string;
-    transcription: string;
-    wordTranslate: string;
-    textMeaningTranslate: string;
-    textExampleTranslate: string;
+export interface IUserBodyForCreation {
+  name: string;
+  email: string;
+  password: string;
 }
 
-export interface UserBodyForCreation {
-    name: string;
-    email: string;
-    password: string;
+export interface IUserCardWithId {
+  id: string;
+  name: string;
+  email: string;
 }
 
-export interface UserCardWithId {
-    id: string;
-    name: string;
-    email: string;
+export interface IUserBodyForSignIn {
+  email: string;
+  password: string;
 }
 
-export interface UserBodyForSignIn {
-    email: string;
-    password: string;
+export interface IAuthorizationResult {
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
 }
 
-export interface AuthorizationResult {
-    message: string;
-    token: string;
-    refreshToken: string;
-    userId: string;
-    name: string;
+// Интерфейс Ильи для storage
+
+export interface IStorage {
+pageCount: string,
+chapterCount: string,
+currentPage: null | Array<IWord>,
 }
-
-
-
