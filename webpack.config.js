@@ -45,6 +45,7 @@ const baseConfig = {
     },
     output: {
         // publicPath: 'dist', // стили ломаются
+        publicPath: '/',
         filename: 'index.js',
         path: path.resolve(__dirname, '../dist'),
     },
