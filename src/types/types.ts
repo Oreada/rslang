@@ -39,3 +39,9 @@ export interface IAuthorizationResult {
     userId: string;
     name: string;
 }
+
+export interface IStorage {
+    pageCount: string,
+    chapterCount: string,
+    currentPage: null | Array<IWord>,
+}

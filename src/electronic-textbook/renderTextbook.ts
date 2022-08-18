@@ -1,26 +1,27 @@
-import { IWord } from "../types/types";
+import { storage } from "../storage/storage";
+import { IWord, } from "../types/types";
 import { renderPage } from "./renderTextbookPage";
 
 function textbookNavRender(): string {
-  const str = `<button class="textbook-nav-btn regular-chapter-btn">
+  const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
     Первый
   </button>
-  <button class="textbook-nav-btn regular-chapter-btn">
+  <button class="textbook-nav-btn regular-chapter-btn" data-group="1">
     Второй
   </button>
-  <button class="textbook-nav-btn regular-chapter-btn">
+  <button class="textbook-nav-btn regular-chapter-btn" data-group="2">
     Третий
   </button>
-  <button class="textbook-nav-btn regular-chapter-btn">
+  <button class="textbook-nav-btn regular-chapter-btn" data-group="3">
     Четвертый
   </button>
-  <button class="textbook-nav-btn regular-chapter-btn">
+  <button class="textbook-nav-btn regular-chapter-btn" data-group="4">
     Пятый
   </button>
-  <button class="textbook-nav-btn regular-chapter-btn">
+  <button class="textbook-nav-btn regular-chapter-btn" data-group="5">
     Шестой
   </button>
-  <button class="textbook-nav-btn difficult-chapter-btn">
+  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
     Седьмой
   </button>`;
   
@@ -36,7 +37,7 @@ function textbookFooterRender(): string {
       ←
     </button>
     <div class="page-number">
-      1
+      ${+storage.pageCount + 1}
     </div>
     <button class="page-nav-btn next-btn">
       →
@@ -49,12 +50,12 @@ function textbookFooterRender(): string {
   return str;
 }
 
-export function textbookRender(parent: HTMLElement, data: Array<IWord>): void {
+export function textbookRender(parent: HTMLElement): void {
   const str = `<section class="textbook-nav">
     ${textbookNavRender()}
   </section>
   <section class="textbook-page-container">
-    ${renderPage(data)}
+    ${renderPage(storage.currentPage as Array<IWord>)}
   </section>
   <section class="textbook-footer">
     ${textbookFooterRender()}
