@@ -6,6 +6,7 @@ import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
 import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
 import './scss/style.scss';
+import { listenersTextbook } from './electronic-textbook/textbookListeners';
 
 
 type routesKey = keyof typeof routes;
@@ -66,6 +67,11 @@ const objTestForUpdate = {
 const authResultObj = await loginUser(objTestForLogin); //! пример авторизации юзера
 console.log(authResultObj);
 const token = authResultObj?.token as string;
+
+// listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
+// пока что оставил ее тут, чтоб была возможность у всех проверять работу словаря
+
+listenersTextbook();
 
 // console.log(await getUser(userId, token)); //! пример получения юзера
 

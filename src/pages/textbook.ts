@@ -1,3 +1,5 @@
+import { textbookRender } from "../electronic-textbook/renderTextbook";
+
 export const Textbook = (): string => {
-    return `<p style="font-size: 24px;">Here should be page Textbook</p>`;
+    return textbookRender();
 };
