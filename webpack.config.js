@@ -61,6 +61,9 @@ const baseConfig = {
             patterns: [{ from: 'src/asset', to: 'asset' }],
         }),
     ],
+    experiments: {
+        topLevelAwait: true,
+    },
 };
 
 module.exports = ({ mode }) => {

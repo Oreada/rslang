@@ -4,7 +4,9 @@ import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
+import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
 import './scss/style.scss';
+
 
 type routesKey = keyof typeof routes;
 
@@ -38,3 +40,35 @@ const onNavigate = (pathname: routesKey) => {
 window.onpopstate = () => {
     rootDiv.innerHTML = routes[window.location.pathname as routesKey]();
 };
+
+
+const objTestForCreate = {
+    name: 'Tony Stark',
+    email: 'stark@gmail.com',
+    password: '123456789',
+};
+
+const objTestForLogin = {
+    email: 'stark@gmail.com',
+    password: '123456789',
+};
+
+const objTestForUpdate = {
+    name: '',
+    email: '',
+    password: '',
+};
+
+// const creationResult = await createUser(objTestForCreate); //! пример создания юзера
+// console.log(creationResult);
+// const userId = creationResult?.id as string;
+
+const authResultObj = await loginUser(objTestForLogin); //! пример авторизации юзера
+console.log(authResultObj);
+const token = authResultObj?.token as string;
+
+// console.log(await getUser(userId, token)); //! пример получения юзера
+
+// console.log(await updateUser(userId, token, objTestForUpdate)); //! пример редактирования юзера
+
+
