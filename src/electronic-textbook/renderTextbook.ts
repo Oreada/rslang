@@ -50,19 +50,18 @@ function textbookFooterRender(): string {
   return str;
 }
 
-export function textbookRender(parent: HTMLElement): void {
-  const str = `<section class="textbook-nav">
-    ${textbookNavRender()}
-  </section>
-  <section class="textbook-page-container">
-    ${renderPage(storage.currentPage as Array<IWord>)}
-  </section>
-  <section class="textbook-footer">
-    ${textbookFooterRender()}
-  </section>`;
+export function textbookRender(): string {
+  const str = `<div class="textbook-container">
+    <section class="textbook-nav">
+      ${textbookNavRender()}
+    </section>
+    <section class="textbook-page-container">
+      ${renderPage(storage.currentPage as Array<IWord>)}
+    </section>
+    <section class="textbook-footer">
+      ${textbookFooterRender()}
+    </section>
+  </div>`;
 
-  const textbook = document.createElement('div') as HTMLElement;
-  textbook.classList.add('textbook');
-  textbook.innerHTML = str;
-  parent.append(textbook);
+  return str;
 }

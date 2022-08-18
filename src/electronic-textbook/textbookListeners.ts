@@ -190,7 +190,7 @@ export function addAudioControlListener(): void {
   });
 }
 
-export function listeners(): void {
+export function listenersTextbook(): void {
   addChaptersListener();
   addPrevPageListener();
   addNextPageListener();
