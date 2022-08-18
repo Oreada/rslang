@@ -38,25 +38,11 @@ html {
 }
 
 body {
-	max-width: 100%;
-	min-height: 100vh;
+	height: 100%;
 	// overflow-x: hidden;
-	min-width: 600px;
-	font-size: 35px;
-	font-weight: 400;
-	line-height: 30px;
 	font-family: "Roboto", sans-serif;
-
 	color: $grey1;
-	// background: url(../asset/noise_transparent@2x.png) $eggshell; // Eggshell
-	background: $eggshell; // Eggshell
-}
-
-.wrapper {
-	min-height: 100%;
-
-	display: flex;
-	flex-direction: column;
+	// background: $eggshell; // Eggshell
 }
 
 img {
@@ -64,11 +50,25 @@ img {
 	height: auto;
 }
 
-._container {
-	max-width: 1200px;
-	padding: 0px 15px; // secure
-	margin: 0px auto;
-	box-sizing: content-box; // чтобы паддинг не считался частью max-width
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.content {
+	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column;
+	background-image: url(../asset/images/homepage.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
 }
 
 //========  ======================================================================================
