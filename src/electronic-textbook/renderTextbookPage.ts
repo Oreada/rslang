@@ -1,6 +1,10 @@
+import { BASE_API } from '../constants/constants';
 import { IWord } from '../types/types';
 
 export function renderPage(data: Array<IWord>): string {
+  if (data === null) {
+    return '';
+  }
   const str = `<div class="world-list-container">
     ${data.map((item) => renderWord(item)).join('')}
   </div>`;
@@ -12,14 +16,18 @@ function renderWord(word: IWord): string {
   const str = `<div class="word-container" id="word-${word.id}">
     <div class="base-word-content">
       <div class="word-img-wrapper">
-        <img class="word-img" src="${(word.image)}" alt="${word.word}-image">
+        <img class="word-img" src='${BASE_API}/${(word.image)}' alt="${word.word}-image">
       </div>
       <div class="word-content">
         <div class="word-main-data">
           <span class="word-original">${word.word}</span>
           <span class="word-transcription">${word.transcription}</span>
           <span class="word-translate">${word.wordTranslate}</span>
-          <button class="word-audio-button" id="audio-${word.id}"></button>
+          <button class="word-audio-button" id="audio-button-${word.id}"></button>
+          <button class="word-audio-control" id="audio-control-${word.id}"></button>
+          <audio src="${BASE_API}/${(word.audio)}" id="first-audio-${word.id}"></audio>
+          <audio src="${BASE_API}/${(word.audioMeaning)}" id="second-audio-${word.id}"></audio>
+          <audio src="${BASE_API}/${(word.audioExample)}" id="third-audio-${word.id}"></audio>
         </div>
         <div class="word-sentences">
           <p class="sentence">${word.textMeaning}</p>
