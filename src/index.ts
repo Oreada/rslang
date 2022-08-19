@@ -11,11 +11,7 @@ import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
 
-import './scss/style.scss';
 import { listenLoginForm } from './components/modalWindow/switchForm';
-
-import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
-import './scss/style.scss';
 
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
 
