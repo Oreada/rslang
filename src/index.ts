@@ -7,8 +7,7 @@ import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
-import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
-import './scss/style.scss';
+
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
 
 type routesKey = keyof typeof routes;
