@@ -1,3 +1,32 @@
+import {
+    audiochallengeHtml,
+    wordAudiochallenge,
+    optionsAudiochallenge,
+    drawAudiochallengePage,
+} from '../components/game-audiochallenge/audiochallenge';
+
 export const Games = (): string => {
-    return `<p style="font-size: 24px;">Here should be page Games</p>`;
+    // return `Place for games`;
+    // return audiochallengeHtml;
+    return drawAudiochallengePage(
+        wordAudiochallenge.image,
+        wordAudiochallenge.word,
+        wordAudiochallenge.audio,
+        optionsAudiochallenge
+    );
+};
+
+export const GamesCallBack = () => {
+    const answerAudioButton = document.querySelector('.answer-card__audio-btn') as HTMLButtonElement;
+    //const questionAudioButton = document.querySelector('.question-card__audio-btn') as HTMLButtonElement;
+
+    answerAudioButton.addEventListener('click', function (event) {
+        console.log('1111111');
+        const targetButton = event.target as HTMLButtonElement;
+        if (targetButton.classList.contains('answer-card__audio-btn')) {
+            const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
+            const audio = new Audio(path);
+            (audio as HTMLAudioElement).play();
+        }
+    });
 };

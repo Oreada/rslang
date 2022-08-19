@@ -1,10 +1,9 @@
-
 import { listenLogon } from './components/modalWindow/logonListener';
 
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
-import { Games } from './pages/games';
+import { Games, GamesCallBack } from './pages/games';
 import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
@@ -25,10 +24,24 @@ const routes = {
     '/team': Team,
 };
 
+function fooCallback() {
+    return true;
+}
+
+const callbacks = {
+    //! здесь прописываем функции-листенеры для каждой отдельной страницы
+    '/': fooCallback,
+    '/textbook': listenersTextbook,
+    '/games': GamesCallBack,
+    '/statistic': fooCallback,
+    '/team': fooCallback,
+};
+
 const body = document.getElementById('root') as HTMLBodyElement;
 const path = window.location.pathname as routesKey;
 body.innerHTML = HomePage(routes[path]());
 const rootDiv = document.getElementById('main') as HTMLDivElement;
+
 listenLogon();
 listenLoginForm();
 
@@ -44,6 +57,7 @@ links.forEach((link) => {
 const onNavigate = (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
     rootDiv.innerHTML = routes[pathname]();
+    callbacks[pathname](); //! здесь вызываем функции-листенеры для каждой отдельной страницы
 };
 
 window.onpopstate = () => {
@@ -53,4 +67,4 @@ window.onpopstate = () => {
 // listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
 // пока что оставил ее тут, чтоб была возможность у всех проверять работу словаря
 
-listenersTextbook();
+// listenersTextbook();
