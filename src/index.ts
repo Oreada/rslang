@@ -1,4 +1,3 @@
-
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
@@ -11,7 +10,6 @@ import { Textbook } from './pages/textbook';
 import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
 import './scss/style.scss';
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
-
 
 type routesKey = keyof typeof routes;
 
@@ -45,7 +43,6 @@ const onNavigate = (pathname: routesKey) => {
 window.onpopstate = () => {
     rootDiv.innerHTML = routes[window.location.pathname as routesKey]();
 };
-
 
 // listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
 // пока что оставил ее тут, чтоб была возможность у всех проверять работу словаря

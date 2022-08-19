@@ -109,9 +109,10 @@ export interface ISettingsResult {
     id: string; //! это ID записи
     wordsPerDay: number;
     optional: TOptionsForSettings;
+}
 
 export interface IStorage {
-    pageCount: string,
-    chapterCount: string,
-    currentPage: null | Array<IWord>,
+    pageCount: string;
+    chapterCount: string;
+    currentPage: null | Array<IWord>;
 }
