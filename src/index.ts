@@ -1,3 +1,6 @@
+
+import { listenLogon } from './components/modalWindow/logonListener';
+
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
@@ -7,8 +10,13 @@ import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
+
+import './scss/style.scss';
+import { listenLoginForm } from './components/modalWindow/switchForm';
+
 import { createUser, loginUser, getUser, updateUser, deleteUser } from './components/api/api';
 import './scss/style.scss';
+
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
 
 type routesKey = keyof typeof routes;
@@ -25,6 +33,8 @@ const body = document.getElementById('root') as HTMLBodyElement;
 const path = window.location.pathname as routesKey;
 body.innerHTML = HomePage(routes[path]());
 const rootDiv = document.getElementById('main') as HTMLDivElement;
+listenLogon();
+listenLoginForm();
 
 const links: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link');
 links.forEach((link) => {
