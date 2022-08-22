@@ -1,6 +1,19 @@
 import { BASE_API } from '../../constants/constants';
 import { getWordById } from '../../components/api/api';
 
+export function playWordAudioForGame(event: Event) {
+    console.log('audio works!');
+    const targetButton = event.target as HTMLButtonElement;
+    if (
+        targetButton.classList.contains('answer-card__audio-btn') ||
+        targetButton.classList.contains('question-card__audio-btn')
+    ) {
+        const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
+        const audio = new Audio(path);
+        (audio as HTMLAudioElement).play();
+    }
+}
+
 export const wordAudiochallenge = await getWordById('5e9f5ee35eb9e72bc21af4bb');
 
 export const optionsAudiochallenge = [
@@ -11,7 +24,7 @@ export const optionsAudiochallenge = [
     { wordRussian: 'ячсми', idWord: '258' },
 ];
 
-function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string, wordAudioPath: string) {
+function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string, wordAudioPath: string): string {
     return `<div class="answer-card__picture">
                 <img src="${BASE_API}/${wordImagePath}" alt="Image" class="answer-card__image">
             </div>
@@ -21,12 +34,12 @@ function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string
             </div>`;
 }
 
-function drawAudiochallengeOption(wordRussian: string, idWord: string) {
+function drawAudiochallengeOption(wordRussian: string, idWord: string): string {
     return `<input type="radio" id="${idWord}" name="list-options" value="${wordRussian}">
             <label for="${idWord}">${wordRussian}</label>`;
 }
 
-function drawAudiochallengeList(array: Array<Record<string, string>>) {
+function drawAudiochallengeList(array: Array<Record<string, string>>): string {
     let listHtml = '';
     for (let i = 0; i < array.length; i += 1) {
         listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord);
@@ -61,12 +74,7 @@ export function drawAudiochallengePage(
             </div>`;
 }
 
-export function startWordAudio(urlAudio: string) {
-    const audio = new Audio(urlAudio);
-    (audio as HTMLAudioElement).play();
-}
-
-console.log(wordAudiochallenge);
+console.log('wordAudiochallenge =', wordAudiochallenge);
 
 export const audiochallengeContent = drawAudiochallengePage(
     wordAudiochallenge.image,
@@ -76,7 +84,6 @@ export const audiochallengeContent = drawAudiochallengePage(
 );
 
 // <audio src="${BASE_API}/${word.audio}" id="audio-${word.id}"></audio>
-// onclick="startWordAudio('${BASE_API}/${wordAudioPath}')"
 
 // const body = document.querySelector('body') as HTMLElement;
 // body.insertAdjacentHTML('afterbegin', audiochallengeHtml);
