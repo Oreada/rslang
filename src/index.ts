@@ -3,7 +3,7 @@ import { listenLogon } from './components/modalWindow/logonListener';
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
-import { Games, GamesCallBack } from './pages/games';
+import { Games, GamesCallback } from './pages/games';
 import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
@@ -33,7 +33,7 @@ const callbacks = {
     //! здесь прописываем функции-листенеры для каждой отдельной страницы
     '/': fooCallback,
     '/textbook': listenersTextbook,
-    '/games': GamesCallBack,
+    '/games': GamesCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
 };
@@ -57,8 +57,8 @@ links.forEach((link) => {
 
 const onNavigate = (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
-    rootDiv.innerHTML = routes[pathname]();
-    callbacks[pathname](); //! здесь вызываем функции-листенеры для каждой отдельной страницы
+    rootDiv.innerHTML = routes[pathname](); //! тут отрисовался определённый контент
+    callbacks[pathname](); //! здесь навешиваем функции-листенеры для каждой отдельной страницы
 };
 
 window.onpopstate = () => {

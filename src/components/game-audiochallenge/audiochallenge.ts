@@ -45,7 +45,7 @@ export function drawAudiochallengePage(
                 <div class="audiochallenge__wrapper">
                     <div class="audiochallenge__top-ac top-ac">
                         <div class="top-ac__question-card question-card _active">
-                            <button class="question-card__audio-btn">ЗВУК</button>
+                            <button class="question-card__audio-btn" data-audiopath="${wordAudioPath}">ЗВУК</button>
                         </div>
                         <div class="top-ac__answer-card answer-card">
                         ${drawAudiochallengeAnswerCard(wordImagePath, wordEnglish, wordAudioPath)}
