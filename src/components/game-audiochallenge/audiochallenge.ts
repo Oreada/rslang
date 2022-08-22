@@ -1,5 +1,5 @@
-import { BASE_API } from '../../constants/constants';
-import { getWordById } from '../../components/api/api';
+import { BASE_API, PAGES_IN_GROUP, WORDS_PER_PAGE } from '../../constants/constants';
+import { getWordById, getWords } from '../../components/api/api';
 
 export function playWordAudioForGame(event: Event) {
     console.log('audio works!');
@@ -14,15 +14,35 @@ export function playWordAudioForGame(event: Event) {
     }
 }
 
-export const wordAudiochallenge = await getWordById('5e9f5ee35eb9e72bc21af4bb');
+//! =====================================================================================================================
 
-export const optionsAudiochallenge = [
+const temporaryGroupValue = '0'; //! потом значение группы будет браться со страницы (уровень сложности)
+
+const idForMainWord = await getRandomIdWord(temporaryGroupValue);
+
+const mainWordAudiochallenge = await getWordById(idForMainWord);
+
+function getRandomNumber(upToLimit: number) {
+    return Math.floor(Math.random() * upToLimit);
+}
+
+async function getRandomIdWord(groupCertain: string) {
+    const pageRandom = String(getRandomNumber(PAGES_IN_GROUP));
+    const indexRandom = getRandomNumber(WORDS_PER_PAGE);
+
+    const wordRandom = (await getWords(groupCertain, pageRandom))[indexRandom];
+    return wordRandom.id;
+}
+
+const optionsAudiochallenge = [
     { wordRussian: 'йцуке', idWord: '123' },
     { wordRussian: 'нгшщз', idWord: '456' },
     { wordRussian: 'фывап', idWord: '789' },
     { wordRussian: 'ролдж', idWord: '369' },
     { wordRussian: 'ячсми', idWord: '258' },
 ];
+
+//! =====================================================================================================================
 
 function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string, wordAudioPath: string): string {
     return `<div class="answer-card__picture">
@@ -48,11 +68,11 @@ function drawAudiochallengeList(array: Array<Record<string, string>>): string {
 }
 
 //* TODO: куда-то в этой функции всунуть 'idWord: string'
-export function drawAudiochallengePage(
+function drawAudiochallengePage(
     wordImagePath: string,
     wordEnglish: string,
     wordAudioPath: string,
-    array: Array<Record<string, string>>
+    optionsList: Array<Record<string, string>>
 ): string {
     return `<div class="audiochallenge">
                 <div class="audiochallenge__wrapper">
@@ -65,7 +85,7 @@ export function drawAudiochallengePage(
                         </div>
                     </div>
                     <div class="audiochallenge__medium-ac medium-ac">
-                        ${drawAudiochallengeList(array)}
+                        ${drawAudiochallengeList(optionsList)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
                         <button class="bottom-ac__next-btn">СЛЕДУЮЩЕЕ СЛОВО</button>
@@ -74,12 +94,12 @@ export function drawAudiochallengePage(
             </div>`;
 }
 
-console.log('wordAudiochallenge =', wordAudiochallenge);
+console.log('mainWordAudiochallenge =', mainWordAudiochallenge);
 
 export const audiochallengeContent = drawAudiochallengePage(
-    wordAudiochallenge.image,
-    wordAudiochallenge.word,
-    wordAudiochallenge.audio,
+    mainWordAudiochallenge.image,
+    mainWordAudiochallenge.word,
+    mainWordAudiochallenge.audio,
     optionsAudiochallenge
 );
 
