@@ -3,12 +3,13 @@ import { listenLogon } from './components/modalWindow/logonListener';
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
-import { Games, GamesCallback } from './pages/games';
+import { GamesContent, GamesCallback } from './pages/games';
 import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook } from './pages/textbook';
+import { SprintContent, SprintCallback } from './pages/sprint';
 
 import { listenLoginForm } from './components/modalWindow/switchForm';
 
@@ -19,12 +20,13 @@ type routesKey = keyof typeof routes;
 const routes = {
     '/': Home,
     '/textbook': Textbook,
-    '/games': Games,
+    '/games': GamesContent,
+    '/sprint': SprintContent,
     '/statistic': Statistic,
     '/team': Team,
 };
 
-//! это функция-заглушка для страниц, которые не имею коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
+//! это функция-заглушка для страниц, которые не имеют коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
 function fooCallback() {
     return true;
 }
@@ -34,6 +36,7 @@ const callbacks = {
     '/': fooCallback,
     '/textbook': listenersTextbook,
     '/games': GamesCallback,
+    '/sprint': SprintCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
 };

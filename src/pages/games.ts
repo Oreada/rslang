@@ -1,6 +1,6 @@
 import { audiochallengeContent } from '../components/game-audiochallenge/audiochallenge';
 
-export const Games = (): string => {
+export const GamesContent = (): string => {
     return audiochallengeContent;
 };
 
