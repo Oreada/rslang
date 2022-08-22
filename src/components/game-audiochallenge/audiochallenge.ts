@@ -1,5 +1,6 @@
-import { BASE_API, PAGES_IN_GROUP, WORDS_PER_PAGE } from '../../constants/constants';
-import { getWordById, getWords } from '../../components/api/api';
+import { BASE_API } from '../../constants/constants';
+import { getWordById } from '../../components/api/api';
+import { getRandomIdWord } from '../../general-functions/random';
 
 export function playWordAudioForGame(event: Event) {
     console.log('audio works!');
@@ -21,18 +22,6 @@ const temporaryGroupValue = '0'; //! потом значение группы б
 const idForMainWord = await getRandomIdWord(temporaryGroupValue);
 
 const mainWordAudiochallenge = await getWordById(idForMainWord);
-
-function getRandomNumber(upToLimit: number) {
-    return Math.floor(Math.random() * upToLimit);
-}
-
-async function getRandomIdWord(groupCertain: string) {
-    const pageRandom = String(getRandomNumber(PAGES_IN_GROUP));
-    const indexRandom = getRandomNumber(WORDS_PER_PAGE);
-
-    const wordRandom = (await getWords(groupCertain, pageRandom))[indexRandom];
-    return wordRandom.id;
-}
 
 const optionsAudiochallenge = [
     { wordRussian: 'йцуке', idWord: '123' },
