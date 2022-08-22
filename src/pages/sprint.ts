@@ -1,7 +1,10 @@
+import { addTimerListener } from "../components/game-sprint/gameSprintListeners";
+import { renderSprintGame } from "../components/game-sprint/renderSprintGame";
+
 export const SprintContent = (): string => {
-    return `There will be Game Sprint Content`;
+    return renderSprintGame();
 };
 
 export const SprintCallback = () => {
-    // for addEventListener
+    addTimerListener();
 };
