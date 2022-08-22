@@ -1,19 +1,7 @@
-import {
-    audiochallengeHtml,
-    wordAudiochallenge,
-    optionsAudiochallenge,
-    drawAudiochallengePage,
-} from '../components/game-audiochallenge/audiochallenge';
+import { audiochallengeContent } from '../components/game-audiochallenge/audiochallenge';
 
 export const Games = (): string => {
-    // return `Place for games`;
-    // return audiochallengeHtml;
-    return drawAudiochallengePage(
-        wordAudiochallenge.image,
-        wordAudiochallenge.word,
-        wordAudiochallenge.audio,
-        optionsAudiochallenge
-    );
+    return audiochallengeContent;
 };
 
 export const GamesCallBack = () => {

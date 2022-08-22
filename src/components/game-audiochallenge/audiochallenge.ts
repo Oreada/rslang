@@ -1,6 +1,5 @@
 import { BASE_API } from '../../constants/constants';
 import { getWordById } from '../../components/api/api';
-// import { answerAudioButton, questionAudioButton } from '../../index';
 
 export const wordAudiochallenge = await getWordById('5e9f5ee35eb9e72bc21af4bb');
 
@@ -11,15 +10,6 @@ export const optionsAudiochallenge = [
     { wordRussian: 'ролдж', idWord: '369' },
     { wordRussian: 'ячсми', idWord: '258' },
 ];
-
-// answerAudioButton.addEventListener('click', function (event) {
-//     const targetButton = event.target as HTMLButtonElement;
-//     if (targetButton.classList.contains('answer-card__audio-btn')) {
-//         const path = `${BASE_API}/${targetButton.dataset.audiopath}`;
-//         const audio = new Audio(path);
-//         (audio as HTMLAudioElement).play();
-//     }
-// });
 
 function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string, wordAudioPath: string) {
     return `<div class="answer-card__picture">
@@ -68,12 +58,7 @@ export function drawAudiochallengePage(
                         <button class="bottom-ac__next-btn">СЛЕДУЮЩЕЕ СЛОВО</button>
                     </div>
                 </div>
-            </div>
-            <script>
-            gamesCallback();                
-            </script>          
-            
-            `;
+            </div>`;
 }
 
 export function startWordAudio(urlAudio: string) {
@@ -81,17 +66,16 @@ export function startWordAudio(urlAudio: string) {
     (audio as HTMLAudioElement).play();
 }
 
-// <audio src="${BASE_API}/${word.audio}" id="audio-${word.id}"></audio>
-
 console.log(wordAudiochallenge);
 
-export const audiochallengeHtml = drawAudiochallengePage(
+export const audiochallengeContent = drawAudiochallengePage(
     wordAudiochallenge.image,
     wordAudiochallenge.word,
     wordAudiochallenge.audio,
     optionsAudiochallenge
 );
 
+// <audio src="${BASE_API}/${word.audio}" id="audio-${word.id}"></audio>
 // onclick="startWordAudio('${BASE_API}/${wordAudioPath}')"
 
 // const body = document.querySelector('body') as HTMLElement;

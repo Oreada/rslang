@@ -24,6 +24,7 @@ const routes = {
     '/team': Team,
 };
 
+//! это функция-заглушка для страниц, которые не имею коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
 function fooCallback() {
     return true;
 }
