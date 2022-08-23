@@ -1,13 +1,22 @@
-import { contentAudiochallenge, playWordAudioForGame } from '../components/game-audiochallenge/audiochallenge';
+import {
+    playWordAudioForGame,
+    renderAudiochallengeSlider,
+    contentAudiochallengeWithWrapper,
+} from '../components/game-audiochallenge/audiochallenge';
 
-export const GamesContent = (): string => {
-    return contentAudiochallenge;
+console.log('games loaded');
+
+//! пока передаю "0", потом будет передача значения group в зависимости от выбранной сложности:
+export const GamesContent = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('0');
 };
 
 export const GamesCallback = () => {
-    const answerAudioButton = document.querySelector('.answer-card__audio-btn') as HTMLButtonElement;
-    const questionAudioButton = document.querySelector('.question-card__audio-btn') as HTMLButtonElement;
+    const answerAudioButtons = document.querySelectorAll('.answer-card__audio-btn') as NodeListOf<HTMLButtonElement>;
+    const questionAudioButtons = document.querySelectorAll(
+        '.question-card__audio-btn'
+    ) as NodeListOf<HTMLButtonElement>;
 
-    answerAudioButton.addEventListener('click', playWordAudioForGame);
-    questionAudioButton.addEventListener('click', playWordAudioForGame);
+    answerAudioButtons.forEach((btn) => btn.addEventListener('click', playWordAudioForGame));
+    questionAudioButtons.forEach((btn) => btn.addEventListener('click', playWordAudioForGame));
 };
