@@ -20,6 +20,7 @@
     text-shadow: 2px 2px 2px skyblue
 
 .auth
+  position: relative
   padding: 2px 10px
   font-size: 1.5em
   font-weight: 700
@@ -32,3 +33,13 @@
   &:active
     transform: scale(0.95)
     color: white
+
+.auth.active:hover::after
+  content: attr(data-username)
+  position: absolute
+  left: 0
+  top: 24px
+  padding: 12px
+  color: darkblue
+  font-size: 75%
+  z-index: 1
