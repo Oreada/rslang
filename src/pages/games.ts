@@ -1,7 +1,7 @@
-import { audiochallengeContent, playWordAudioForGame } from '../components/game-audiochallenge/audiochallenge';
+import { contentAudiochallenge, playWordAudioForGame } from '../components/game-audiochallenge/audiochallenge';
 
 export const GamesContent = (): string => {
-    return audiochallengeContent;
+    return contentAudiochallenge;
 };
 
 export const GamesCallback = () => {
