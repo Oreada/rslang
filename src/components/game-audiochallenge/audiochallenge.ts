@@ -19,23 +19,13 @@ export function playWordAudioForGame(event: Event) {
 
 //! =====================================================================================================================
 
-const temporaryGroupValue = '0'; //! потом значение группы будет браться со страницы (уровень сложности)
-
-// const optionsAudiochallenge = [
-//     { wordRussian: 'йцуке', idWord: '123' },
-//     { wordRussian: 'нгшщз', idWord: '456' },
-//     { wordRussian: 'фывап', idWord: '789' },
-//     { wordRussian: 'ролдж', idWord: '369' },
-//     { wordRussian: 'ячсми', idWord: '258' },
-// ];
-
-async function getOptionsIdList(idMainWord: string) {
+async function getOptionsIdList(idMainWord: string, group: string) {
     const optionsIds = [];
 
     optionsIds.push(idMainWord);
 
     for (let i = 0; i < 4; i += 1) {
-        const idForOption = await getRandomIdWord(temporaryGroupValue);
+        const idForOption = await getRandomIdWord(group);
         if (!optionsIds.includes(idForOption)) {
             optionsIds.push(idForOption);
         }
@@ -45,10 +35,10 @@ async function getOptionsIdList(idMainWord: string) {
     return optionsIds;
 }
 
-async function getWordsListForOptions(idMainWord: string): Promise<Array<IWord>> {
+async function getWordsListForOptions(idMainWord: string, group: string): Promise<Array<IWord>> {
     const wordsForOptions = [];
 
-    const optionsIds = await getOptionsIdList(idMainWord);
+    const optionsIds = await getOptionsIdList(idMainWord, group);
 
     for (let i = 0; i < optionsIds.length; i += 1) {
         const word = await getWordById(optionsIds[i]);
@@ -58,10 +48,10 @@ async function getWordsListForOptions(idMainWord: string): Promise<Array<IWord>>
     return wordsForOptions;
 }
 
-async function getOptionsValueList(idMainWord: string) {
+async function getOptionsValueList(idMainWord: string, group: string) {
     const optionsAudiochallenge = [];
 
-    const wordsForOptions = await getWordsListForOptions(idMainWord);
+    const wordsForOptions = await getWordsListForOptions(idMainWord, group);
 
     for (let i = 0; i < wordsForOptions.length; i += 1) {
         const option = { wordRussian: wordsForOptions[i].wordTranslate, idWord: wordsForOptions[i].id };
@@ -74,7 +64,7 @@ async function getOptionsValueList(idMainWord: string) {
 async function renderAudiochallengePage(group: string) {
     const idForMainWord = await getRandomIdWord(group);
     const mainWordAudiochallenge = await getWordById(idForMainWord);
-    const optionsAudiochallenge = await getOptionsValueList(idForMainWord);
+    const optionsAudiochallenge = await getOptionsValueList(idForMainWord, group);
 
     return drawAudiochallengePage(
         mainWordAudiochallenge.image,
@@ -84,22 +74,24 @@ async function renderAudiochallengePage(group: string) {
     );
 }
 
-async function renderAudiochallengeSlider(group: string) {
+export async function renderAudiochallengeSlider(group: string) {
     let allAudiochallengePages = ``;
 
-    for (let i = 0; i < AMOUNT_PAGES_AUDIOCHALLENGE; i += 1) {
+    for (let i = 0; i < 2; i += 1) {
         const page = await renderAudiochallengePage(group);
         allAudiochallengePages += page;
     }
 
+    return allAudiochallengePages;
+}
+
+export async function contentAudiochallengeWithWrapper(group: string) {
     return `<div class="audiochallenge__slider">
                 <div class="audiochallenge__row">
-                    ${allAudiochallengePages}
+                    ${await renderAudiochallengeSlider(group)}
                 </div>
             </div>`;
 }
-
-export const contentAudiochallenge = await renderAudiochallengeSlider(temporaryGroupValue);
 
 //! =====================================================================================================================
 
