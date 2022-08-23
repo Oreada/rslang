@@ -43,8 +43,10 @@ const callbacks = {
 
 const body = document.getElementById('root') as HTMLBodyElement;
 const path = window.location.pathname as routesKey;
-body.innerHTML = HomePage(routes[path]());
+const content = await routes[path]();
+body.innerHTML = HomePage(content);
 const rootDiv = document.getElementById('main') as HTMLDivElement;
+callbacks[path](); //! тут тоже вызываю, чтобы эти коллбэки работали после перезагрузки страницы
 
 listenLogon();
 listenLoginForm();
@@ -58,14 +60,16 @@ links.forEach((link) => {
     });
 });
 
-const onNavigate = (pathname: routesKey) => {
+const onNavigate = async (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
-    rootDiv.innerHTML = routes[pathname](); //! тут отрисовался определённый контент
+    const content = await routes[pathname]();
+    rootDiv.innerHTML = content; //! тут отрисовался определённый контент
     callbacks[pathname](); //! здесь навешиваем функции-листенеры для каждой отдельной страницы
 };
 
-window.onpopstate = () => {
-    rootDiv.innerHTML = routes[window.location.pathname as routesKey]();
+window.onpopstate = async () => {
+    const content = await routes[window.location.pathname as routesKey]();
+    rootDiv.innerHTML = content;
 };
 
 // listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
