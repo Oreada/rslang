@@ -116,3 +116,8 @@ export interface IStorage {
     chapterCount: string;
     currentPage: null | Array<IWord>;
 }
+
+export interface ICardAudiochallenge {
+    correct: IWord; //! только в выводе "_id" вместо "id" - ?
+    incorrect: Array<string>;
+}
