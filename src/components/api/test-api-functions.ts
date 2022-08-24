@@ -36,7 +36,7 @@ const objTestForUpdate = {
     email: '',
     password: '',
 };
-
+/*
 console.log(await getWords('0', '1')); //! пример получения слов из базы данных (опред. группа и страница)
 
 console.log(await getWordById('5e9f5ee35eb9e72bc21af4bb')); //! пример получения конкретного слова
@@ -110,3 +110,4 @@ console.log(
 ); //! пример редактирования записей-settings пользователя
 
 console.log(await getSettings(userId, token)); //! пример получения записей-settings пользователя
+*/

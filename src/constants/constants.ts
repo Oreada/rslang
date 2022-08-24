@@ -6,6 +6,12 @@ export const WORDS_PER_PAGE = 20;
 
 export const SPRINT_TIMER_LIMIT = 60;
 
+<<<<<<< HEAD
 export const SPRINT_PROGRESS_BARS_QUANTITY = 3;
 
 export const SPRINT_MIN_COEFFICIENT = 10;
+=======
+export const AMOUNT_PAGES_AUDIOCHALLENGE = 10;
+
+export const LOCAL_STORAGE_DATA = 'rslang_currentUser#';
+>>>>>>> develop

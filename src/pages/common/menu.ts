@@ -9,7 +9,7 @@ export const Menu = (): string => {
         <li><a href="" class="nav__link" data-rout="/sprint">Спринт</a></li>
         <li><a href="" class="nav__link" data-rout="/statistic">Статистика</a></li>
         <li><a href="" class="nav__link" data-rout="/team">О нас</a></li>
-        <li><button class="auth" data-hystmodal="#myModal">Вход</button></li>
+        <li><button class="auth" data-hystmodal="#myModal">LogIn</button></li>
     </ul>
 </nav>`;
     return Menu;
