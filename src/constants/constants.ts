@@ -5,3 +5,7 @@ export const PAGES_IN_GROUP = 30;
 export const WORDS_PER_PAGE = 20;
 
 export const SPRINT_TIMER_LIMIT = 60;
+
+export const SPRINT_PROGRESS_BARS_QUANTITY = 3;
+
+export const SPRINT_MIN_COEFFICIENT = 10;
