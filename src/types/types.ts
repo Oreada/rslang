@@ -119,5 +119,5 @@ export interface IStorage {
 
 export interface ICardAudiochallenge {
     correct: IWord; //! только в выводе "_id" вместо "id" - ?
-    incorrect: Array<string>;
+    incorrect: Array<IWord>;
 }
