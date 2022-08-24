@@ -1,5 +1,5 @@
 //* TODO: разобраться с этими функциями, удалить лишние
-import { getWordById } from '../../components/api/api';
+import { getWordById } from '../api/api';
 import { shuffle } from '../../general-functions/shuffle';
 import { getRandomIdWord } from '../../general-functions/random';
 import { IWord } from '../../types/types';
