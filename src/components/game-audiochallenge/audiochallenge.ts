@@ -1,8 +1,11 @@
 import { BASE_API } from '../../constants/constants';
 import { getWordById } from '../../components/api/api';
+import { getRandomWords, getRandomCardsAudiochallenge } from '../../components/api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
 import { IWord } from '../../types/types';
+
+console.log('audiochallenge loaded');
 
 export function playWordAudioForGame(event: Event) {
     console.log('audio works!');
@@ -18,6 +21,10 @@ export function playWordAudioForGame(event: Event) {
 }
 
 //! =====================================================================================================================
+
+console.log(await getRandomWords('1', '3'));
+
+console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
 
 async function getOptionsIdList(idMainWord: string, group: string) {
     const optionsIds = [];
