@@ -1,6 +1,5 @@
 import {
     playWordAudioForGame,
-    renderAudiochallengeSlider,
     contentAudiochallengeWithWrapper,
 } from '../components/game-audiochallenge/audiochallenge';
 

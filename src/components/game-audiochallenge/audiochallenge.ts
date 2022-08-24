@@ -1,4 +1,4 @@
-import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE } from '../../constants/constants';
+import { BASE_API } from '../../constants/constants';
 import { getWordById } from '../../components/api/api';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
