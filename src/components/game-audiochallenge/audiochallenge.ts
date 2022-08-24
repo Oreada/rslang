@@ -1,4 +1,4 @@
-import { BASE_API } from '../../constants/constants';
+import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
 import { getWordById } from '../../components/api/api';
 import { getRandomWords, getRandomCardsAudiochallenge } from '../../components/api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
@@ -22,83 +22,52 @@ export function playWordAudioForGame(event: Event) {
 
 //! =====================================================================================================================
 
-console.log(await getRandomWords('1', '3'));
+// console.log(await getRandomWords('1', '3'));
+// console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
 
-console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
+export async function renderAudiochallenge(amountCards: string, group: string, num: string): Promise<string> {
+    let allAudiochallengeCards = ``;
 
-async function getOptionsIdList(idMainWord: string, group: string) {
-    const optionsIds = [];
+    const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num);
 
-    optionsIds.push(idMainWord);
+    for (let i = 0; i < cardsForGame.length; i += 1) {
+        const optionsAudiochallenge = [];
+        optionsAudiochallenge.push({
+            wordRussian: cardsForGame[i].correct.wordTranslate,
+            idWord: cardsForGame[i].correct.id,
+        });
 
-    for (let i = 0; i < 4; i += 1) {
-        const idForOption = await getRandomIdWord(group);
-        if (!optionsIds.includes(idForOption)) {
-            optionsIds.push(idForOption);
+        for (let j = 0; j < Number(num) - 1; j += 1) {
+            optionsAudiochallenge.push({
+                wordRussian: cardsForGame[i].incorrect[j].wordTranslate,
+                idWord: cardsForGame[i].incorrect[j].id,
+            });
         }
+
+        shuffle(optionsAudiochallenge); //! перемешиваю объекты-опции, иначе правильный вариант всегда первый
+
+        const page = drawAudiochallengePage(
+            cardsForGame[i].correct.image,
+            cardsForGame[i].correct.word,
+            cardsForGame[i].correct.audio,
+            optionsAudiochallenge
+        );
+
+        allAudiochallengeCards += page;
     }
 
-    shuffle(optionsIds);
-    return optionsIds;
-}
-
-async function getWordsListForOptions(idMainWord: string, group: string): Promise<Array<IWord>> {
-    const wordsForOptions = [];
-
-    const optionsIds = await getOptionsIdList(idMainWord, group);
-
-    for (let i = 0; i < optionsIds.length; i += 1) {
-        const word = await getWordById(optionsIds[i]);
-        wordsForOptions.push(word);
-    }
-
-    return wordsForOptions;
-}
-
-async function getOptionsValueList(idMainWord: string, group: string) {
-    const optionsAudiochallenge = [];
-
-    const wordsForOptions = await getWordsListForOptions(idMainWord, group);
-
-    for (let i = 0; i < wordsForOptions.length; i += 1) {
-        const option = { wordRussian: wordsForOptions[i].wordTranslate, idWord: wordsForOptions[i].id };
-        optionsAudiochallenge.push(option);
-    }
-
-    return optionsAudiochallenge;
-}
-
-async function renderAudiochallengePage(group: string) {
-    const idForMainWord = await getRandomIdWord(group);
-    const mainWordAudiochallenge = await getWordById(idForMainWord);
-    const optionsAudiochallenge = await getOptionsValueList(idForMainWord, group);
-
-    return drawAudiochallengePage(
-        mainWordAudiochallenge.image,
-        mainWordAudiochallenge.word,
-        mainWordAudiochallenge.audio,
-        optionsAudiochallenge
-    );
-}
-
-export async function renderAudiochallengeSlider(group: string) {
-    let allAudiochallengePages = ``;
-
-    for (let i = 0; i < 2; i += 1) {
-        const page = await renderAudiochallengePage(group);
-        allAudiochallengePages += page;
-    }
-
-    return allAudiochallengePages;
+    return allAudiochallengeCards;
 }
 
 export async function contentAudiochallengeWithWrapper(group: string) {
     return `<div class="audiochallenge__slider">
                 <div class="audiochallenge__row">
-                    ${await renderAudiochallengeSlider(group)}
+                    ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
                 </div>
             </div>`;
 }
+
+// ${await renderAudiochallengeSlider(group)}
 
 //! =====================================================================================================================
 

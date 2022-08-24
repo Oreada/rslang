@@ -6,6 +6,7 @@ export const WORDS_PER_PAGE = 20;
 
 export const SPRINT_TIMER_LIMIT = 60;
 
-export const AMOUNT_PAGES_AUDIOCHALLENGE = 10;
+export const AMOUNT_PAGES_AUDIOCHALLENGE = '10';
+export const NUMBER_OF_OPTIONS_AUDIOCHALLENGE = '5';
 
 export const LOCAL_STORAGE_DATA = 'rslang_currentUser#';
