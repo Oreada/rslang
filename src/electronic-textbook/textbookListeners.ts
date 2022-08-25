@@ -1,5 +1,5 @@
 import { getWords } from "../components/api/api";
-import { storage } from "../storage/storage";
+import { sprintStorage, storage } from "../storage/storage";
 import { IWord } from "../types/types";
 import { renderPage } from "./renderTextbookPage";
 
@@ -64,6 +64,7 @@ export function addChaptersListener(): void {
       const res = await getWords(group, '0');
       storage.currentPage = res;
       storage.chapterCount = group;
+      sprintStorage.currentChapter = group;
       storage.pageCount = '0';
       
       const container = document.querySelector('.textbook-page-container');

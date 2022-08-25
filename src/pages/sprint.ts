@@ -1,10 +1,14 @@
-import { addTimerListener } from "../components/game-sprint/gameSprintListeners";
-import { renderSprintGame } from "../components/game-sprint/renderSprintGame";
+import { addEndSprintListener, addGameButtonListener, addSprintListener, addSprintOptionListener, addStartSprintListener } from "../components/game-sprint/gameSprintListeners";
+import { renderSprint } from "../components/game-sprint/renderSprintGame";
 
 export const SprintContent = (): string => {
-    return renderSprintGame();
+    return renderSprint();
 };
 
-export const SprintCallback = () => {
-    addTimerListener();
+export const SprintCallback = async () => {
+    addStartSprintListener();
+    addSprintListener();
+    addGameButtonListener();
+    addEndSprintListener();
+    addSprintOptionListener();
 };
