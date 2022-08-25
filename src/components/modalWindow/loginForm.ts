@@ -22,7 +22,7 @@ export const LoginForm = (): string => {
               <span class="help-text">At least 8 characters</span>
             </div>
             <button type="submit" id="submit-login" class="btn-submit">Login</button>
-            <a href="#" id="renew">Forgot password?</a>
+            <a href="#" id="renew" class="form__link">Forgot password?</a>
             <p>I don't have an account. <a href="#" class="link__register"><span class="link__span">Register</span></a></p>
             <p class="message__incorrect">Неправильный email и/или пароль</p>
           </form>
@@ -61,7 +61,13 @@ export const LoginForm = (): string => {
             </div>
             <button type="submit" id="submit-register" class="btn-submit">Register</button>
             <p>I already have an account. <a href="#" class="link__login"><span class="link__span">Login</span></a></p>
+            <p class="message__incorrect">User with this e-mail already exists</p>
           </form>
+
+          <form action="#" class="form logout">
+          <h2 class="title">Are you sure you want to log out?</h2>
+          <button type="submit" id="submit-logout" class="btn-submit">Logout</button>
+        </form>
         </div>
       </div>  
     `;

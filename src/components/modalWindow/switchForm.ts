@@ -1,7 +1,8 @@
+import { IAuthorizationResult } from './../../types/types';
 import { LOCAL_STORAGE_DATA } from '../../constants/constants';
 import { createUser, loginUser } from '../api/api';
 
-function switchForm(className: string, e: Event) {
+export function switchForm(className: string, e: Event) {
     e.preventDefault();
     const allForm = document.querySelectorAll('.form');
     const form = document.querySelector(`.form.${className}`) as HTMLFormElement;
@@ -30,22 +31,34 @@ export function listenLoginForm() {
 
     const submitRegister = document.getElementById('submit-register') as HTMLButtonElement;
     const registerEmail = document.getElementById('email-register') as HTMLInputElement;
+    const name = document.getElementById('name') as HTMLInputElement;
     submitRegister.addEventListener('click', (e) => {
         e.preventDefault();
         (async () => {
             const user = await createUser({
-                name: 'Alex',
+                name: name.value,
                 email: registerEmail.value,
                 password: registerPassword.value,
             });
-            localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(user));
+            const authenticated = (await loginUser({
+                email: registerEmail.value,
+                password: registerPassword.value,
+            })) as IAuthorizationResult;
+            if (user) {
+                localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(authenticated));
+                auth.innerHTML = 'LogOut';
+                auth.dataset.username = authenticated.name;
+                modal.style.display = 'none';
+            } else {
+                const message = document.querySelector('.active .message__incorrect') as HTMLElement;
+                message.style.display = 'flex';
+            }
         })();
     });
 
     const loginEmail = document.getElementById('email-login') as HTMLInputElement;
     const loginPassword = document.getElementById('password-login') as HTMLInputElement;
     const submitLogin = document.getElementById('submit-login') as HTMLButtonElement;
-    const message = document.querySelector('.message__incorrect') as HTMLElement;
     const auth = document.querySelector('.auth') as HTMLButtonElement;
     submitLogin.addEventListener('click', (e) => {
         e.preventDefault();
@@ -53,18 +66,31 @@ export function listenLoginForm() {
             const user = await loginUser({ email: loginEmail.value, password: loginPassword.value });
             if (user) {
                 localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(user));
-                auth.classList.add('active');
                 auth.innerHTML = 'LogOut';
                 auth.dataset.username = user.name;
+                loginEmail.value = '';
+                loginPassword.value = '';
                 modal.style.display = 'none';
             } else {
+                const message = document.querySelector('.active .message__incorrect') as HTMLElement;
                 message.style.display = 'flex';
             }
         })();
     });
 
+    const submitLogout = document.getElementById('submit-logout') as HTMLButtonElement;
+    submitLogout.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem(LOCAL_STORAGE_DATA);
+        auth.innerHTML = 'LogIn';
+        auth.dataset.username = '';
+        switchForm('login', e);
+        modal.style.display = 'none';
+    });
+
     const form = document.querySelector('.form__container');
     form?.addEventListener('click', () => {
+        const message = document.querySelector('.active .message__incorrect') as HTMLElement;
         message.style.display = 'none';
     });
 
