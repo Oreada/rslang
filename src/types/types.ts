@@ -116,3 +116,15 @@ export interface IStorage {
     chapterCount: string;
     currentPage: null | Array<IWord>;
 }
+
+export interface ISprintStorage {
+  currentChapter: string,
+  originWord: null | IWord,
+  translateWord: null | IWord,
+  level: number,
+  levelProgress: number,
+  levelProgressBar: number,
+  currentScore: number,
+  bestScore: number
+  scoreDecrease: number
+}
