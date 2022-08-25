@@ -26,11 +26,14 @@ export function playWordAudioForGame(event: Event) {
 // console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
 
 export async function renderAudiochallenge(amountCards: string, group: string, num: string): Promise<string> {
+    let counter = 0;
     let allAudiochallengeCards = ``;
 
     const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num);
 
     for (let i = 0; i < cardsForGame.length; i += 1) {
+        counter += 1;
+
         const optionsAudiochallenge = [];
         optionsAudiochallenge.push({
             wordRussian: cardsForGame[i].correct.wordTranslate,
@@ -50,7 +53,8 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct.image,
             cardsForGame[i].correct.word,
             cardsForGame[i].correct.audio,
-            optionsAudiochallenge
+            optionsAudiochallenge,
+            counter
         );
 
         allAudiochallengeCards += page;
@@ -63,6 +67,9 @@ export async function contentAudiochallengeWithWrapper(group: string) {
     return `<div class="audiochallenge__slider">
                 <div class="audiochallenge__row">
                     ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
+                    <div class="audiochallenge__results">
+                        <div class="audiochallenge__results-wrapper"></div>
+                    </div>
                 </div>
             </div>`;
 }
@@ -82,8 +89,8 @@ function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string
 }
 
 function drawAudiochallengeOption(wordRussian: string, idWord: string): string {
-    return `<input type="radio" id="${idWord}" name="list-options" value="${wordRussian}">
-            <label for="${idWord}">${wordRussian}</label>`;
+    return `<input class="medium-ac__input" type="radio" id="${idWord}" name="list-options" value="${wordRussian}">
+            <label class="medium-ac__label" for="${idWord}">${wordRussian}</label>`;
 }
 
 function drawAudiochallengeList(array: Array<Record<string, string>>): string {
@@ -99,7 +106,8 @@ function drawAudiochallengePage(
     wordImagePath: string,
     wordEnglish: string,
     wordAudioPath: string,
-    optionsList: Array<Record<string, string>>
+    optionsList: Array<Record<string, string>>,
+    counter: number
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
@@ -115,7 +123,7 @@ function drawAudiochallengePage(
                         ${drawAudiochallengeList(optionsList)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn">СЛЕДУЮЩЕЕ СЛОВО</button>
+                        <button class="bottom-ac__next-btn" data-counter="${counter}">СЛЕДУЮЩЕЕ СЛОВО</button>
                     </div>
                 </div>
             </div>`;

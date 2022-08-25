@@ -1,0 +1,104 @@
+.audiochallenge__slider {
+	// max-width: 80%;
+
+	margin: 0 auto;
+}
+
+.audiochallenge__row {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: repeat(11, 100%);
+
+	transition: transform 0.5s ease 0s;
+}
+
+.audiochallenge__page {
+	background-color: rgb(93, 118, 134);
+	border: 1px solid rgb(0, 0, 0);
+
+	font-size: 20px;
+	color: rgb(7, 25, 37);
+	// width: 100%;
+
+	// margin: 0 auto;
+}
+
+.audiochallenge__page-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// justify-content: center;
+}
+
+.audiochallenge__top-ac {
+}
+
+.top-ac {
+}
+
+.top-ac__question-card {
+}
+
+.question-card._active {
+}
+
+.question-card__audio-btn {
+	font-size: 20px;
+	color: rgb(7, 25, 37);
+}
+
+.top-ac__answer-card {
+}
+
+.answer-card._active {
+}
+
+.answer-card__picture img {
+	max-width: 100%;
+	object-fit: cover;
+}
+
+.answer-card__image {
+}
+
+.answer-card__value {
+}
+
+.answer-card__audio-btn {
+	font-size: 20px;
+	color: rgb(7, 25, 37);
+}
+
+.answer-card__text {
+	font-size: 30px;
+}
+
+.audiochallenge__medium-ac {
+}
+
+.medium-ac {
+}
+
+.medium-ac__input {
+}
+
+.medium-ac__label {
+}
+
+.audiochallenge__bottom-ac {
+}
+
+.bottom-ac {
+}
+
+.bottom-ac__next-btn {
+	font-size: 20px;
+	color: rgb(7, 25, 37);
+}
+
+.audiochallenge__results {
+	background-color: rgba(93, 118, 134, 0.451);
+}
+
+.audiochallenge__results-wrapper {
+}

@@ -1,5 +1,6 @@
-@import './textbookStyle.scss';
-@import './sprint.scss';
+@import "./textbookStyle.scss";
+@import "./sprint.scss";
+@import "./audiochallenge.scss";
 
 @font-face {
 	font-family: "Roboto";
@@ -63,15 +64,15 @@ img {
 	flex: 1 0 auto;
 	display: flex;
 	flex-direction: column;
-	background-image: url(../asset/images/homepage.png);
+	// background-image: url(../asset/images/homepage.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
 }
 
 .wrapper {
-  width: 1200px;
-  margin: 0 auto;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 //========  ======================================================================================
