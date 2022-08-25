@@ -11,19 +11,18 @@ function showSprintResult(): void {
     return;
   }
 
+  target.classList.remove('hidden');
+  game.classList.add('hidden');
+  sprintStorage.currentScore = 0;
+  resetSprintProgress();
+
   if (sprintStorage.currentScore >= sprintStorage.bestScore) {
     sprintStorage.bestScore = sprintStorage.currentScore;
     target.innerHTML = renderBestSprintResult();
-    target.classList.remove('hidden');
-    game.classList.add('hidden');
-    sprintStorage.currentScore = 0;
     return;
   }
 
   target.innerHTML = renderUsualSprintResult();
-  target.classList.remove('hidden');
-  game.classList.add('hidden');
-  sprintStorage.currentScore = 0;
 }
 
 export function sprintTimer() {
