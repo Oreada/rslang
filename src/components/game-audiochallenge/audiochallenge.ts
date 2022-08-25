@@ -1,5 +1,5 @@
 import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
-import { getWordById } from '../../components/api/api';
+import { getWordById, getUserAggregatedWordsFiltered } from '../../components/api/api';
 import { getRandomWords, getRandomCardsAudiochallenge } from '../../components/api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
@@ -37,13 +37,13 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
         const optionsAudiochallenge = [];
         optionsAudiochallenge.push({
             wordRussian: cardsForGame[i].correct.wordTranslate,
-            idWord: cardsForGame[i].correct.id,
+            idWord: cardsForGame[i].correct._id,
         });
 
         for (let j = 0; j < Number(num) - 1; j += 1) {
             optionsAudiochallenge.push({
                 wordRussian: cardsForGame[i].incorrect[j].wordTranslate,
-                idWord: cardsForGame[i].incorrect[j].id,
+                idWord: cardsForGame[i].incorrect[j]._id,
             });
         }
 
@@ -53,6 +53,7 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct.image,
             cardsForGame[i].correct.word,
             cardsForGame[i].correct.audio,
+            cardsForGame[i].correct._id,
             optionsAudiochallenge,
             counter
         );
@@ -88,43 +89,52 @@ function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string
             </div>`;
 }
 
-function drawAudiochallengeOption(wordRussian: string, idWord: string): string {
-    return `<input class="medium-ac__input" type="radio" id="${idWord}" name="list-options" value="${wordRussian}">
+function drawAudiochallengeOption(wordRussian: string, idWord: string, idCorrectWord: string): string {
+    return `<input class="medium-ac__input" type="radio" id="${idWord}" name="list-options" value="${wordRussian}" data-idword="${idWord}" data-idcorrect="${idCorrectWord}">
             <label class="medium-ac__label" for="${idWord}">${wordRussian}</label>`;
 }
 
-function drawAudiochallengeList(array: Array<Record<string, string>>): string {
+function drawAudiochallengeList(array: Array<Record<string, string>>, idCorrectWord: string): string {
+    console.log(array);
     let listHtml = '';
     for (let i = 0; i < array.length; i += 1) {
-        listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord);
+        listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord, idCorrectWord);
     }
     return listHtml;
 }
 
-//* TODO: куда-то в этой функции всунуть 'idWord: string'
 function drawAudiochallengePage(
     wordImagePath: string,
     wordEnglish: string,
     wordAudioPath: string,
+    idCorrectWord: string,
     optionsList: Array<Record<string, string>>,
     counter: number
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
                     <div class="audiochallenge__top-ac top-ac">
-                        <div class="top-ac__question-card question-card _active">
+                        <div class="top-ac__question-card question-card _active" data-idcorrect="${idCorrectWord}">
                             <button class="question-card__audio-btn" data-audiopath="${wordAudioPath}">ЗВУК</button>
                         </div>
-                        <div class="top-ac__answer-card answer-card">
+                        <div class="top-ac__answer-card answer-card" data-idcorrect="${idCorrectWord}">
                         ${drawAudiochallengeAnswerCard(wordImagePath, wordEnglish, wordAudioPath)}
                         </div>
                     </div>
                     <div class="audiochallenge__medium-ac medium-ac">
-                        ${drawAudiochallengeList(optionsList)}
+                        ${drawAudiochallengeList(optionsList, idCorrectWord)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn" data-counter="${counter}">СЛЕДУЮЩЕЕ СЛОВО</button>
+                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}" disabled>СЛЕДУЮЩЕЕ СЛОВО</button>
                     </div>
                 </div>
             </div>`;
 }
+
+// console.log(
+//     await getUserAggregatedWordsFiltered(
+//         '62fe0020d755e24640edaabd',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ1Nzg0MCwiZXhwIjoxNjYxNDcyMjQwfQ.oUg1wnlBl4-ZI9UvvJMJWKGkpKvBRoUsquNHGRp0TiU',
+//         'hard'
+//     )
+// );
