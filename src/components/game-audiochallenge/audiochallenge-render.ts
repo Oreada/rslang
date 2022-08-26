@@ -138,17 +138,17 @@ function drawAudiochallengePage(
 // console.log(
 //     await createUserWord(
 //         '62fe0020d755e24640edaabd',
-//         '5e9f5ee35eb9e72bc21af9cb',
-//         { difficulty: 'hard', optional: { test: 'value' } },
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ5OTA1NCwiZXhwIjoxNjYxNTEzNDU0fQ.7oNxX2Wr3evhAnEb7ijNDs1KegjNmpLqQ53cfoxRY_c'
+//         '5e9f5ee35eb9e72bc21af6b5',
+//         { difficulty: 'easy', optional: { test: 'ttt' } },
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4'
 //     )
 // );
 
 // console.log(
 //     await getUserAggregatedWordsFiltered(
 //         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ5OTA1NCwiZXhwIjoxNjYxNTEzNDU0fQ.7oNxX2Wr3evhAnEb7ijNDs1KegjNmpLqQ53cfoxRY_c',
-//         'hard'
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+//         'easy'
 //     )
 // );
 
@@ -158,17 +158,17 @@ function drawAudiochallengePage(
 //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
 //         'easy',
 //         '0',
-//         '4'
+//         '600'
 //     )
 // );
 
-console.log(
-    await getRandomCardsAudiochallengeWithExcluded(
-        '62fe0020d755e24640edaabd',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
-        'easy',
-        '10',
-        '0',
-        '5'
-    )
-);
+// console.log(
+//     await getRandomCardsAudiochallengeWithExcluded(
+//         '62fe0020d755e24640edaabd',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+//         'easy',
+//         '10',
+//         '0',
+//         '5'
+//     )
+// );

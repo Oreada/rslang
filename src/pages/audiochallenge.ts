@@ -3,14 +3,14 @@ import {
     contentAudiochallengeWithWrapper,
 } from '../components/game-audiochallenge/audiochallenge-render';
 
-console.log('games loaded');
-
 //! пока передаю "0", потом будет передача значения group в зависимости от выбранной сложности:
 export const AudiochallengeContent = async (): Promise<string> => {
     return await contentAudiochallengeWithWrapper('0');
 };
 
 export const AudiochallengeCallback = () => {
+    const resultsAudiochallenge: Record<string, string> = {};
+
     const answerAudioButtons = document.querySelectorAll('.answer-card__audio-btn') as NodeListOf<HTMLButtonElement>;
     const questionAudioButtons = document.querySelectorAll(
         '.question-card__audio-btn'
@@ -28,15 +28,17 @@ export const AudiochallengeCallback = () => {
                 targetButton.removeAttribute('disabled');
 
                 if (targetButton.dataset.idword === targetButton.dataset.idcorrect) {
-                    console.log('ВЕРНО!');
                     targetButton.style.backgroundColor = 'rgb(34, 104, 31)';
+
+                    resultsAudiochallenge[targetButton.dataset.idcorrect as string] = 'correct';
                 } else {
-                    console.log('НЕВЕРНО...');
                     targetButton.style.backgroundColor = 'rgb(135, 20, 20)';
                     const inputCorrect = document.querySelector(
                         `.medium-ac__input[data-idword="${targetButton.dataset.idcorrect}"]`
                     ) as HTMLButtonElement;
                     inputCorrect.style.backgroundColor = 'rgb(34, 104, 31)';
+
+                    resultsAudiochallenge[targetButton.dataset.idcorrect as string] = 'incorrect';
                 }
 
                 const answerCard = document.querySelector(
@@ -48,8 +50,6 @@ export const AudiochallengeCallback = () => {
                     `.question-card[data-idcorrect="${targetButton.dataset.idcorrect}"]`
                 ) as HTMLElement;
                 questionCard.classList.remove('_active');
-
-                //* TODO: сохранить результат верно-неверно для вывода результатов
 
                 const nextButtonFromThisPage = document.querySelector(
                     `.bottom-ac__next-btn[data-idcorrect="${targetButton.dataset.idcorrect}"]`
@@ -73,6 +73,8 @@ export const AudiochallengeCallback = () => {
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
             }
+
+            console.log(resultsAudiochallenge);
         })
     );
 };
