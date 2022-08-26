@@ -1,6 +1,11 @@
 import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
 import { getWordById, createUserWord, getUserAggregatedWordsFiltered } from '../../components/api/api';
-import { getRandomWords, getRandomCardsAudiochallenge } from '../../components/api/api-games';
+import {
+    getRandomWords,
+    getRandomCardsAudiochallenge,
+    getRandomWordsWithExcluded,
+    getRandomCardsAudiochallengeWithExcluded,
+} from '../../components/api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
 import { IWord } from '../../types/types';
@@ -95,7 +100,6 @@ function drawAudiochallengeOption(wordRussian: string, idWord: string, idCorrect
 }
 
 function drawAudiochallengeList(array: Array<Record<string, string>>, idCorrectWord: string): string {
-    console.log(array);
     let listHtml = '';
     for (let i = 0; i < array.length; i += 1) {
         listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord, idCorrectWord);
@@ -147,3 +151,24 @@ function drawAudiochallengePage(
 //         'hard'
 //     )
 // );
+
+// console.log(
+//     await getRandomWordsWithExcluded(
+//         '62fe0020d755e24640edaabd',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+//         'easy',
+//         '0',
+//         '4'
+//     )
+// );
+
+console.log(
+    await getRandomCardsAudiochallengeWithExcluded(
+        '62fe0020d755e24640edaabd',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+        'easy',
+        '10',
+        '0',
+        '5'
+    )
+);
