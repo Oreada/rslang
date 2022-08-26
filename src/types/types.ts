@@ -115,6 +115,7 @@ export interface IStorage {
     pageCount: string;
     chapterCount: string;
     currentPage: null | Array<IWord>;
+    difficultWords: null | Array<IWordWithDifficulty>;
 }
 
 export interface ICardAudiochallenge {

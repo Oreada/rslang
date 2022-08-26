@@ -155,3 +155,19 @@
   background: url('../asset/svg/icon-pause.svg');
   background-color: rgb(11, 128, 79);
 }
+
+.learned-word {
+  background-color: rgb(149, 247, 174);
+}
+
+.difficult-word {
+  background-color: rgb(190, 149, 247);
+}
+
+.learned-page {
+  background-color: rgb(98, 254, 7);
+}
+
+button:disabled {
+  background-color: rgb(123, 123, 114);
+}
