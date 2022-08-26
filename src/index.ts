@@ -3,6 +3,7 @@ import { listenLogon } from './components/modalWindow/logonListener';
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
+import { AudiochallengeContent, AudiochallengeCallback } from './pages/audiochallenge';
 import { GamesContent, GamesCallback } from './pages/games';
 import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
@@ -21,6 +22,7 @@ const routes = {
     '/': Home,
     '/textbook': Textbook,
     '/games': GamesContent,
+    '/audiochallenge': AudiochallengeContent,
     '/sprint': SprintContent,
     '/statistic': Statistic,
     '/team': Team,
@@ -36,6 +38,7 @@ const callbacks = {
     '/': fooCallback,
     '/textbook': listenersTextbook,
     '/games': GamesCallback,
+    '/audiochallenge': AudiochallengeCallback,
     '/sprint': SprintCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
