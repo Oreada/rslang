@@ -120,15 +120,16 @@ export interface IStorage {
 export interface ICardAudiochallenge {
     correct: IWordWithDifficulty; //! написала вместо IWord, т.к. в выводе "_id", а не "id"
     incorrect: Array<IWordWithDifficulty>;
+}
 
 export interface ISprintStorage {
-  currentChapter: string,
-  originWord: null | IWord,
-  translateWord: null | IWord,
-  level: number,
-  levelProgress: number,
-  levelProgressBar: number,
-  currentScore: number,
-  bestScore: number
-  scoreDecrease: number
+    currentChapter: string;
+    originWord: null | IWord;
+    translateWord: null | IWord;
+    level: number;
+    levelProgress: number;
+    levelProgressBar: number;
+    currentScore: number;
+    bestScore: number;
+    scoreDecrease: number;
 }
