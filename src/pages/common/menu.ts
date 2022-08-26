@@ -9,6 +9,7 @@ export const Menu = (): string => {
         <li><a href="" class="nav__link" data-rout="/">Главная</a></li>
         <li><a href="" class="nav__link" data-rout="/textbook">Учебник</a></li>
         <li><a href="" class="nav__link" data-rout="/games">Игры</a></li>
+        <li><a href="" class="nav__link" data-rout="/audiochallenge">Аудиовызов</a></li>
         <li><a href="" class="nav__link" data-rout="/sprint">Спринт</a></li>
         <li><a href="" class="nav__link" data-rout="/statistic">Статистика</a></li>
         <li><a href="" class="nav__link" data-rout="/team">О нас</a></li>

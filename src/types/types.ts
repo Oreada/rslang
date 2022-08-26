@@ -117,8 +117,25 @@ export interface IStorage {
     currentPage: null | Array<IWord>;
 }
 
+export interface _IWord {
+    _id: string;
+    group: number;
+    page: number;
+    word: string;
+    image: string;
+    audio: string;
+    audioMeaning: string;
+    audioExample: string;
+    textMeaning: string;
+    textExample: string;
+    transcription: string;
+    wordTranslate: string;
+    textMeaningTranslate: string;
+    textExampleTranslate: string;
+}
+
 export interface ICardAudiochallenge {
-    correct: IWordWithDifficulty; //! написала вместо IWord, т.к. в выводе "_id", а не "id"
+    correct: _IWord; //! т.к. в выводе "_id", а не "id"
     incorrect: Array<IWordWithDifficulty>;
 }
 
