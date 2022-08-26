@@ -1,5 +1,5 @@
 import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
-import { getWordById, getUserAggregatedWordsFiltered } from '../../components/api/api';
+import { getWordById, createUserWord, getUserAggregatedWordsFiltered } from '../../components/api/api';
 import { getRandomWords, getRandomCardsAudiochallenge } from '../../components/api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
@@ -132,9 +132,18 @@ function drawAudiochallengePage(
 }
 
 // console.log(
+//     await createUserWord(
+//         '62fe0020d755e24640edaabd',
+//         '5e9f5ee35eb9e72bc21af9cb',
+//         { difficulty: 'hard', optional: { test: 'value' } },
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ5OTA1NCwiZXhwIjoxNjYxNTEzNDU0fQ.7oNxX2Wr3evhAnEb7ijNDs1KegjNmpLqQ53cfoxRY_c'
+//     )
+// );
+
+// console.log(
 //     await getUserAggregatedWordsFiltered(
 //         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ1Nzg0MCwiZXhwIjoxNjYxNDcyMjQwfQ.oUg1wnlBl4-ZI9UvvJMJWKGkpKvBRoUsquNHGRp0TiU',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTQ5OTA1NCwiZXhwIjoxNjYxNTEzNDU0fQ.7oNxX2Wr3evhAnEb7ijNDs1KegjNmpLqQ53cfoxRY_c',
 //         'hard'
 //     )
 // );
