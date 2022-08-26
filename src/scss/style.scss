@@ -1,5 +1,6 @@
-@import './textbookStyle.scss';
-@import './sprint.scss';
+@import "./textbookStyle.scss";
+@import "./sprint.scss";
+@import "./audiochallenge.scss";
 
 @font-face {
 	font-family: "Roboto";
@@ -56,30 +57,25 @@ img {
 .container {
 	display: flex;
 	flex-direction: column;
-	min-height: 100%;
+	height: 100%;
 }
 
 .content {
-	flex: 1 0 auto;
+	flex: 1 0 100%;
 	display: flex;
 	flex-direction: column;
-	background-image: url(../asset/images/homepage.png);
+	// background-image: url(../asset/images/homepage.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
 }
 
-.wrapper {
-  width: 1200px;
-  margin: 0 auto;
+.main {
+	height: 100%;
 }
 
-//========  ======================================================================================
-
-//========  ======================================================================================
-
-//========  =============================================================================
-
-//========  ================================================================================
-
-//================================================================================================
+.wrapper {
+	height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+}

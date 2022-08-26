@@ -117,6 +117,10 @@ export interface IStorage {
     currentPage: null | Array<IWord>;
 }
 
+export interface ICardAudiochallenge {
+    correct: IWordWithDifficulty; //! написала вместо IWord, т.к. в выводе "_id", а не "id"
+    incorrect: Array<IWordWithDifficulty>;
+
 export interface ISprintStorage {
   currentChapter: string,
   originWord: null | IWord,

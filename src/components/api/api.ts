@@ -321,12 +321,11 @@ export async function getUserAggregatedWordsFiltered(
     id: string,
     token: string,
     filter: 'hard' | 'easy',
-    group = '0',
     page = '0',
-    wordsPerPage = '10'
+    wordsPerPage = '1000'
 ): Promise<Array<IUserWordsAggregated> | undefined> {
     const response = await fetch(
-        `${BASE_API}/users/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter={"userWord.difficulty":"${filter}"}`,
+        `${BASE_API}/users/${id}/aggregatedWords?page=${page}&wordsPerPage=${wordsPerPage}&filter={"userWord.difficulty":"${filter}"}`,
         {
             method: 'GET',
             headers: {
