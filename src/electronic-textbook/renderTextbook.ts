@@ -3,6 +3,10 @@ import { IWord, } from "../types/types";
 import { renderPage } from "./renderTextbookPage";
 
 function textbookNavRender(): string {
+  const isAuthorized = localStorage.getItem('rslang_currentUser#');
+  const strAdd = (isAuthorized) ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
+    Седьмой
+  </button>` : '';
   const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
     Первый
   </button>
@@ -20,12 +24,9 @@ function textbookNavRender(): string {
   </button>
   <button class="textbook-nav-btn regular-chapter-btn" data-group="5">
     Шестой
-  </button>
-  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
-    Седьмой
   </button>`;
   
-  return str;
+  return `${str}${strAdd}`;
 }
 
 function textbookFooterRender(): string {

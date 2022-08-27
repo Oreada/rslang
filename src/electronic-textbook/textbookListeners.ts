@@ -1,7 +1,9 @@
-import { getWords } from "../components/api/api";
+import {deleteUserWord, getUserAggregatedWordsFiltered, getWords} from "../components/api/api";
+import { addUserWord } from "../general-functions/userWord";
 import { sprintStorage, storage } from "../storage/storage";
-import { IWord } from "../types/types";
-import { renderPage } from "./renderTextbookPage";
+import { IAuthorizationResult, IStorage, IUserWordsAggregated, IWord, IWordUser, IWordWithDifficulty } from "../types/types";
+import { renderAuthorizedPage, renderDifficultPage, renderPage } from "./renderTextbookPage";
+import { checkLearningPage, updatePageState } from "./textbookFunctions";
 
 export function updatePageCounter(): void {
   const counter = document.querySelector('.page-number') as HTMLElement;
@@ -40,6 +42,17 @@ function addPagListener(button: HTMLButtonElement, param: number): void {
     if (!container) {
       return;
     }
+    const isAuthorized = localStorage.getItem('rslang_currentUser#');
+    if (isAuthorized) {
+      container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
+      console.log(storage.chapterCount, storage.pageCount, 'change page')
+      button.disabled = false;
+      updatePageCounter();
+      updatePagButtonState();
+      await updatePageState();
+      checkLearningPage();
+      return;
+    }
     container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
     console.log(storage.chapterCount, storage.pageCount, 'change page')
     button.disabled = false;
@@ -48,15 +61,15 @@ function addPagListener(button: HTMLButtonElement, param: number): void {
   });
 }
 
-export function addChaptersListener(): void {
-  const target = document.querySelectorAll('.textbook-nav-btn') as NodeListOf<HTMLElement>;
-  if (!target) {
-    return;
-  }
-
-  target.forEach((item) => {
-    item.addEventListener('click', async () => {
+async function groupEventHandler(item: HTMLElement): Promise<void> {
       const group = item.dataset.group as string;
+
+      const container = document.querySelector('.textbook-page-container');
+      const footer = document.querySelector('.textbook-footer');
+
+      if (!container || !footer) {
+        return;
+      }
       if (group === 'difficult') {
         return;
       }
@@ -67,17 +80,71 @@ export function addChaptersListener(): void {
       sprintStorage.currentChapter = group;
       storage.pageCount = '0';
       
-      const container = document.querySelector('.textbook-page-container');
-      if (!container) {
-        return;
-      }
       container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
+      footer.classList.remove('hidden');
       console.log(storage.chapterCount, storage.pageCount, 'change chapter');
       updatePageCounter();
       updatePagButtonState();
-    });
-  });
 }
+
+async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
+      const group = item.dataset.group as string;
+
+      const container = document.querySelector('.textbook-page-container');
+      const footer = document.querySelector('.textbook-footer');
+
+      if (!container || !footer) {
+        return;
+      }
+      if (group === 'difficult') {
+        storage.chapterCount = group;
+        const user: IAuthorizationResult = JSON.parse(localStorage.getItem('rslang_currentUser#') as string);
+        const userId = user.userId;
+        const userToken = user.token;
+
+        const res = await getUserAggregatedWordsFiltered(userId, userToken, 'hard') as Array<IUserWordsAggregated>
+
+        storage.difficultWords = res[0].paginatedResults;
+
+        container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
+        footer.classList.add('hidden');
+        return;
+      }
+
+      const res = await getWords(group, '0');
+      storage.currentPage = res;
+      storage.chapterCount = group;
+      sprintStorage.currentChapter = group;
+      storage.pageCount = '0';
+      
+      container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
+      footer.classList.remove('hidden');
+      console.log(storage.chapterCount, storage.pageCount, 'change chapter');
+      updatePageCounter();
+      updatePagButtonState();
+      await updatePageState();
+      checkLearningPage();
+}
+
+export function addCommonChaptersListener() {
+  const target = document.querySelectorAll('.textbook-nav-btn') as NodeListOf<HTMLElement>;
+  if (!target) {
+    return;
+  }
+
+  target.forEach((item) => {
+    item.addEventListener('click', async () => {
+      const isAuthorized = localStorage.getItem('rslang_currentUser#');
+      if (isAuthorized) {
+        await groupEventHandlerAuthorized(item);
+        return;
+      }
+      await groupEventHandler(item);
+    })
+  })
+
+}
+
 
 export function addNextPageListener(): void {
   const target = document.querySelector('.next-btn') as HTMLButtonElement;
@@ -191,11 +258,124 @@ export function addAudioControlListener(): void {
   });
 }
 
+function addDifficultWordListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('difficult-button')) {
+
+      const wordId = target.id.slice(10);
+
+      await addUserWord(wordId, "hard");
+
+      const wordContainer = document.getElementById(`word-${wordId}`)
+      if(!wordContainer) {
+        return;
+      }
+
+      wordContainer.classList.remove('learned-word');
+      wordContainer.classList.add('difficult-word');
+
+      checkLearningPage();
+    }
+  });
+}
+
+function addLearnedWordListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('learned-button')) {
+
+      const wordId = target.id.slice(8);
+
+      await addUserWord(wordId, "easy");
+
+      const wordContainer = document.getElementById(`word-${wordId}`)
+      if(!wordContainer) {
+        return;
+      }
+
+      wordContainer.classList.add('learned-word');
+      wordContainer.classList.remove('difficult-word');
+
+      checkLearningPage();
+    }
+  });
+}
+
+function addLearnedDifficultWordListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('difficult-learned-button')) {
+
+      const wordId = target.id.slice(8);
+
+      await addUserWord(wordId, "easy");
+
+      const user: IAuthorizationResult = JSON.parse(localStorage.getItem('rslang_currentUser#') as string);
+      const userId = user.userId;
+      const userToken = user.token;
+
+      const res = await getUserAggregatedWordsFiltered(userId, userToken, 'hard') as Array<IUserWordsAggregated>
+
+      storage.difficultWords = res[0].paginatedResults;
+
+      const container = document.querySelector('.textbook-page-container') as HTMLElement;
+      container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
+    }
+  });
+}
+
+function addRemoveDifficultWordListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('remove-difficult-button')) {
+
+      const wordId = target.id.slice(10);
+
+      const user: IAuthorizationResult = JSON.parse(localStorage.getItem('rslang_currentUser#') as string);
+      const userId = user.userId;
+      const userToken = user.token;
+
+      await deleteUserWord(userId, wordId, userToken);
+
+      const res = await getUserAggregatedWordsFiltered(userId, userToken, 'hard') as Array<IUserWordsAggregated>
+
+      storage.difficultWords = res[0].paginatedResults;
+
+      const container = document.querySelector('.textbook-page-container') as HTMLElement;
+      container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
+    }
+  });
+}
+
+function addStorageEvents(): void {
+  window.addEventListener('beforeunload', () => {
+    const storageForSaving = JSON.stringify(storage);
+    localStorage.setItem('gameCurrentStorage', storageForSaving);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const getStorage = localStorage.getItem('gameCurrentStorage');
+    if (getStorage) {
+      const getStorageParse = JSON.parse(getStorage) as IStorage;
+      storage.chapterCount = getStorageParse.chapterCount;
+      storage.currentPage = getStorageParse.currentPage;
+      storage.difficultWords = getStorageParse.difficultWords;
+      storage.pageCount = getStorageParse.pageCount;
+    }
+  });
+}
+
 export function listenersTextbook(): void {
-  addChaptersListener();
+  addCommonChaptersListener();
   addPrevPageListener();
   addNextPageListener();
   updatePagButtonState();
   addAudioListener();
   addAudioControlListener();
+  addDifficultWordListener();
+  addLearnedWordListener();
+  addLearnedDifficultWordListener();
+  addRemoveDifficultWordListener();
+  addStorageEvents();
 }

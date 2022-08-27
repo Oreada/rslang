@@ -9,7 +9,7 @@ import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
-import { Textbook } from './pages/textbook';
+import { Textbook, TextbookCallback } from './pages/textbook';
 import { SprintContent, SprintCallback } from './pages/sprint';
 
 import { listenLoginForm } from './components/modalWindow/switchForm';
@@ -36,7 +36,7 @@ function fooCallback() {
 const callbacks = {
     //! здесь прописываем функции-листенеры для каждой отдельной страницы
     '/': fooCallback,
-    '/textbook': listenersTextbook,
+    '/textbook': TextbookCallback,
     '/games': GamesCallback,
     '/audiochallenge': AudiochallengeCallback,
     '/sprint': SprintCallback,
