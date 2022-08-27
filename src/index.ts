@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_DATA } from './constants/constants';
 import { listenLogon } from './components/modalWindow/logonListener';
 
 import './scss/style.scss';
@@ -15,6 +16,8 @@ import { SprintContent, SprintCallback } from './pages/sprint';
 import { listenLoginForm } from './components/modalWindow/switchForm';
 
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
+import { getAllUserWords } from './components/api/api';
+import { listenAuth } from './components/modalWindow/authListener';
 
 type routesKey = keyof typeof routes;
 
@@ -30,6 +33,15 @@ const routes = {
 
 //! это функция-заглушка для страниц, которые не имеют коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
 function fooCallback() {
+    const test = document.querySelector('.test');
+    test?.addEventListener('click', () => {
+        console.log(
+            getAllUserWords(
+                JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId,
+                JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
+            )
+        );
+    });
     return true;
 }
 
@@ -53,6 +65,7 @@ callbacks[path](); //! тут тоже вызываю, чтобы эти кол�
 
 listenLogon();
 listenLoginForm();
+listenAuth();
 
 const links: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link');
 links.forEach((link) => {
