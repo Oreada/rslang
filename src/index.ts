@@ -1,4 +1,3 @@
-import { LOCAL_STORAGE_DATA } from './constants/constants';
 import { listenLogon } from './components/modalWindow/logonListener';
 
 import './scss/style.scss';
@@ -16,7 +15,6 @@ import { SprintContent, SprintCallback } from './pages/sprint';
 import { listenLoginForm } from './components/modalWindow/switchForm';
 
 import { listenersTextbook } from './electronic-textbook/textbookListeners';
-import { getAllUserWords } from './components/api/api';
 import { listenAuth } from './components/modalWindow/authListener';
 
 type routesKey = keyof typeof routes;
@@ -25,23 +23,14 @@ const routes = {
     '/': Home,
     '/textbook': Textbook,
     '/games': GamesContent,
-    '/audiochallenge': AudiochallengeContent,
-    '/sprint': SprintContent,
+    '/games/audiochallenge': AudiochallengeContent,
+    '/games/sprint': SprintContent,
     '/statistic': Statistic,
     '/team': Team,
 };
 
 //! это функция-заглушка для страниц, которые не имеют коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
 function fooCallback() {
-    const test = document.querySelector('.test');
-    test?.addEventListener('click', () => {
-        console.log(
-            getAllUserWords(
-                JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId,
-                JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
-            )
-        );
-    });
     return true;
 }
 
@@ -50,8 +39,8 @@ const callbacks = {
     '/': fooCallback,
     '/textbook': TextbookCallback,
     '/games': GamesCallback,
-    '/audiochallenge': AudiochallengeCallback,
-    '/sprint': SprintCallback,
+    '/games/audiochallenge': AudiochallengeCallback,
+    '/games/sprint': SprintCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
 };
@@ -80,6 +69,17 @@ const onNavigate = async (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
     const content = await routes[pathname]();
     rootDiv.innerHTML = content; //! тут отрисовался определённый контент
+    console.log(pathname);
+    if (pathname === '/games') {
+        const gameLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.game');
+        gameLinks.forEach((link) => {
+            const rout = link.dataset.rout as routesKey;
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                onNavigate(rout);
+            });
+        });
+    }
     callbacks[pathname](); //! здесь навешиваем функции-листенеры для каждой отдельной страницы
 };
 
