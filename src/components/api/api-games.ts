@@ -2,9 +2,9 @@ import { BASE_API } from '../../constants/constants';
 import { _IWord, ICardAudiochallenge } from '../../types/types';
 
 //! Get an array of random words from GROUP. Array also has a certain lenght (NUM)
-export async function getRandomWords(group: string, num: string): Promise<Array<_IWord>> {
+export async function getRandomWords(group: string, num: string, page = '-1'): Promise<Array<_IWord>> {
     //! тут _IWord вместо IWord, т.к. в выводе "_id", а не "id"
-    const response = await fetch(`${BASE_API}/words/random?group=${group}&num=${num}`);
+    const response = await fetch(`${BASE_API}/words/random?group=${group}&num=${num}&page=${page}`);
     const wordsList = await response.json();
     return wordsList;
 }
@@ -13,9 +13,10 @@ export async function getRandomWords(group: string, num: string): Promise<Array<
 export async function getRandomCardsAudiochallenge(
     amountCards: string,
     group: string,
-    num: string
+    num: string,
+    page = '-1'
 ): Promise<Array<ICardAudiochallenge>> {
-    const response = await fetch(`${BASE_API}/words/random/card/${amountCards}?group=${group}&num=${num}`);
+    const response = await fetch(`${BASE_API}/words/random/card/${amountCards}?group=${group}&num=${num}&page=${page}`);
     const cardsList = await response.json();
     return cardsList;
 }
@@ -26,11 +27,12 @@ export async function getRandomWordsWithExcluded(
     token: string,
     excluded: 'easy' | 'hard',
     group: string,
-    num: string
+    num: string,
+    page = '-1'
 ): Promise<Array<_IWord> | undefined> {
     //! тут _IWord вместо IWord, т.к. в выводе "_id", а не "id"
     const response = await fetch(
-        `${BASE_API}/users/${idUser}/words/random?group=${group}&num=${num}&exclude=${excluded}`,
+        `${BASE_API}/users/${idUser}/words/random?group=${group}&num=${num}&exclude=${excluded}&page=${page}`,
         {
             method: 'GET',
             headers: {
@@ -60,10 +62,11 @@ export async function getRandomCardsAudiochallengeWithExcluded(
     excluded: 'easy' | 'hard',
     amountCards: string,
     group: string,
-    num: string
+    num: string,
+    page = '-1'
 ): Promise<Array<ICardAudiochallenge> | undefined> {
     const response = await fetch(
-        `${BASE_API}/users/${idUser}/words/random/card/${amountCards}?group=${group}&num=${num}&exclude=${excluded}`,
+        `${BASE_API}/users/${idUser}/words/random/card/${amountCards}?group=${group}&num=${num}&exclude=${excluded}&page=${page}`,
         {
             method: 'GET',
             headers: {

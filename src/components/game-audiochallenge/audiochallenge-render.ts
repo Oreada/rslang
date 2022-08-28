@@ -144,23 +144,24 @@ function drawAudiochallengePage(
 //     )
 // );
 
-// console.log(
-//     await getUserAggregatedWordsFiltered(
-//         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTYxMTQzNiwiZXhwIjoxNjYxNjI1ODM2fQ.Wppx29CNOLfMlI1hnl6FhiS8zebgaJXSkXKsP1egG0s',
-//         'hard'
-//     )
-// );
+console.log(
+    await getUserAggregatedWordsFiltered(
+        '62fe0020d755e24640edaabd',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
+        'easy'
+    )
+);
 
-// console.log(
-//     await getRandomWordsWithExcluded(
-//         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
-//         'easy',
-//         '0',
-//         '600'
-//     )
-// );
+console.log(
+    await getRandomWordsWithExcluded(
+        '62fe0020d755e24640edaabd',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
+        'easy',
+        '0',
+        '600',
+        '9'
+    )
+);
 
 // console.log(
 //     await getRandomCardsAudiochallengeWithExcluded(
@@ -172,3 +173,5 @@ function drawAudiochallengePage(
 //         '5'
 //     )
 // );
+
+console.log(await getRandomWords('0', '600', '9'));
