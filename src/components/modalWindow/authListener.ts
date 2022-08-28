@@ -1,5 +1,6 @@
 import { LOCAL_STORAGE_DATA } from './../../constants/constants';
 import { getNewToken } from '../api/api';
+import { rerenderMenu } from './rerenderMenu';
 
 export const listenAuth = () => {
     let timerId: NodeJS.Timer;
@@ -28,8 +29,9 @@ export const listenAuth = () => {
         return timerId;
     };
 
-    if (localStorage.getItem(LOCAL_STORAGE_DATA)) timerId = intervalAction();
-
+    if (localStorage.getItem(LOCAL_STORAGE_DATA)) {
+        timerId = intervalAction();
+    }
     const auth = document.querySelector('.auth') as Node;
     const observer = new MutationObserver((mutationRecords) => {
         let timerId;
@@ -37,8 +39,10 @@ export const listenAuth = () => {
             const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
             console.log(`Пользователь авторизован с токеном: ${token}`);
             timerId = intervalAction();
+            rerenderMenu('LogOut');
         } else if (mutationRecords[0].addedNodes[0].textContent === 'LogIn') {
             clearInterval(timerId);
+            rerenderMenu('LogIn');
             console.log('Пользователь анонимен');
         }
     });

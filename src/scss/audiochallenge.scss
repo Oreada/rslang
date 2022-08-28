@@ -140,5 +140,89 @@
 	background-color: rgba(93, 118, 134, 0.451);
 }
 
-.audiochallenge__results-wrapper {
+// ======================== results of games ===============================
+
+.results__wrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+
+	font-size: 20px;
+	color: rgb(7, 25, 37);
+}
+
+.results__correct {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.results__correct-title {
+	font-weight: 600;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.results__correct-number {
+}
+
+.results__correct-list {
+}
+
+.correct-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.correct-list__item {
+	display: flex;
+	gap: 20px;
+}
+
+.correct-list__audio-btn {
+}
+
+.correct-list__text {
+}
+
+.results__incorrect {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.results__incorrect-title {
+	font-weight: 600;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.results__incorrect-number {
+}
+
+.results__incorrect-list {
+}
+
+.incorrect-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.incorrect-list__item {
+	display: flex;
+	gap: 20px;
+}
+
+.incorrect-list__audio-btn {
+}
+
+.incorrect-list__text {
+}
+
+.results__end-btn {
 }

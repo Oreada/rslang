@@ -2,6 +2,8 @@ import {
     playWordAudioForGame,
     contentAudiochallengeWithWrapper,
 } from '../components/game-audiochallenge/audiochallenge-render';
+import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
+import { renderResultsPage } from '../components/results-of-games/games-results';
 
 //! пока передаю "0", потом будет передача значения group в зависимости от выбранной сложности:
 export const AudiochallengeContent = async (): Promise<string> => {
@@ -9,7 +11,8 @@ export const AudiochallengeContent = async (): Promise<string> => {
 };
 
 export const AudiochallengeCallback = () => {
-    const resultsAudiochallenge: Record<string, string> = {};
+    const resultsObj: Record<string, string> = {};
+    const resultsElement = document.querySelector('.audiochallenge__results') as HTMLElement;
 
     const answerAudioButtons = document.querySelectorAll('.answer-card__audio-btn') as NodeListOf<HTMLButtonElement>;
     const questionAudioButtons = document.querySelectorAll(
@@ -17,20 +20,23 @@ export const AudiochallengeCallback = () => {
     ) as NodeListOf<HTMLButtonElement>;
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
+    const nextButtonLast = document.querySelector(
+        `.bottom-ac__next-btn[data-counter="${AMOUNT_PAGES_AUDIOCHALLENGE}"]`
+    ) as HTMLButtonElement;
+
     const inputsOptions = document.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
 
     inputsOptions.forEach((input) =>
         input.addEventListener('change', function (event: Event) {
             const targetButton = event.target as HTMLInputElement;
             if (targetButton.classList.contains('medium-ac__input')) {
-                console.log(targetButton);
                 inputsOptions.forEach((input) => input.setAttribute('disabled', 'disabled'));
                 targetButton.removeAttribute('disabled');
 
                 if (targetButton.dataset.idword === targetButton.dataset.idcorrect) {
                     targetButton.style.backgroundColor = 'rgb(34, 104, 31)';
 
-                    resultsAudiochallenge[targetButton.dataset.idcorrect as string] = 'correct';
+                    resultsObj[targetButton.dataset.idcorrect as string] = 'correct';
                 } else {
                     targetButton.style.backgroundColor = 'rgb(135, 20, 20)';
                     const inputCorrect = document.querySelector(
@@ -38,7 +44,7 @@ export const AudiochallengeCallback = () => {
                     ) as HTMLButtonElement;
                     inputCorrect.style.backgroundColor = 'rgb(34, 104, 31)';
 
-                    resultsAudiochallenge[targetButton.dataset.idcorrect as string] = 'incorrect';
+                    resultsObj[targetButton.dataset.idcorrect as string] = 'incorrect';
                 }
 
                 const answerCard = document.querySelector(
@@ -67,14 +73,16 @@ export const AudiochallengeCallback = () => {
             const carousel = document.querySelector('.audiochallenge__row') as HTMLElement;
             const targetButton = event.target as HTMLButtonElement;
             if (targetButton.classList.contains('bottom-ac__next-btn')) {
-                const counter = Number(targetButton.dataset.counter);
-                const shift = counter * 100;
+                const counter = targetButton.dataset.counter;
+                const shift = Number(counter) * 100;
                 carousel.style.transform = `translateX(-${shift}%)`;
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
             }
-
-            console.log(resultsAudiochallenge);
         })
     );
+
+    nextButtonLast.addEventListener('click', function () {
+        renderResultsPage(resultsElement, resultsObj);
+    });
 };
