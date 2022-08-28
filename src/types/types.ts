@@ -142,6 +142,7 @@ export interface ICardAudiochallenge {
 
 export interface ISprintStorage {
     currentChapter: string;
+    currentPage: string,
     originWord: null | IWord;
     translateWord: null | IWord;
     level: number;
@@ -150,4 +151,6 @@ export interface ISprintStorage {
     currentScore: number;
     bestScore: number;
     scoreDecrease: number;
+    gameSource: "menu" | "textbook";
+    currentPageWords: Array<IWord> | null;
 }

@@ -82,6 +82,7 @@ export function addSprintOptionListener() {
   target.forEach((item) => {
     item.addEventListener('click', () => {
       sprintStorage.currentChapter = item.value;
+      sprintStorage.currentPage = '0';
     })
   })
 }

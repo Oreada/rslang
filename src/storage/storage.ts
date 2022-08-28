@@ -12,6 +12,7 @@ export const storage: IStorage = {
 
 export const sprintStorage: ISprintStorage = {
   currentChapter: '0',
+  currentPage: '0',
   originWord: await getWordById(await getRandomIdWord('0')),
   translateWord: await getWordById(await getRandomIdWord('0')),
   level: 0,
@@ -19,5 +20,7 @@ export const sprintStorage: ISprintStorage = {
   levelProgressBar: SPRINT_PROGRESS_BARS_QUANTITY,
   currentScore: 0,
   bestScore: 0,
-  scoreDecrease: SPRINT_MIN_COEFFICIENT
+  scoreDecrease: SPRINT_MIN_COEFFICIENT,
+  gameSource: "menu",
+  currentPageWords: null
 }

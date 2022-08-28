@@ -34,6 +34,7 @@ function addPagListener(button: HTMLButtonElement, param: number): void {
   button.addEventListener('click', async () => {
     button.disabled = true;
     storage.pageCount = (+(storage.pageCount) + param).toString();
+    sprintStorage.currentPage = storage.pageCount;
 
     const res = await getWords(storage.chapterCount, storage.pageCount);
     storage.currentPage = res;
@@ -79,6 +80,7 @@ async function groupEventHandler(item: HTMLElement): Promise<void> {
       storage.chapterCount = group;
       sprintStorage.currentChapter = group;
       storage.pageCount = '0';
+      sprintStorage.currentPage = storage.pageCount;
       
       container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
       footer.classList.remove('hidden');
@@ -116,6 +118,7 @@ async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
       storage.chapterCount = group;
       sprintStorage.currentChapter = group;
       storage.pageCount = '0';
+      sprintStorage.currentPage = storage.pageCount;
       
       container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
       footer.classList.remove('hidden');
@@ -364,6 +367,15 @@ function addStorageEvents(): void {
       storage.pageCount = getStorageParse.pageCount;
     }
   });
+}
+
+export function addSprintGameListener(): void {
+  const target = document.querySelector('.sprint-game-btn') as HTMLButtonElement;
+  if (!target) {
+    return;
+  }
+
+  sprintStorage.gameSource = "textbook";
 }
 
 export function listenersTextbook(): void {

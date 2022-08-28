@@ -1,7 +1,8 @@
 import {SPRINT_MIN_COEFFICIENT, SPRINT_PROGRESS_BARS_QUANTITY, SPRINT_TIMER_LIMIT } from "../../constants/constants";
 import { getRandomIdWord, getRandomNumber } from "../../general-functions/random";
-import { sprintStorage} from "../../storage/storage";
-import { getWordById } from "../api/api";
+import { sprintStorage, storage} from "../../storage/storage";
+import { IWord } from "../../types/types";
+import { getWordById, getWords } from "../api/api";
 import { renderBestSprintResult, renderSprintTimer, renderUsualSprintResult } from "./renderSprintGame";
 
 function showSprintResult(): void {
@@ -69,7 +70,56 @@ export async function getSprintWords() {
   sprintStorage.originWord = originWord;
   sprintStorage.translateWord = translateWord;
 
-  // console.log(isSameWords, originWord.word, translateWord.word)
+  console.log(sprintStorage.level, sprintStorage.levelProgressBar)
+}
+
+export async function getPageForSprint(): Promise<void> {
+  const words = await getWords(sprintStorage.currentChapter, sprintStorage.currentPage);
+  sprintStorage.currentPageWords = words;
+}
+
+export async function getSprintWordsFromPage() {
+  if ((sprintStorage.currentPageWords as Array<IWord>).length === 0) {
+    const num = (+sprintStorage.currentPage - 1).toString();
+    sprintStorage.currentPage = num;
+    await getPageForSprint();
+  }
+
+  const wordsArr = [...(sprintStorage.currentPageWords as Array<IWord>)];
+
+  if (wordsArr.length === 1) {
+    const word = wordsArr[0];
+    sprintStorage.originWord = word;
+    sprintStorage.translateWord = word;
+    
+    wordsArr.pop();
+
+    sprintStorage.currentPageWords = wordsArr;
+    return;
+  }
+
+  const isSameWords = getRandomNumber(2);
+
+  const index1 = getRandomNumber(wordsArr.length);
+  let index2;
+
+  if (isSameWords) {
+    index2 = index1;
+  } else {
+    do {
+      index2 = getRandomNumber(wordsArr.length)
+    } while (index1 === index2);
+  }
+
+  sprintStorage.originWord = wordsArr[index1];
+  sprintStorage.translateWord = wordsArr[index2];
+
+  const word1 = wordsArr[index1];
+  const word2 = wordsArr[index2];
+
+  const newWordsArr = wordsArr.filter((item) => (item.id === word1.id || item.id === word2.id));
+  
+  sprintStorage.currentPageWords = newWordsArr;
   console.log(sprintStorage.level, sprintStorage.levelProgressBar)
 }
 
