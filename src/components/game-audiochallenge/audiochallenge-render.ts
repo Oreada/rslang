@@ -17,7 +17,9 @@ export function playWordAudioForGame(event: Event) {
     const targetButton = event.target as HTMLButtonElement;
     if (
         targetButton.classList.contains('answer-card__audio-btn') ||
-        targetButton.classList.contains('question-card__audio-btn')
+        targetButton.classList.contains('question-card__audio-btn') ||
+        targetButton.classList.contains('correct-list__audio-btn') ||
+        targetButton.classList.contains('incorrect-list__audio-btn')
     ) {
         const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
         const audio = new Audio(path);
@@ -73,14 +75,12 @@ export async function contentAudiochallengeWithWrapper(group: string) {
     return `<div class="audiochallenge__slider">
                 <div class="audiochallenge__row">
                     ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
-                    <div class="audiochallenge__results">
-                        <div class="audiochallenge__results-wrapper"></div>
+                    <div class="audiochallenge__results results">
+
                     </div>
                 </div>
             </div>`;
 }
-
-// ${await renderAudiochallengeSlider(group)}
 
 //! =====================================================================================================================
 
@@ -147,7 +147,7 @@ function drawAudiochallengePage(
 // console.log(
 //     await getUserAggregatedWordsFiltered(
 //         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
 //         'easy'
 //     )
 // );
@@ -155,10 +155,11 @@ function drawAudiochallengePage(
 // console.log(
 //     await getRandomWordsWithExcluded(
 //         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
 //         'easy',
 //         '0',
-//         '600'
+//         '600',
+//         '9'
 //     )
 // );
 
@@ -172,3 +173,5 @@ function drawAudiochallengePage(
 //         '5'
 //     )
 // );
+
+// console.log(await getRandomWords('0', '600', '9'));
