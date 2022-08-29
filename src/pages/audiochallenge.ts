@@ -3,10 +3,9 @@ import {
     contentAudiochallengeWithWrapper,
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
-import { renderResultsPage } from '../components/results-of-games/games-results';
+import { renderResultsPage } from '../components/games-results-of-games/games-results';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 
-//! пока передаю "0", потом будет передача значения group в зависимости от выбранной сложности:
 export const AudiochallengeContent = (): string => {
     return drawGroupSelectionPage();
 };
