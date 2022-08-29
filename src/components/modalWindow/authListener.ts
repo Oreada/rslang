@@ -1,6 +1,7 @@
 import { LOCAL_STORAGE_DATA } from './../../constants/constants';
 import { getNewToken } from '../api/api';
 import { rerenderMenu } from './rerenderMenu';
+import { startTextbook } from '../../electronic-textbook/textbookFunctions';
 
 export const listenAuth = () => {
     let timerId: NodeJS.Timer;
@@ -40,10 +41,16 @@ export const listenAuth = () => {
             console.log(`Пользователь авторизован с токеном: ${token}`);
             timerId = intervalAction();
             rerenderMenu('LogOut');
+            if (window.location.pathname === '/textbook') {
+                startTextbook();
+            }
         } else if (mutationRecords[0].addedNodes[0].textContent === 'LogIn') {
             clearInterval(timerId);
             rerenderMenu('LogIn');
             console.log('Пользователь анонимен');
+            if (window.location.pathname === '/textbook') {
+                startTextbook();
+            }
         }
     });
 
