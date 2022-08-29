@@ -62,7 +62,8 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct.audio,
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
-            counter
+            counter,
+            counter < 10 ? cardsForGame[i + 1].correct.audio : ''
         );
 
         allAudiochallengeCards += page;
@@ -113,7 +114,8 @@ function drawAudiochallengePage(
     wordAudioPath: string,
     idCorrectWord: string,
     optionsList: Array<Record<string, string>>,
-    counter: number
+    counter: number,
+    wordAudioPathForVoicing: string
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
@@ -129,7 +131,8 @@ function drawAudiochallengePage(
                         ${drawAudiochallengeList(optionsList, idCorrectWord)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}" disabled>СЛЕДУЮЩЕЕ СЛОВО</button>
+                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}"
+                                            data-audiopath="${wordAudioPathForVoicing}" disabled>СЛЕДУЮЩЕЕ СЛОВО</button>
                     </div>
                 </div>
             </div>`;
