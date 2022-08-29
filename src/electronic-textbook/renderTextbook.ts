@@ -34,7 +34,8 @@ function textbookNavRender(): string {
 function textbookFooterRender(): string {
     const str = `
     <button class="game-btn audio-game-btn">
-        <a href="" class="textbook__game-link nav__link" data-rout="/textbook/audiochallenge/${Number(storage.chapterCount) + 1}">Аудиовызов</a>
+        <a href="" class="textbook__game-link nav__link"
+        data-rout="/textbook/audiochallenge/${Number(storage.chapterCount) + 1}">Аудиовызов</a>
     </button>
     <div class="page-nav-container">
         <button class="page-nav-btn prev-btn">
@@ -48,7 +49,8 @@ function textbookFooterRender(): string {
         </button>
     </div>
     <button class="game-btn sprint-game-btn">
-        <a href="" class="textbook__game-link nav__link" data-rout="/textbook/sprint/${Number(storage.chapterCount) + 1}">Спринт</a>
+        <a href="" class="textbook__game-link nav__link"
+        data-rout="/textbook/sprint/${Number(storage.chapterCount) + 1}">Спринт</a>
     </button>`;
 
     return str;
