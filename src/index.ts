@@ -3,7 +3,16 @@ import { listenLogon } from './components/modalWindow/logonListener';
 import './scss/style.scss';
 import './components/api/test-api-functions';
 
-import { AudiochallengeContent, AudiochallengeCallback } from './pages/audiochallenge';
+import {
+    AudiochallengeContent,
+    AudiochallengeCallback,
+    AudiochallengeContent1,
+    AudiochallengeContent2,
+    AudiochallengeContent3,
+    AudiochallengeContent4,
+    AudiochallengeContent5,
+    AudiochallengeContent6,
+} from './pages/audiochallenge';
 import { GamesContent, GamesCallback } from './pages/games';
 import { Home } from './pages/home';
 import { HomePage } from './pages/homePage';
@@ -24,6 +33,12 @@ const routes = {
     '/textbook': Textbook,
     '/games': GamesContent,
     '/games/audiochallenge': AudiochallengeContent,
+    '/games/audiochallenge/1': AudiochallengeContent1,
+    '/games/audiochallenge/2': AudiochallengeContent2,
+    '/games/audiochallenge/3': AudiochallengeContent3,
+    '/games/audiochallenge/4': AudiochallengeContent4,
+    '/games/audiochallenge/5': AudiochallengeContent5,
+    '/games/audiochallenge/6': AudiochallengeContent6,
     '/games/sprint': SprintContent,
     '/statistic': Statistic,
     '/team': Team,
@@ -39,7 +54,13 @@ const callbacks = {
     '/': fooCallback,
     '/textbook': TextbookCallback,
     '/games': GamesCallback,
-    '/games/audiochallenge': AudiochallengeCallback,
+    '/games/audiochallenge': fooCallback,
+    '/games/audiochallenge/1': AudiochallengeCallback,
+    '/games/audiochallenge/2': AudiochallengeCallback,
+    '/games/audiochallenge/3': AudiochallengeCallback,
+    '/games/audiochallenge/4': AudiochallengeCallback,
+    '/games/audiochallenge/5': AudiochallengeCallback,
+    '/games/audiochallenge/6': AudiochallengeCallback,
     '/games/sprint': SprintCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
@@ -73,6 +94,16 @@ const onNavigate = async (pathname: routesKey) => {
     if (pathname === '/games') {
         const gameLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.game');
         gameLinks.forEach((link) => {
+            const rout = link.dataset.rout as routesKey;
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                onNavigate(rout);
+            });
+        });
+    }
+    if (pathname === '/games/audiochallenge') {
+        const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.group-selection__link');
+        groupLinks.forEach((link) => {
             const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
                 e.preventDefault();
