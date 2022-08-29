@@ -14,3 +14,5 @@ export const SPRINT_PROGRESS_BARS_QUANTITY = 3;
 export const SPRINT_MIN_COEFFICIENT = 10;
 
 export const LOCAL_STORAGE_DATA = 'rslang_currentUser#';
+
+export const STORAGE_IN_LOCAL_STORAGE = 'rslang_storage#';
