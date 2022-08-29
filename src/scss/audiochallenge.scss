@@ -140,7 +140,7 @@
 	background-color: rgba(93, 118, 134, 0.451);
 }
 
-// ======================== results of games ===============================
+// ======================== Games: results page ===============================
 
 .results__wrapper {
 	height: 100%;
@@ -225,4 +225,20 @@
 }
 
 .results__end-btn {
+}
+
+// ======================== Games: group selection ===============================
+
+.group-selection {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+
+	padding-top: 30px;
+}
+
+.group-selection__link {
+	display: block;
 }
