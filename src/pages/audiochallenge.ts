@@ -5,6 +5,7 @@ import {
 import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
 import { renderResultsPage } from '../components/games-results-of-games/games-results';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
+import { storage } from '../storage/storage';
 
 export const AudiochallengeContent = (): string => {
     return drawGroupSelectionPage('audiochallenge');
@@ -31,6 +32,36 @@ export const AudiochallengeContent5 = async (): Promise<string> => {
 };
 
 export const AudiochallengeContent6 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('5');
+};
+
+export const AudiochallengeTextbookContent1 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('0');
+};
+
+export const AudiochallengeTextbookContent2 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('1');
+};
+
+export const AudiochallengeTextbookContent3 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('2');
+};
+
+export const AudiochallengeTextbookContent4 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('3');
+};
+
+export const AudiochallengeTextbookContent5 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('4');
+};
+
+export const AudiochallengeTextbookContent6 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
     return await contentAudiochallengeWithWrapper('5');
 };
 
@@ -108,5 +139,6 @@ export const AudiochallengeCallback = () => {
 
     nextButtonLast.addEventListener('click', function () {
         renderResultsPage(resultsElement, resultsObj);
+        console.log(resultsObj);
     });
 };
