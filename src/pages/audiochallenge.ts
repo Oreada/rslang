@@ -7,7 +7,7 @@ import { renderResultsPage } from '../components/games-results-of-games/games-re
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 
 export const AudiochallengeContent = (): string => {
-    return drawGroupSelectionPage();
+    return drawGroupSelectionPage('audiochallenge');
 };
 
 export const AudiochallengeContent1 = async (): Promise<string> => {

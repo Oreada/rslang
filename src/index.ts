@@ -19,7 +19,16 @@ import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook, TextbookCallback } from './pages/textbook';
-import { SprintContent, SprintCallback } from './pages/sprint';
+import {
+    SprintContent,
+    SprintCallback,
+    SprintContent1,
+    SprintContent2,
+    SprintContent3,
+    SprintContent4,
+    SprintContent5,
+    SprintContent6,
+} from './pages/sprint';
 
 import { listenLoginForm } from './components/modalWindow/switchForm';
 
@@ -40,6 +49,12 @@ const routes = {
     '/games/audiochallenge/5': AudiochallengeContent5,
     '/games/audiochallenge/6': AudiochallengeContent6,
     '/games/sprint': SprintContent,
+    '/games/sprint/1': SprintContent1,
+    '/games/sprint/2': SprintContent2,
+    '/games/sprint/3': SprintContent3,
+    '/games/sprint/4': SprintContent4,
+    '/games/sprint/5': SprintContent5,
+    '/games/sprint/6': SprintContent6,
     '/statistic': Statistic,
     '/team': Team,
 };
@@ -61,7 +76,13 @@ const callbacks = {
     '/games/audiochallenge/4': AudiochallengeCallback,
     '/games/audiochallenge/5': AudiochallengeCallback,
     '/games/audiochallenge/6': AudiochallengeCallback,
-    '/games/sprint': SprintCallback,
+    '/games/sprint': fooCallback,
+    '/games/sprint/1': SprintCallback,
+    '/games/sprint/2': SprintCallback,
+    '/games/sprint/3': SprintCallback,
+    '/games/sprint/4': SprintCallback,
+    '/games/sprint/5': SprintCallback,
+    '/games/sprint/6': SprintCallback,
     '/statistic': fooCallback,
     '/team': fooCallback,
 };
@@ -102,7 +123,21 @@ const onNavigate = async (pathname: routesKey) => {
         });
     }
     if (pathname === '/games/audiochallenge') {
-        const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.group-selection__link');
+        const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll(
+            '.nav__link.group-selection__link-audiochallenge'
+        );
+        groupLinks.forEach((link) => {
+            const rout = link.dataset.rout as routesKey;
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                onNavigate(rout);
+            });
+        });
+    }
+    if (pathname === '/games/sprint') {
+        const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll(
+            '.nav__link.group-selection__link-sprint'
+        );
         groupLinks.forEach((link) => {
             const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
