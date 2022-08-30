@@ -45,18 +45,25 @@ export interface ITokens {
     refreshToken: string;
 }
 
-//! временно такой тип, т.к. мы не знаем, какие опции слова нам будут нужны
-export type TOptionsForWordUser = Record<string, unknown>;
+// //! временно такой тип, т.к. мы не знаем, какие опции слова нам будут нужны
+// export type TOptionsForWordUser = Record<string, unknown>;
+
+export interface IOptionsForWordUser {
+    counterAudiochallengeCorrect: number;
+    counterAudiochallengeIncorrect: number;
+    counterSprintCorrect: number;
+    counterSprintIncorrect: number;
+}
 
 export interface IWordUser {
-    difficulty: 'easy' | 'hard';
-    optional: TOptionsForWordUser;
+    difficulty: 'easy' | 'hard' | 'new';
+    optional: IOptionsForWordUser;
 }
 
 export interface IUserWordCard {
-    id: string;
-    difficulty: 'easy' | 'hard';
-    optional: TOptionsForWordUser;
+    id: string; //! не поняла, что это за id - ?
+    difficulty: 'easy' | 'hard' | 'new';
+    optional: IOptionsForWordUser;
     wordId: string;
 }
 
