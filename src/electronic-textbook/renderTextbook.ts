@@ -7,30 +7,31 @@ function textbookNavRender(): string {
     const strAdd = isAuthorized
         ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
     Седьмой
-  </button>`
+    </button>`
         : '';
     const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
-    Первый
-  </button>
-  <button class="textbook-nav-btn regular-chapter-btn" data-group="1">
-    Второй
-  </button>
-  <button class="textbook-nav-btn regular-chapter-btn" data-group="2">
-    Третий
-  </button>
-  <button class="textbook-nav-btn regular-chapter-btn" data-group="3">
-    Четвертый
-  </button>
-  <button class="textbook-nav-btn regular-chapter-btn" data-group="4">
-    Пятый
-  </button>
-  <button class="textbook-nav-btn regular-chapter-btn" data-group="5">
-    Шестой
-  </button>`;
+        Первый
+    </button>
+    <button class="textbook-nav-btn regular-chapter-btn" data-group="1">
+        Второй
+    </button>
+    <button class="textbook-nav-btn regular-chapter-btn" data-group="2">
+        Третий
+    </button>
+    <button class="textbook-nav-btn regular-chapter-btn" data-group="3">
+        Четвертый
+    </button>
+    <button class="textbook-nav-btn regular-chapter-btn" data-group="4">
+        Пятый
+    </button>
+    <button class="textbook-nav-btn regular-chapter-btn" data-group="5">
+        Шестой
+    </button>`;
 
     return `${str}${strAdd}`;
 }
 
+//* TODO: разобраться с актуализацией значения storage.chapterCount + актуальное значение после перезагрузки страницы (localStorage?)
 function textbookFooterRender(): string {
     const str = `
     <button class="game-btn audio-game-btn">
@@ -58,16 +59,16 @@ function textbookFooterRender(): string {
 
 export function textbookRender(): string {
     const str = `<div class="textbook-container">
-    <section class="textbook-nav">
-      ${textbookNavRender()}
-    </section>
-    <section class="textbook-page-container">
-      ${renderPage(storage.currentPage as Array<IWord>)}
-    </section>
-    <section class="textbook-footer">
-      ${textbookFooterRender()}
-    </section>
-  </div>`;
+        <section class="textbook-nav">
+            ${textbookNavRender()}
+        </section>
+        <section class="textbook-page-container">
+            ${renderPage(storage.currentPage as Array<IWord>)}
+        </section>
+        <section class="textbook-footer">
+            ${textbookFooterRender()}
+        </section>
+    </div>`;
 
     return str;
 }
