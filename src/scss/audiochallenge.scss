@@ -18,7 +18,7 @@
 .audiochallenge__page {
 	height: 100%;
 	background-color: rgb(93, 118, 134);
-	border: 1px solid rgb(0, 0, 0);
+	// border: 1px solid rgb(0, 0, 0);
 
 	font-size: 20px;
 	color: rgb(7, 25, 37);
@@ -52,11 +52,16 @@
 
 .question-card._active {
 	display: block;
+
+	padding-bottom: 70px; //! т.к. это высота текста под картинкой в карточке с ответом
 }
 
 .question-card__audio-btn {
-	font-size: 20px;
-	color: rgb(7, 25, 37);
+	width: 200px;
+
+	background: transparent;
+	// font-size: 20px;
+	// color: rgb(7, 25, 37);
 }
 
 .top-ac__answer-card {
@@ -69,6 +74,7 @@
 .answer-card._active {
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
 }
 
 .answer-card__picture img {
@@ -76,6 +82,8 @@
 	width: 200px;
 	height: 200px;
 	object-fit: cover;
+
+	border-radius: 50%;
 }
 
 .answer-card__image {
@@ -83,12 +91,18 @@
 
 .answer-card__value {
 	display: flex;
+	align-items: center;
 	gap: 10px;
+
+	height: 60px;
 }
 
 .answer-card__audio-btn {
-	font-size: 20px;
-	color: rgb(7, 25, 37);
+	width: 50px;
+
+	background: transparent;
+	// font-size: 20px;
+	// color: rgb(7, 25, 37);
 }
 
 .answer-card__text {
@@ -132,15 +146,41 @@
 }
 
 .bottom-ac__next-btn {
+	min-width: 50px;
+	min-height: 30px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	font-size: 20px;
-	color: rgb(7, 25, 37);
+	font-weight: 600;
+	line-height: 30px;
+	text-align: center;
+	// text-transform: uppercase;
+	color: rgb(93, 118, 134);
+
+	// border: 2px solid rgb(7, 25, 37);
+	border-radius: 10px;
+	background: rgb(7, 25, 37);
+
+	padding: 5px 10px;
+
+	cursor: pointer;
+
+	&:disabled {
+		color: rgb(7, 25, 37);
+		border: 2px solid rgb(7, 25, 37);
+		background: transparent;
+		cursor: auto;
+	}
 }
 
 .audiochallenge__results {
 	background-color: rgba(93, 118, 134, 0.451);
 }
 
-// ======================== results of games ===============================
+// ======================== Games: results page ===============================
 
 .results__wrapper {
 	height: 100%;
@@ -180,6 +220,7 @@
 
 .correct-list__item {
 	display: flex;
+	align-items: center;
 	gap: 20px;
 }
 
@@ -215,6 +256,7 @@
 
 .incorrect-list__item {
 	display: flex;
+	align-items: center;
 	gap: 20px;
 }
 
@@ -225,4 +267,62 @@
 }
 
 .results__end-btn {
+	width: 40px;
+	height: 40px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 30px;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgb(7, 25, 37);
+
+	border: 2px solid rgb(7, 25, 37);
+	border-radius: 50%;
+	background: transparent;
+
+	padding: 5px;
+
+	transition: all 0.5s ease 0s;
+
+	cursor: pointer;
+
+	&:hover {
+		color: rgba(93, 118, 134, 0.451);
+
+		// border: 2px solid rgb(7, 25, 37);
+		background: rgb(7, 25, 37);
+
+		transition: all 0.5s ease 0s;
+	}
+}
+
+.audiobutton-results {
+	width: 30px;
+
+	background: transparent;
+}
+
+// ======================== Games: group selection ===============================
+
+.group-selection {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+
+	padding-top: 30px;
+}
+
+.group-selection__title {
+	font-size: 1.2em;
+}
+
+.group-selection__link {
+	display: block;
 }

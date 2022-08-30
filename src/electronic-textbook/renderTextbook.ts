@@ -1,13 +1,15 @@
-import { storage } from "../storage/storage";
-import { IWord, } from "../types/types";
-import { renderPage } from "./renderTextbookPage";
+import { storage } from '../storage/storage';
+import { IWord } from '../types/types';
+import { renderPage } from './renderTextbookPage';
 
 function textbookNavRender(): string {
-  const isAuthorized = localStorage.getItem('rslang_currentUser#');
-  const strAdd = (isAuthorized) ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
+    const isAuthorized = localStorage.getItem('rslang_currentUser#');
+    const strAdd = isAuthorized
+        ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
     Седьмой
-  </button>` : '';
-  const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
+  </button>`
+        : '';
+    const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
     Первый
   </button>
   <button class="textbook-nav-btn regular-chapter-btn" data-group="1">
@@ -25,34 +27,37 @@ function textbookNavRender(): string {
   <button class="textbook-nav-btn regular-chapter-btn" data-group="5">
     Шестой
   </button>`;
-  
-  return `${str}${strAdd}`;
+
+    return `${str}${strAdd}`;
 }
 
 function textbookFooterRender(): string {
-  const str = `<button class="game-btn audio-game-btn">
-    Аудиовызов
-  </button>
-  <div class="page-nav-container">
-    <button class="page-nav-btn prev-btn">
-      ←
+    const str = `
+    <button class="game-btn audio-game-btn">
+        <a href="" class="textbook__game-link nav__link"
+        data-rout="/textbook/audiochallenge/${Number(storage.chapterCount) + 1}">Аудиовызов</a>
     </button>
-    <div class="page-number">
-      ${+storage.pageCount + 1}
+    <div class="page-nav-container">
+        <button class="page-nav-btn prev-btn">
+            ←
+        </button>
+        <div class="page-number">
+            ${+storage.pageCount + 1}
+        </div>
+        <button class="page-nav-btn next-btn">
+            →
+        </button>
     </div>
-    <button class="page-nav-btn next-btn">
-      →
-    </button>
-  </div>
-  <button class="game-btn sprint-game-btn">
-    Спринт
-  </button>`;
+    <button class="game-btn sprint-game-btn">
+        <a href="" class="textbook__game-link nav__link"
+        data-rout="/textbook/sprint/${Number(storage.chapterCount) + 1}">Спринт</a>
+    </button>`;
 
-  return str;
+    return str;
 }
 
 export function textbookRender(): string {
-  const str = `<div class="textbook-container">
+    const str = `<div class="textbook-container">
     <section class="textbook-nav">
       ${textbookNavRender()}
     </section>
@@ -64,5 +69,5 @@ export function textbookRender(): string {
     </section>
   </div>`;
 
-  return str;
+    return str;
 }

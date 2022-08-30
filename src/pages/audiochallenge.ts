@@ -3,21 +3,83 @@ import {
     contentAudiochallengeWithWrapper,
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
-import { renderResultsPage } from '../components/results-of-games/games-results';
+import { renderResultsPage } from '../components/games-results-of-games/games-results';
+import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
+import { storage } from '../storage/storage';
 
-//! пока передаю "0", потом будет передача значения group в зависимости от выбранной сложности:
-export const AudiochallengeContent = async (): Promise<string> => {
+export const AudiochallengeContent = (): string => {
+    return drawGroupSelectionPage('audiochallenge');
+};
+
+export const AudiochallengeContent1 = async (): Promise<string> => {
     return await contentAudiochallengeWithWrapper('0');
 };
 
-export const AudiochallengeCallback = () => {
-    const resultsObj: Record<string, string> = {};
-    const resultsElement = document.querySelector('.audiochallenge__results') as HTMLElement;
+export const AudiochallengeContent2 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('1');
+};
 
+export const AudiochallengeContent3 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('2');
+};
+
+export const AudiochallengeContent4 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('3');
+};
+
+export const AudiochallengeContent5 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('4');
+};
+
+export const AudiochallengeContent6 = async (): Promise<string> => {
+    return await contentAudiochallengeWithWrapper('5');
+};
+
+export const AudiochallengeTextbookContent1 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('0');
+};
+
+export const AudiochallengeTextbookContent2 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('1');
+};
+
+export const AudiochallengeTextbookContent3 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('2');
+};
+
+export const AudiochallengeTextbookContent4 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('3');
+};
+
+export const AudiochallengeTextbookContent5 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('4');
+};
+
+export const AudiochallengeTextbookContent6 = async (): Promise<string> => {
+    console.log(storage.chapterCount);
+    return await contentAudiochallengeWithWrapper('5');
+};
+
+export const AudiochallengeCallback = () => {
     const answerAudioButtons = document.querySelectorAll('.answer-card__audio-btn') as NodeListOf<HTMLButtonElement>;
     const questionAudioButtons = document.querySelectorAll(
         '.question-card__audio-btn'
     ) as NodeListOf<HTMLButtonElement>;
+
+    setTimeout(() => {
+        const path = `http://localhost:45741/${questionAudioButtons[0].dataset.audiopath as string}`;
+        const audio = new Audio(path);
+        (audio as HTMLAudioElement).play();
+    }, 700);
+
+    const resultsObj: Record<string, string> = {};
+    const resultsElement = document.querySelector('.audiochallenge__results') as HTMLElement;
+
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
     const nextButtonLast = document.querySelector(
@@ -78,11 +140,22 @@ export const AudiochallengeCallback = () => {
                 carousel.style.transform = `translateX(-${shift}%)`;
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
+
+                if (Number(counter) < Number(AMOUNT_PAGES_AUDIOCHALLENGE)) {
+                    setTimeout(() => {
+                        if (targetButton.dataset.audiopath !== '') {
+                            const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
+                            const audio = new Audio(path);
+                            (audio as HTMLAudioElement).play();
+                        }
+                    }, 700);
+                }
             }
         })
     );
 
     nextButtonLast.addEventListener('click', function () {
         renderResultsPage(resultsElement, resultsObj);
+        console.log(resultsObj);
     });
 };
