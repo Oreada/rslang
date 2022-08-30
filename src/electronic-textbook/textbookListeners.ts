@@ -374,8 +374,10 @@ export function addSprintGameListener(): void {
   if (!target) {
     return;
   }
-
-  sprintStorage.gameSource = "textbook";
+  
+  target.addEventListener('click', () => {
+    sprintStorage.gameSource = "textbook";
+  });
 }
 
 export function listenersTextbook(): void {
@@ -390,4 +392,5 @@ export function listenersTextbook(): void {
   addLearnedDifficultWordListener();
   addRemoveDifficultWordListener();
   addStorageEvents();
+  addSprintGameListener();
 }

@@ -2,7 +2,7 @@ import { addEndSprintListener, addGameButtonListener, addSprintListener, addSpri
 import { renderSprint } from "../components/game-sprint/renderSprintGame";
 
 export const SprintContent = (): string => {
-    return renderSprint();
+  return renderSprint();
 };
 
 export const SprintCallback = async () => {

@@ -22,5 +22,6 @@ export const sprintStorage: ISprintStorage = {
   bestScore: 0,
   scoreDecrease: SPRINT_MIN_COEFFICIENT,
   gameSource: "menu",
-  currentPageWords: null
+  currentPageWords: null,
+  gameResult: {}
 }

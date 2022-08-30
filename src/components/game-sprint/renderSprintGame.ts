@@ -20,6 +20,7 @@ export function renderUsualSprintResult(): string {
     <button class="sprint-result-button">
       Закрыть
     </button>
+    <div class="sprint-result-statistic"></div>
   </div>`;
 
   return str;
@@ -36,6 +37,7 @@ export function renderBestSprintResult(): string {
     <button class="sprint-result-button">
       Закрыть
     </button>
+    <div class="sprint-result-statistic"></div>
   </div>`;
 
   return str;
