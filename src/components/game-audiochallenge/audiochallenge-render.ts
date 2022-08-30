@@ -14,7 +14,7 @@ console.log('audiochallenge loaded');
 
 export function playWordAudioForGame(event: Event) {
     console.log('audio works!');
-    const targetButton = event.target as HTMLButtonElement;
+    const targetButton = event.currentTarget as HTMLButtonElement;
     if (
         targetButton.classList.contains('answer-card__audio-btn') ||
         targetButton.classList.contains('question-card__audio-btn') ||
@@ -62,7 +62,8 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct.audio,
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
-            counter
+            counter,
+            counter < 10 ? cardsForGame[i + 1].correct.audio : ''
         );
 
         allAudiochallengeCards += page;
@@ -89,7 +90,22 @@ function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string
                 <img src="${BASE_API}/${wordImagePath}" alt="Image" class="answer-card__image">
             </div>
             <div class="answer-card__value">
-                <button class="answer-card__audio-btn" data-audiopath="${wordAudioPath}">ЗВУК</button>
+                <button class="answer-card__audio-btn" data-audiopath="${wordAudioPath}">
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                    <circle style="fill:#38454F;" cx="29" cy="29" r="29"/>
+                    <path style="fill:#7383BF;" d="M16.427,20H8.104C6.942,20,6,20.942,6,22.104v12.793C6,36.058,6.942,37,8.104,37h8.323
+                        c0.375,0,0.743,0.1,1.067,0.29L30.83,49.706C32.232,50.531,34,49.52,34,47.893V9.107c0-1.627-1.768-2.638-3.17-1.813L17.494,19.71
+                        C17.17,19.9,16.802,20,16.427,20z"/>
+                    <path style="fill:#EFCE4A;" d="M41.541,42.042c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414
+                        c6.238-6.238,6.238-16.39,0-22.628c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0c7.018,7.019,7.018,18.438,0,25.456
+                        C42.052,41.944,41.796,42.042,41.541,42.042z"/>
+                    <path style="fill:#EFCE4A;" d="M38,38c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414
+                        c4.297-4.297,4.297-11.289,0-15.586c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0c5.077,5.077,5.077,13.337,0,18.414
+                        C38.512,37.902,38.256,38,38,38z"/>
+                    </svg>
+                </button>
                 <div class="answer-card__text">${wordEnglish}</div>
             </div>`;
 }
@@ -113,13 +129,29 @@ function drawAudiochallengePage(
     wordAudioPath: string,
     idCorrectWord: string,
     optionsList: Array<Record<string, string>>,
-    counter: number
+    counter: number,
+    wordAudioPathForVoicing: string
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
                     <div class="audiochallenge__top-ac top-ac">
                         <div class="top-ac__question-card question-card _active" data-idcorrect="${idCorrectWord}">
-                            <button class="question-card__audio-btn" data-audiopath="${wordAudioPath}">ЗВУК</button>
+                            <button class="question-card__audio-btn" data-audiopath="${wordAudioPath}">
+                                <?xml version="1.0" encoding="iso-8859-1"?>
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                                <circle style="fill:#38454F;" cx="29" cy="29" r="29"/>
+                                <path style="fill:#7383BF;" d="M16.427,20H8.104C6.942,20,6,20.942,6,22.104v12.793C6,36.058,6.942,37,8.104,37h8.323
+                                    c0.375,0,0.743,0.1,1.067,0.29L30.83,49.706C32.232,50.531,34,49.52,34,47.893V9.107c0-1.627-1.768-2.638-3.17-1.813L17.494,19.71
+                                    C17.17,19.9,16.802,20,16.427,20z"/>
+                                <path style="fill:#EFCE4A;" d="M41.541,42.042c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414
+                                    c6.238-6.238,6.238-16.39,0-22.628c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0c7.018,7.019,7.018,18.438,0,25.456
+                                    C42.052,41.944,41.796,42.042,41.541,42.042z"/>
+                                <path style="fill:#EFCE4A;" d="M38,38c-0.256,0-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414
+                                    c4.297-4.297,4.297-11.289,0-15.586c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0c5.077,5.077,5.077,13.337,0,18.414
+                                    C38.512,37.902,38.256,38,38,38z"/>
+                                </svg>
+                            </button>
                         </div>
                         <div class="top-ac__answer-card answer-card" data-idcorrect="${idCorrectWord}">
                         ${drawAudiochallengeAnswerCard(wordImagePath, wordEnglish, wordAudioPath)}
@@ -129,7 +161,8 @@ function drawAudiochallengePage(
                         ${drawAudiochallengeList(optionsList, idCorrectWord)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}" disabled>СЛЕДУЮЩЕЕ СЛОВО</button>
+                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}"
+                                            data-audiopath="${wordAudioPathForVoicing}" disabled>следующее слово</button>
                     </div>
                 </div>
             </div>`;

@@ -66,13 +66,20 @@ export const AudiochallengeTextbookContent6 = async (): Promise<string> => {
 };
 
 export const AudiochallengeCallback = () => {
-    const resultsObj: Record<string, string> = {};
-    const resultsElement = document.querySelector('.audiochallenge__results') as HTMLElement;
-
     const answerAudioButtons = document.querySelectorAll('.answer-card__audio-btn') as NodeListOf<HTMLButtonElement>;
     const questionAudioButtons = document.querySelectorAll(
         '.question-card__audio-btn'
     ) as NodeListOf<HTMLButtonElement>;
+
+    setTimeout(() => {
+        const path = `http://localhost:45741/${questionAudioButtons[0].dataset.audiopath as string}`;
+        const audio = new Audio(path);
+        (audio as HTMLAudioElement).play();
+    }, 700);
+
+    const resultsObj: Record<string, string> = {};
+    const resultsElement = document.querySelector('.audiochallenge__results') as HTMLElement;
+
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
     const nextButtonLast = document.querySelector(
@@ -133,6 +140,16 @@ export const AudiochallengeCallback = () => {
                 carousel.style.transform = `translateX(-${shift}%)`;
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
+
+                if (Number(counter) < Number(AMOUNT_PAGES_AUDIOCHALLENGE)) {
+                    setTimeout(() => {
+                        if (targetButton.dataset.audiopath !== '') {
+                            const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
+                            const audio = new Audio(path);
+                            (audio as HTMLAudioElement).play();
+                        }
+                    }, 700);
+                }
             }
         })
     );
