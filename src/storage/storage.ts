@@ -12,7 +12,19 @@ export const listenReload = () => {
     window.addEventListener('unload', () => {
         localStorage.setItem(STORAGE_IN_LOCAL_STORAGE, JSON.stringify(storage));
     });
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedStorage = getStorage() as IStorage;
+      if (!savedStorage) {
+        return;
+      }
+      console.log('storage');
+      storage.chapterCount = savedStorage.chapterCount;
+      storage.pageCount = savedStorage.pageCount;
+      // sprintStorage.currentChapter = savedStorage.chapterCount;
+      // sprintStorage.currentPage = savedStorage.pageCount;
+  });
 };
+listenReload();
 
 // возвращает копию storage в виде IStorage
 export const getStorage = () => {

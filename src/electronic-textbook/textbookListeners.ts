@@ -1,4 +1,5 @@
 import {deleteUserWord, getUserAggregatedWordsFiltered, getWords} from "../components/api/api";
+import { updateTextbookGameLinks } from "../components/game-sprint/gameSprintFunctions";
 import { addUserWord } from "../general-functions/userWord";
 import { sprintStorage, storage } from "../storage/storage";
 import { IAuthorizationResult, IStorage, IUserWordsAggregated, IWord, IWordUser, IWordWithDifficulty } from "../types/types";
@@ -87,6 +88,7 @@ async function groupEventHandler(item: HTMLElement): Promise<void> {
       console.log(storage.chapterCount, storage.pageCount, 'change chapter');
       updatePageCounter();
       updatePagButtonState();
+      updateTextbookGameLinks();
 }
 
 async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
@@ -125,6 +127,7 @@ async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
       console.log(storage.chapterCount, storage.pageCount, 'change chapter');
       updatePageCounter();
       updatePagButtonState();
+      updateTextbookGameLinks();
       await updatePageState();
       checkLearningPage();
 }

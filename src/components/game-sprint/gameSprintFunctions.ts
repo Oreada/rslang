@@ -42,6 +42,7 @@ export function sprintTimer() {
     if (timerLimit <= 0) {
       clearInterval(sprintTimer as NodeJS.Timer);
         showSprintResult();
+        sprintStorage.gameResult = {};
       return;
     }
 
@@ -211,4 +212,17 @@ export async function getStartSprintWords() {
     console.log('2')
     await getSprintWordsFromPage();
   }
+}
+
+export function updateTextbookGameLinks() {
+  const sprintButton = document.querySelector('.sprint-game-btn .textbook__game-link') as HTMLElement;
+  const audioChallengeButton = document.querySelector('.audio-game-btn .textbook__game-link') as HTMLElement;
+  if (!sprintButton || !audioChallengeButton) {
+    return;
+  }
+  console.log(sprintButton, audioChallengeButton)
+  sprintButton.dataset.rout = `/textbook/sprint/${Number(storage.chapterCount) + 1}`;
+  audioChallengeButton.dataset.rout = `/textbook/audiochallenge/${Number(storage.chapterCount) + 1}`;
+
+  console.log(document.querySelector('.sprint-game-btn') as HTMLElement)
 }
