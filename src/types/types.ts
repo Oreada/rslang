@@ -49,10 +49,14 @@ export interface ITokens {
 // export type TOptionsForWordUser = Record<string, unknown>;
 
 export interface IOptionsForWordUser {
-    counterAudiochallengeCorrect: number;
-    counterAudiochallengeIncorrect: number;
-    counterSprintCorrect: number;
-    counterSprintIncorrect: number;
+    totalCorrectAudiochallenge: number;
+    totalIncorrectAudiochallenge: number;
+    totalCorrectSprint: number;
+    totalIncorrectSprint: number;
+    consecutiveCorrectAudiochallenge: number;
+    consecutiveIncorrectAudiochallenge: number;
+    consecutiveCorrectSprint: number;
+    consecutiveIncorrectSprint: number;
 }
 
 export interface IWordUser {

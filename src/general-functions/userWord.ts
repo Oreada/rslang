@@ -38,10 +38,14 @@ export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {
             difficulty: difficulty,
             optional: {
                 //! дописала в соответствии с новой типизацией
-                counterAudiochallengeCorrect: 0,
-                counterAudiochallengeIncorrect: 0,
-                counterSprintCorrect: 0,
-                counterSprintIncorrect: 0,
+                totalCorrectAudiochallenge: 0,
+                totalIncorrectAudiochallenge: 0,
+                totalCorrectSprint: 0,
+                totalIncorrectSprint: 0,
+                consecutiveCorrectAudiochallenge: 0,
+                consecutiveIncorrectAudiochallenge: 0,
+                consecutiveCorrectSprint: 0,
+                consecutiveIncorrectSprint: 0,
             },
         },
         userToken
