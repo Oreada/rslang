@@ -65,7 +65,7 @@ export interface IWordUser {
 }
 
 export interface IUserWordCard {
-    id: string; //! не поняла, что это за id - ?
+    id: string; //! идентификатор записи - мы им не пользуемся
     difficulty: 'easy' | 'hard' | 'new';
     optional: IOptionsForWordUser;
     wordId: string;
