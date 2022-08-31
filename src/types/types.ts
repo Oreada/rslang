@@ -142,12 +142,16 @@ export interface ICardAudiochallenge {
 
 export interface ISprintStorage {
     currentChapter: string;
-    originWord: null | IWord;
-    translateWord: null | IWord;
+    currentPage: string,
+    originWord: null | IWord | _IWord;
+    translateWord: null | IWord | _IWord;
     level: number;
     levelProgress: number;
     levelProgressBar: number;
     currentScore: number;
     bestScore: number;
     scoreDecrease: number;
+    gameSource: "menu" | "textbook";
+    currentPageWords: Array<_IWord> | null;
+    gameResult: Record<string, string>;
 }

@@ -11,6 +11,7 @@ export async function updateTextbook(group: string, page: string) {
   storage.currentPage = words;
   storage.chapterCount = group;
   storage.pageCount = page;
+  sprintStorage.currentPage = storage.pageCount;
 }
 
 export async function updatePageState() {
@@ -62,10 +63,11 @@ export async function startTextbook() {
     const res = await getWords(storage.chapterCount, storage.pageCount);
     storage.currentPage = res;
     sprintStorage.currentChapter = storage.chapterCount;
+    sprintStorage.currentPage = storage.pageCount;
 
     container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
     footer.classList.remove('hidden');
-    console.log(storage.chapterCount, storage.pageCount, 'change chapter');
+    // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
     updatePageCounter();
     updatePagButtonState();
     await updatePageState();
@@ -76,15 +78,17 @@ export async function startTextbook() {
   if (storage.chapterCount === 'difficult') {
     storage.chapterCount = '0';
     sprintStorage.currentChapter = storage.chapterCount;
+    sprintStorage.currentPage = storage.pageCount;
   }
 
   const res = await getWords(storage.chapterCount, storage.pageCount);
   storage.currentPage = res;
   sprintStorage.currentChapter = storage.chapterCount;
+  sprintStorage.currentPage = storage.pageCount;
 
   container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
   footer.classList.remove('hidden');
-  console.log(storage.chapterCount, storage.pageCount, 'change chapter');
+  // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
   updatePageCounter();
   updatePagButtonState();
 }
@@ -110,7 +114,7 @@ export function checkLearningPage() {
     }
   })
 
-  console.log(difficultCount, learningCount, 'd', 'l')
+  // console.log(difficultCount, learningCount, 'd', 'l')
 
   if (learningCount > 0 && learningCount + difficultCount === WORDS_PER_PAGE) {
     container.classList.add('learned-page');

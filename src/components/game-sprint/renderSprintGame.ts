@@ -20,6 +20,7 @@ export function renderUsualSprintResult(): string {
     <button class="sprint-result-button">
       Закрыть
     </button>
+    <div class="sprint-result-statistic"></div>
   </div>`;
 
   return str;
@@ -36,6 +37,7 @@ export function renderBestSprintResult(): string {
     <button class="sprint-result-button">
       Закрыть
     </button>
+    <div class="sprint-result-statistic"></div>
   </div>`;
 
   return str;
@@ -82,14 +84,6 @@ export function renderSprint(): string {
     <div class="sprint-start">
       <div class="sprint-text">Текст про спринт</div>
       <button class="sprint-start-button">Начать спринт</button>
-      <select class="sprint-select">
-        <option class="sprint-group-option" value="0">0</option>
-        <option class="sprint-group-option" value="1">1</option>
-        <option class="sprint-group-option" value="2">2</option>
-        <option class="sprint-group-option" value="3">3</option>
-        <option class="sprint-group-option" value="4">4</option>
-        <option class="sprint-group-option" value="5">5</option>
-      </select>
     </div>
     <div class="sprint-result-container hidden"></div>
     <div class="sprint-game-container hidden">

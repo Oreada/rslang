@@ -1,17 +1,21 @@
 import { sprintStorage } from "../../storage/storage";
-import { IWord } from "../../types/types";
-import { getSprintWords, resetSprintProgress, sprintTimer, updateSprintProgressRender, updateSprintProgressState } from "./gameSprintFunctions";
+import { IWord, _IWord } from "../../types/types";
+import { getPageForSprint, getSprintWords, getSprintWordsFromPage, getStartSprintWords, resetSprintProgress, sprintTimer, updateSprintProgressRender, updateSprintProgressState } from "./gameSprintFunctions";
 import { renderSprintGame } from "./renderSprintGame";
 
 export function addStartSprintListener() {
   const target = document.querySelector('.sprint-start-button') as HTMLButtonElement;
   const start = document.querySelector('.sprint-start') as HTMLButtonElement;
   const game = document.querySelector('.sprint-game-container') as HTMLElement;
-  if (!target || !game || !start) {
+  const gameMain = document.querySelector('.sprint-main') as HTMLElement;
+  if (!target || !game || !start || !gameMain) {
     return;
   }
 
-  target.addEventListener('click', () => {
+  target.addEventListener('click', async () => {
+    await getPageForSprint();
+    await getSprintWordsFromPage();
+    gameMain.innerHTML = renderSprintGame();
     sprintTimer();
     game.classList.remove('hidden');
     start.classList.add('hidden')
@@ -40,16 +44,25 @@ export function addGameButtonListener() {
   target.forEach((item) => {
     item.addEventListener('click', async () => {
 
-      const isCorrect: string = ((sprintStorage.originWord as IWord).id === (sprintStorage.translateWord as IWord).id).toString();
+      const id1 = (sprintStorage.originWord as _IWord)._id;
+      const id2 = (sprintStorage.translateWord as _IWord)._id;
+
+      const isCorrect: string = (id1 === id2).toString();
   
       if (isCorrect === item.dataset.correctly) {
         sprintStorage.currentScore += sprintStorage.scoreDecrease;
         sprintStorage.levelProgress += 1;
+        sprintStorage.gameResult[id1] = 'correct';
       } else {
         resetSprintProgress();
+        sprintStorage.gameResult[id1] = 'incorrect';
       }
 
-      await getSprintWords();
+      await getSprintWordsFromPage();
+
+      console.log(sprintStorage.gameSource);
+      console.log(sprintStorage.originWord?.word, sprintStorage.translateWord?.word, sprintStorage.currentPageWords?.length)
+
       updateSprintProgressState();
 
       game.innerHTML = renderSprintGame();
@@ -82,6 +95,7 @@ export function addSprintOptionListener() {
   target.forEach((item) => {
     item.addEventListener('click', () => {
       sprintStorage.currentChapter = item.value;
+      sprintStorage.currentPage = '0';
     })
   })
 }

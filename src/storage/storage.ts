@@ -12,7 +12,19 @@ export const listenReload = () => {
     window.addEventListener('unload', () => {
         localStorage.setItem(STORAGE_IN_LOCAL_STORAGE, JSON.stringify(storage));
     });
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedStorage = getStorage() as IStorage;
+      if (!savedStorage) {
+        return;
+      }
+      console.log('storage');
+      storage.chapterCount = savedStorage.chapterCount;
+      storage.pageCount = savedStorage.pageCount;
+      // sprintStorage.currentChapter = savedStorage.chapterCount;
+      // sprintStorage.currentPage = savedStorage.pageCount;
+  });
 };
+listenReload();
 
 // возвращает копию storage в виде IStorage
 export const getStorage = () => {
@@ -28,7 +40,8 @@ export const storage: IStorage = {
 
 export const sprintStorage: ISprintStorage = {
     currentChapter: '0',
-    originWord: await getWordById(await getRandomIdWord('0')),
+    currentPage: '0',
+  originWord: await getWordById(await getRandomIdWord('0')),
     translateWord: await getWordById(await getRandomIdWord('0')),
     level: 0,
     levelProgress: 0,
@@ -36,4 +49,7 @@ export const sprintStorage: ISprintStorage = {
     currentScore: 0,
     bestScore: 0,
     scoreDecrease: SPRINT_MIN_COEFFICIENT,
+  gameSource: "menu",
+  currentPageWords: null,
+  gameResult: {},
 };
