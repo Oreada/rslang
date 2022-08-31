@@ -6,6 +6,11 @@ import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
 import { renderResultsPage } from '../components/games-results-of-games/games-results';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 import { storage } from '../storage/storage';
+import { getAllUserWords, getUserWord, createUserWord, updateUserWord } from '../components/api/api';
+import { IUserWordCard } from '../types/types';
+import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
+import { LOCAL_STORAGE_DATA } from '../constants/constants';
+import { renderAndProcessAudiochallenge } from '../components/games-results-of-games/wrapper-audiochallenge-results';
 
 export const AudiochallengeContent = (): string => {
     return drawGroupSelectionPage('audiochallenge');
@@ -155,7 +160,79 @@ export const AudiochallengeCallback = () => {
     );
 
     nextButtonLast.addEventListener('click', function () {
-        renderResultsPage(resultsElement, resultsObj);
+        renderAndProcessAudiochallenge(resultsElement, resultsObj);
+        // renderResultsPage(resultsElement, resultsObj);
         console.log(resultsObj);
     });
 };
+
+//! ================================================================================
+
+// for await (const word of tempAllUserWords as Array<IUserWordCard>) {
+//     await updateUserWord(
+//         '62fe0020d755e24640edaabd',
+//         word.wordId,
+//         {
+//             difficulty: word.difficulty,
+//             optional: {
+//                 totalCorrectAudiochallenge: 0,
+//                 totalIncorrectAudiochallenge: 0,
+//                 totalCorrectSprint: 0,
+//                 totalIncorrectSprint: 0,
+//                 consecutiveCorrectAudiochallenge: 0,
+//                 consecutiveIncorrectAudiochallenge: 0,
+//                 consecutiveCorrectSprint: 0,
+//                 consecutiveIncorrectSprint: 0,
+//                 consecutiveCorrectAll: 0,
+//                 consecutiveIncorrectAll: 0,
+//             },
+//         },
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTkzMjg0OSwiZXhwIjoxNjYxOTQ3MjQ5fQ.AgPQVVFakGNuH-QFOPc1PqKotAItOd5F6HPvQ8zcU8I'
+//     );
+// }
+
+// const testUserWord = await getUserWord(
+//     '62fe0020d755e24640edaabd',
+//     '5e9f5ee35eb9e72bc21af6b9',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTg5MDU3OSwiZXhwIjoxNjYxOTA0OTc5fQ.Am7xRo5zuhQF4TzMTryEEWHocOmZIOShCZKTJDd-tIs'
+// );
+
+// console.log(testUserWord);
+
+const resultsEntries = [
+    ['5e9f5ee35eb9e72bc21af9cd', 'correct'],
+    ['5e9f5ee35eb9e72bc21af9d3', 'incorrect'],
+    ['5e9f5ee35eb9e72bc21af647', 'correct'],
+    // ['5e9f5ee35eb9e72bc21af8ba', 'correct'],
+    // ['5e9f5ee35eb9e72bc21af8b4', 'incorrect'],
+    // ['5e9f5ee35eb9e72bc21af745', 'incorrect'],
+    // ['5e9f5ee35eb9e72bc21af814', 'incorrect'],
+    // ['5e9f5ee35eb9e72bc21af908', 'incorrect'],
+    // ['5e9f5ee35eb9e72bc21af7f1', 'correct'],
+    // ['5e9f5ee35eb9e72bc21af920', 'incorrect'],
+    // ['5e9f5ee35eb9e72bc21af769', 'correct'],
+];
+
+// console.log(
+//     await processAudiochallengeResults(
+//         '62fe0020d755e24640edaabd',
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTkzMTQ1NiwiZXhwIjoxNjYxOTQ1ODU2fQ.99t8rMgxdsH52QrFc_Tlbim2ImF7TmyMHS2MbRHQYz0',
+//         resultsEntries
+//     )
+// );
+
+const tempAllUserWords = await getAllUserWords(
+    '62fe0020d755e24640edaabd',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTkzMjg0OSwiZXhwIjoxNjYxOTQ3MjQ5fQ.AgPQVVFakGNuH-QFOPc1PqKotAItOd5F6HPvQ8zcU8I'
+);
+
+console.log(tempAllUserWords);
+
+const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
+if (isAuthorized) {
+    const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
+    const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
+    console.log('userId =', userId, 'userToken =', userToken);
+} else {
+    console.log('Пользователь не авторизован');
+}

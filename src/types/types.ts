@@ -45,18 +45,32 @@ export interface ITokens {
     refreshToken: string;
 }
 
-//! временно такой тип, т.к. мы не знаем, какие опции слова нам будут нужны
-export type TOptionsForWordUser = Record<string, unknown>;
+// //! временно такой тип, т.к. мы не знаем, какие опции слова нам будут нужны
+// export type TOptionsForWordUser = Record<string, unknown>;
+
+//* TODO: разобраться, нужны ли поля consecutiveCorrect/consecutiveIncorrect по каждой игре отдельно
+export interface IOptionsForWordUser {
+    totalCorrectAudiochallenge: number;
+    totalIncorrectAudiochallenge: number;
+    totalCorrectSprint: number;
+    totalIncorrectSprint: number;
+    consecutiveCorrectAudiochallenge: number;
+    consecutiveIncorrectAudiochallenge: number;
+    consecutiveCorrectSprint: number;
+    consecutiveIncorrectSprint: number;
+    consecutiveCorrectAll: number;
+    consecutiveIncorrectAll: number;
+}
 
 export interface IWordUser {
-    difficulty: 'easy' | 'hard';
-    optional: TOptionsForWordUser;
+    difficulty: 'easy' | 'hard' | 'new';
+    optional: IOptionsForWordUser;
 }
 
 export interface IUserWordCard {
-    id: string;
-    difficulty: 'easy' | 'hard';
-    optional: TOptionsForWordUser;
+    id: string; //! идентификатор записи - мы им не пользуемся
+    difficulty: 'easy' | 'hard' | 'new';
+    optional: IOptionsForWordUser;
     wordId: string;
 }
 

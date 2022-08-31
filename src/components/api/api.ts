@@ -194,7 +194,7 @@ export async function getAllUserWords(id: string, token: string): Promise<Array<
         const wordsUser = await response.json();
         return wordsUser;
     } catch (error) {
-        if (response.status === 402) {
+        if (response.status === 401) {
             console.log('Access token is missing or invalid');
         } else {
             console.log('Some error');
