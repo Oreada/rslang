@@ -9,7 +9,7 @@ export async function processAudiochallengeResults(
         const word = await getUserWord(idUser, pair[0], tokenUser);
 
         if (word === undefined) {
-            console.log('Создание нового слова пользователя');
+            console.log('Создание нового слова пользователя (Audiochallenge)');
             await createUserWord(
                 idUser,
                 pair[0],
@@ -29,7 +29,7 @@ export async function processAudiochallengeResults(
                 tokenUser
             );
         } else {
-            console.log('Изменение слова пользователя');
+            console.log('Изменение слова пользователя (Audiochallenge)');
 
             const oldTotalCorrect = word.optional.totalCorrectAudiochallenge;
             const oldTotalIncorrect = word.optional.totalIncorrectAudiochallenge;
