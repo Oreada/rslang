@@ -187,9 +187,12 @@ const onNavigate = async (pathname: routesKey) => {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.textbook__game-link');
         groupLinks.forEach((link) => {
             link.addEventListener('click', (e) => {
-                const rout = link.dataset.rout as routesKey;
                 e.preventDefault();
-                onNavigate(rout);
+                const buttonGame = document.querySelector('.audio-game-btn') as HTMLButtonElement;
+                if (!buttonGame.disabled) {
+                    const rout = link.dataset.rout as routesKey;
+                    onNavigate(rout);
+                }
             });
         });
     }
