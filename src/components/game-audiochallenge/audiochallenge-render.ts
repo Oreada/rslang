@@ -9,6 +9,7 @@ import {
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
 import { IWord } from '../../types/types';
+import { Modal } from '../modalWindow/modal';
 
 console.log('audiochallenge loaded');
 
@@ -73,14 +74,15 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
 }
 
 export async function contentAudiochallengeWithWrapper(group: string) {
-    return `<div class="audiochallenge__slider">
-                <div class="audiochallenge__row">
-                    ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
-                    <div class="audiochallenge__results results">
+    const content = `<div class="audiochallenge__slider">
+        <div class="audiochallenge__row">
+            ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
+            <div class="audiochallenge__results results">
 
-                    </div>
-                </div>
-            </div>`;
+            </div>
+        </div>
+    </div>`;
+    return Modal(content);
 }
 
 //! =====================================================================================================================
