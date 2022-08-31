@@ -137,8 +137,8 @@ listenAuth();
 
 const links: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link');
 links.forEach((link) => {
-    const rout = link.dataset.rout as routesKey;
     link.addEventListener('click', (e) => {
+        const rout = link.dataset.rout as routesKey;
         e.preventDefault();
         onNavigate(rout);
     });
@@ -152,8 +152,8 @@ const onNavigate = async (pathname: routesKey) => {
     if (pathname === '/games') {
         const gameLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.game');
         gameLinks.forEach((link) => {
-            const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
+                const rout = link.dataset.rout as routesKey;
                 e.preventDefault();
                 onNavigate(rout);
             });
@@ -164,8 +164,8 @@ const onNavigate = async (pathname: routesKey) => {
             '.nav__link.group-selection__link-audiochallenge'
         );
         groupLinks.forEach((link) => {
-            const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
+                const rout = link.dataset.rout as routesKey;
                 e.preventDefault();
                 onNavigate(rout);
             });
@@ -176,8 +176,8 @@ const onNavigate = async (pathname: routesKey) => {
             '.nav__link.group-selection__link-sprint'
         );
         groupLinks.forEach((link) => {
-            const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
+                const rout = link.dataset.rout as routesKey;
                 e.preventDefault();
                 onNavigate(rout);
             });
@@ -186,8 +186,8 @@ const onNavigate = async (pathname: routesKey) => {
     if (pathname === '/textbook') {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.textbook__game-link');
         groupLinks.forEach((link) => {
-            const rout = link.dataset.rout as routesKey;
             link.addEventListener('click', (e) => {
+                const rout = link.dataset.rout as routesKey;
                 e.preventDefault();
                 onNavigate(rout);
             });
