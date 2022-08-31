@@ -223,7 +223,7 @@ const resultsEntries = [
 
 const tempAllUserWords = await getAllUserWords(
     '62fe0020d755e24640edaabd',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTkzMjg0OSwiZXhwIjoxNjYxOTQ3MjQ5fQ.AgPQVVFakGNuH-QFOPc1PqKotAItOd5F6HPvQ8zcU8I'
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
 );
 
 console.log(tempAllUserWords);
