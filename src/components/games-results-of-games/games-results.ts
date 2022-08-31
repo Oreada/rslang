@@ -1,6 +1,6 @@
 import { getWordById } from '../api/api';
 import { playWordAudioForGame } from '../game-audiochallenge/audiochallenge-render';
-import { processAudiochallengeResults } from './process-games-results';
+import { processAudiochallengeResults } from './process-audiochallenge-results';
 import { LOCAL_STORAGE_DATA } from '../../constants/constants';
 
 //! draw results of game
