@@ -48,6 +48,7 @@ export interface ITokens {
 // //! временно такой тип, т.к. мы не знаем, какие опции слова нам будут нужны
 // export type TOptionsForWordUser = Record<string, unknown>;
 
+//* TODO: разобраться, нужны ли поля consecutiveCorrect/consecutiveIncorrect по каждой игре отдельно
 export interface IOptionsForWordUser {
     totalCorrectAudiochallenge: number;
     totalIncorrectAudiochallenge: number;
@@ -57,6 +58,8 @@ export interface IOptionsForWordUser {
     consecutiveIncorrectAudiochallenge: number;
     consecutiveCorrectSprint: number;
     consecutiveIncorrectSprint: number;
+    consecutiveCorrectAll: number;
+    consecutiveIncorrectAll: number;
 }
 
 export interface IWordUser {

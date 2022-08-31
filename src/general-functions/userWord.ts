@@ -46,6 +46,8 @@ export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {
                 consecutiveIncorrectAudiochallenge: 0,
                 consecutiveCorrectSprint: 0,
                 consecutiveIncorrectSprint: 0,
+                consecutiveCorrectAll: 0,
+                consecutiveIncorrectAll: 0,
             },
         },
         userToken
