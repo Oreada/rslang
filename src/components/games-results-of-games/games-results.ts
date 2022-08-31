@@ -1,7 +1,5 @@
 import { getWordById } from '../api/api';
 import { playWordAudioForGame } from '../game-audiochallenge/audiochallenge-render';
-import { processAudiochallengeResults } from './process-audiochallenge-results';
-import { LOCAL_STORAGE_DATA } from '../../constants/constants';
 
 //! draw results of game
 //! параметр "gameResults" - это обязательно объект вида: ключ - id загаданного слова, значение - строка 'correct' или 'incorrect'
@@ -83,15 +81,4 @@ export async function renderResultsPage(container: HTMLElement, gameResults: Rec
 
     const audioButtonsResults = document.querySelectorAll('.audiobutton-results') as NodeListOf<HTMLButtonElement>;
     audioButtonsResults.forEach((button: HTMLButtonElement) => button.addEventListener('click', playWordAudioForGame));
-
-    const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
-    if (isAuthorized) {
-        const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
-        const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
-        console.log('userId in game =', userId, 'userToken in game =', userToken);
-
-        await processAudiochallengeResults(userId, userToken, entries);
-    } else {
-        console.log('Пользователь не авторизован, результаты игры не сохранятся');
-    }
 }
