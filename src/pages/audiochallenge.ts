@@ -1,8 +1,9 @@
 import {
     playWordAudioForGame,
     contentAudiochallengeWithWrapper,
+    contentAudiochallengeWithWrapperTextbook,
 } from '../components/game-audiochallenge/audiochallenge-render';
-import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
+import { AMOUNT_CARDS_AUDIOCHALLENGE } from '../constants/constants';
 import { renderResultsPage } from '../components/games-results-of-games/games-results';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 import { storage } from '../storage/storage';
@@ -42,32 +43,32 @@ export const AudiochallengeContent6 = async (): Promise<string> => {
 
 export const AudiochallengeTextbookContent1 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('0');
+    return await contentAudiochallengeWithWrapperTextbook('0', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent2 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('1');
+    return await contentAudiochallengeWithWrapperTextbook('1', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent3 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('2');
+    return await contentAudiochallengeWithWrapperTextbook('2', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent4 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('3');
+    return await contentAudiochallengeWithWrapperTextbook('3', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent5 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('4');
+    return await contentAudiochallengeWithWrapperTextbook('4', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent6 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('5');
+    return await contentAudiochallengeWithWrapperTextbook('5', storage.pageCount);
 };
 
 export const AudiochallengeCallback = () => {
@@ -88,7 +89,7 @@ export const AudiochallengeCallback = () => {
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
     const nextButtonLast = document.querySelector(
-        `.bottom-ac__next-btn[data-counter="${AMOUNT_PAGES_AUDIOCHALLENGE}"]`
+        `.bottom-ac__next-btn[data-counter="${AMOUNT_CARDS_AUDIOCHALLENGE}"]`
     ) as HTMLButtonElement;
 
     const inputsOptions = document.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
@@ -146,7 +147,7 @@ export const AudiochallengeCallback = () => {
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
 
-                if (Number(counter) < Number(AMOUNT_PAGES_AUDIOCHALLENGE)) {
+                if (Number(counter) < Number(AMOUNT_CARDS_AUDIOCHALLENGE)) {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
                             const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
@@ -221,12 +222,12 @@ const resultsEntries = [
 //     )
 // );
 
-const tempAllUserWords = await getAllUserWords(
-    '62fe0020d755e24640edaabd',
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
-);
+// const tempAllUserWords = await getAllUserWords(
+//     '62fe0020d755e24640edaabd',
+//     JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
+// );
 
-console.log(tempAllUserWords);
+// console.log(tempAllUserWords);
 
 const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
 if (isAuthorized) {

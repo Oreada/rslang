@@ -1,4 +1,10 @@
-import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
+import {
+    BASE_API,
+    AMOUNT_CARDS_AUDIOCHALLENGE,
+    NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
+    LOCAL_STORAGE_DATA,
+    AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
+} from '../../constants/constants';
 import { getWordById, createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
 import {
     getRandomWords,
@@ -8,7 +14,7 @@ import {
 } from '../api/api-games';
 import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
-import { IWord } from '../../types/types';
+import { ICardAudiochallenge, IWord } from '../../types/types';
 
 console.log('audiochallenge loaded');
 
@@ -32,11 +38,32 @@ export function playWordAudioForGame(event: Event) {
 // console.log(await getRandomWords('1', '3'));
 // console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
 
-export async function renderAudiochallenge(amountCards: string, group: string, num: string): Promise<string> {
+export async function renderAudiochallengeTextbook(
+    amountCards: string,
+    group: string,
+    num: string,
+    page = '-1'
+): Promise<string> {
     let counter = 0;
     let allAudiochallengeCards = ``;
 
-    const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num);
+    const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
+    let cardsForGame;
+    if (isAuthorized) {
+        const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
+        const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
+        cardsForGame = (await getRandomCardsAudiochallengeWithExcluded(
+            userId,
+            userToken,
+            'easy',
+            amountCards,
+            group,
+            num,
+            page
+        )) as ICardAudiochallenge[];
+    } else {
+        cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num, page);
+    }
 
     for (let i = 0; i < cardsForGame.length; i += 1) {
         counter += 1;
@@ -63,7 +90,7 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
             counter,
-            counter < 10 ? cardsForGame[i + 1].correct.audio : ''
+            counter < Number(AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK) ? cardsForGame[i + 1].correct.audio : ''
         );
 
         allAudiochallengeCards += page;
@@ -72,10 +99,76 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
     return allAudiochallengeCards;
 }
 
-export async function contentAudiochallengeWithWrapper(group: string) {
+export async function renderAudiochallenge(
+    amountCards: string,
+    group: string,
+    num: string,
+    page = '-1'
+): Promise<string> {
+    let counter = 0;
+    let allAudiochallengeCards = ``;
+
+    const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num, page);
+
+    for (let i = 0; i < cardsForGame.length; i += 1) {
+        counter += 1;
+
+        const optionsAudiochallenge = [];
+        optionsAudiochallenge.push({
+            wordRussian: cardsForGame[i].correct.wordTranslate,
+            idWord: cardsForGame[i].correct._id,
+        });
+
+        for (let j = 0; j < Number(num) - 1; j += 1) {
+            optionsAudiochallenge.push({
+                wordRussian: cardsForGame[i].incorrect[j].wordTranslate,
+                idWord: cardsForGame[i].incorrect[j]._id,
+            });
+        }
+
+        shuffle(optionsAudiochallenge); //! перемешиваю объекты-опции, иначе правильный вариант всегда первый
+
+        const page = drawAudiochallengePage(
+            cardsForGame[i].correct.image,
+            cardsForGame[i].correct.word,
+            cardsForGame[i].correct.audio,
+            cardsForGame[i].correct._id,
+            optionsAudiochallenge,
+            counter,
+            counter < Number(AMOUNT_CARDS_AUDIOCHALLENGE) ? cardsForGame[i + 1].correct.audio : ''
+        );
+
+        allAudiochallengeCards += page;
+    }
+
+    return allAudiochallengeCards;
+}
+
+export async function contentAudiochallengeWithWrapperTextbook(group: string, page = '-1') {
     return `<div class="audiochallenge__slider">
                 <div class="audiochallenge__row">
-                    ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
+                    ${await renderAudiochallengeTextbook(
+        AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
+        group,
+        NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
+        page
+    )}
+                    <div class="audiochallenge__results results">
+
+                    </div>
+                </div>
+            </div>`;
+}
+
+export async function contentAudiochallengeWithWrapper(group: string, page = '-1') {
+    return `<div class="audiochallenge__slider">
+                <div class="audiochallenge__row">
+                    ${await renderAudiochallenge(
+        AMOUNT_CARDS_AUDIOCHALLENGE,
+        group,
+        NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
+        page
+    )}
                     <div class="audiochallenge__results results">
 
                     </div>
