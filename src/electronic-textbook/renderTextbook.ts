@@ -57,8 +57,29 @@ function textbookFooterRender(): string {
     return str;
 }
 
+export function renderWordStatistic(sprintWins: string, sprintLoses: string, audioChallengeWins: string, audioChallengeLoses: string): string {
+  const str = `<div class="textbook-statistic-container">
+    <button class="word-statistic-close">Close</button>
+    <div class="word-statistic-content">
+      <div class="word-statistic-row">
+        <div class="word-statistic-game">Sprint:</div>
+        <div class="word-statistic-counter">${sprintWins}</div>
+        <div class="word-statistic-counter">${sprintLoses}</div>
+      </div>
+      <div class="word-statistic-row">
+        <div class="word-statistic-game">AudioChallenge</div>
+        <div class="word-statistic-counter">${audioChallengeWins}</div>
+        <div class="word-statistic-counter">${audioChallengeLoses}</div>
+    </div>
+    </div>
+  </div>`;
+
+  return str;
+}
+
 export function textbookRender(): string {
     const str = `<div class="textbook-container">
+        <div class="textbook-popup hidden"></div>
         <section class="textbook-nav">
             ${textbookNavRender()}
         </section>

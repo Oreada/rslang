@@ -171,3 +171,52 @@
 button:disabled {
   background-color: rgb(123, 123, 114);
 }
+
+.textbook-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.textbook-statistic-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  width: 300px;
+  height: 200px;
+  background-color: rgb(121, 168, 180);
+  border: 5px solid rgb(61, 101, 123);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.word-statistic-close {
+  justify-self: flex-end;
+  width: 50px;
+}
+
+.word-statistic-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.word-statistic-row {
+  display: flex;
+  gap: 20px;
+  background-color: rgb(245, 239, 218);
+  border-radius: 5px;
+  padding: 5px;
+  border: solid 2px rgb(148, 27, 12);
+}
+
+.hidden {
+  display: none;
+}

@@ -96,6 +96,9 @@ function renderAuthorizedWord(word: IWord): string {
       <button class="word-btn difficult-button" id="difficult-${word.id}">
         Добавить в сложные
       </button>
+      <button class="word-btn word-statistic-button" id="statistic-${word.id}">
+        Статистика
+      </button>
     </div>
   </div>`;
 
@@ -133,6 +136,9 @@ function renderDifficultWord(word: IWordWithDifficulty): string {
       </button>
       <button class="word-btn remove-difficult-button" id="difficult-${word._id}">
         Убрать из сложных
+      </button>
+      <button class="word-btn word-statistic-button" id="statistic-${word._id}">
+        Статистика
       </button>
     </div>
   </div>`;
