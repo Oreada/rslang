@@ -90,7 +90,8 @@ export async function renderAudiochallengeTextbook(
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
             counter,
-            counter < Number(AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK) ? cardsForGame[i + 1].correct.audio : ''
+            counter < cardsForGame.length ? cardsForGame[i + 1].correct.audio : '',
+            counter === cardsForGame.length ? 'last-card' : ''
         );
 
         allAudiochallengeCards += page;
@@ -135,7 +136,8 @@ export async function renderAudiochallenge(
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
             counter,
-            counter < Number(AMOUNT_CARDS_AUDIOCHALLENGE) ? cardsForGame[i + 1].correct.audio : ''
+            counter < cardsForGame.length ? cardsForGame[i + 1].correct.audio : '',
+            counter === cardsForGame.length ? 'last-card' : ''
         );
 
         allAudiochallengeCards += page;
@@ -145,35 +147,30 @@ export async function renderAudiochallenge(
 }
 
 export async function contentAudiochallengeWithWrapperTextbook(group: string, page = '-1') {
-    return `<div class="audiochallenge__slider">
-                <div class="audiochallenge__row">
-                    ${await renderAudiochallengeTextbook(
+    return `
+    <div class="audiochallenge__slider">
+        <div class="audiochallenge__row">
+    ${await renderAudiochallengeTextbook(
         AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
         group,
         NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
         page
     )}
-                    <div class="audiochallenge__results results">
-
-                    </div>
-                </div>
-            </div>`;
+        <div class="audiochallenge__results results"></div>
+        </div>
+    </div>
+    `;
 }
 
 export async function contentAudiochallengeWithWrapper(group: string, page = '-1') {
-    return `<div class="audiochallenge__slider">
-                <div class="audiochallenge__row">
-                    ${await renderAudiochallenge(
-        AMOUNT_CARDS_AUDIOCHALLENGE,
-        group,
-        NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
-        page
-    )}
-                    <div class="audiochallenge__results results">
-
-                    </div>
-                </div>
-            </div>`;
+    return `
+    <div class="audiochallenge__slider">
+        <div class="audiochallenge__row">
+            ${await renderAudiochallenge(AMOUNT_CARDS_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE, page)}
+            <div class="audiochallenge__results results"></div>
+        </div>
+    </div>
+    `;
 }
 
 //! =====================================================================================================================
@@ -223,7 +220,8 @@ function drawAudiochallengePage(
     idCorrectWord: string,
     optionsList: Array<Record<string, string>>,
     counter: number,
-    wordAudioPathForVoicing: string
+    wordAudioPathForVoicing: string,
+    markForLastPage: string
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
@@ -254,8 +252,8 @@ function drawAudiochallengePage(
                         ${drawAudiochallengeList(optionsList, idCorrectWord)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}"
-                                            data-audiopath="${wordAudioPathForVoicing}" disabled>следующее слово</button>
+                        <button class="bottom-ac__next-btn" data-mark="${markForLastPage}" data-counter="${counter}"
+                        data-idcorrect="${idCorrectWord}" data-audiopath="${wordAudioPathForVoicing}" disabled>следующее слово</button>
                     </div>
                 </div>
             </div>`;

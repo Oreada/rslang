@@ -88,9 +88,7 @@ export const AudiochallengeCallback = () => {
 
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
-    const nextButtonLast = document.querySelector(
-        `.bottom-ac__next-btn[data-counter="${AMOUNT_CARDS_AUDIOCHALLENGE}"]`
-    ) as HTMLButtonElement;
+    const nextButtonLast = document.querySelector(`.bottom-ac__next-btn[data-mark="last-card"]`) as HTMLButtonElement;
 
     const inputsOptions = document.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
 
@@ -147,7 +145,7 @@ export const AudiochallengeCallback = () => {
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
 
-                if (Number(counter) < Number(AMOUNT_CARDS_AUDIOCHALLENGE)) {
+                if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
                             const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
