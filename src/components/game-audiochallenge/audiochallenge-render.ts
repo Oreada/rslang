@@ -5,16 +5,15 @@ import {
     LOCAL_STORAGE_DATA,
     AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
 } from '../../constants/constants';
-import { getWordById, createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
+import { createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
 import {
     getRandomWords,
     getRandomCardsAudiochallenge,
     getRandomWordsWithExcluded,
     getRandomCardsAudiochallengeWithExcluded,
 } from '../api/api-games';
-import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
-import { ICardAudiochallenge, IWord } from '../../types/types';
+import { ICardAudiochallenge } from '../../types/types';
 
 console.log('audiochallenge loaded');
 
@@ -34,9 +33,6 @@ export function playWordAudioForGame(event: Event) {
 }
 
 //! =====================================================================================================================
-
-// console.log(await getRandomWords('1', '3'));
-// console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
 
 export async function renderAudiochallengeTextbook(
     amountCards: string,
