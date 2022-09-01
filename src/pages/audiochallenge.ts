@@ -78,7 +78,20 @@ export const AudiochallengeCallback = () => {
     setTimeout(() => {
         const path = `http://localhost:45741/${questionAudioButtons[0].dataset.audiopath as string}`;
         const audio = new Audio(path);
-        (audio as HTMLAudioElement).play();
+        // try {
+        //     (audio as HTMLAudioElement).play();
+        // } catch (e) {
+        //     console.log('catch');
+        // }
+
+        const promise = (audio as HTMLAudioElement).play();
+        if (promise !== undefined) {
+            promise
+                .then(() => {
+                    // Autoplay started!
+                })
+                .catch(() => console.log('audio autoplay'));
+        }
     }, 700);
 
     const resultsObj: Record<string, string> = {};
