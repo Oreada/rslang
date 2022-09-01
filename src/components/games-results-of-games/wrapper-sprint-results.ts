@@ -2,9 +2,19 @@ import { LOCAL_STORAGE_DATA } from '../../constants/constants';
 import { renderResultsPage } from './games-results';
 import { processSprintResults } from './process-sprint-results';
 
+type TFunc = {
+    (): void;
+};
+
 //* TODO: выяснить: 1) почему Саша использует await, когда получает id и token; 2) нужен ли await тут для этих целей
-export async function renderAndProcessSprint(container: HTMLElement, gameResults: Record<string, string>) {
+export async function renderAndProcessSprint(
+    container: HTMLElement,
+    gameResults: Record<string, string>,
+    showContainer: TFunc
+) {
     await renderResultsPage(container, gameResults);
+
+    showContainer();
 
     const entries = Object.entries(gameResults);
 

@@ -1,6 +1,6 @@
-import {SPRINT_MIN_COEFFICIENT, SPRINT_PROGRESS_BARS_QUANTITY, SPRINT_TIMER_LIMIT } from "../../constants/constants";
+import { SPRINT_MIN_COEFFICIENT, SPRINT_PROGRESS_BARS_QUANTITY, SPRINT_TIMER_LIMIT } from "../../constants/constants";
 import { getRandomIdWord, getRandomNumber } from "../../general-functions/random";
-import { sprintStorage, storage} from "../../storage/storage";
+import { sprintStorage, storage } from "../../storage/storage";
 import { IAuthorizationResult, IWord, _IWord } from "../../types/types";
 import { getWordById, getWords } from "../api/api";
 import { getRandomWords, getRandomWordsWithExcluded } from "../api/api-games";
@@ -20,12 +20,16 @@ async function showSprintResult(): Promise<void> {
   } else {
     target.innerHTML = renderUsualSprintResult();
   }
+
   const statContainer = document.querySelector('.sprint-result-statistic') as HTMLElement;
-  await renderAndProcessSprint(statContainer, sprintStorage.gameResult);
+  await renderAndProcessSprint(statContainer, sprintStorage.gameResult, function () {
+    target.classList.remove('hidden');
+    game.classList.add('hidden');
+  });
   sprintStorage.gameResult = {};
 
-  target.classList.remove('hidden');
-  game.classList.add('hidden');
+
+
   sprintStorage.currentScore = 0;
   resetSprintProgress();
 }
@@ -42,8 +46,8 @@ export function sprintTimer() {
   function countdown() {
     if (timerLimit <= 0) {
       clearInterval(sprintTimer as NodeJS.Timer);
-        showSprintResult();
-        sprintStorage.gameResult = {};
+      showSprintResult();
+      sprintStorage.gameResult = {};
       return;
     }
 
@@ -96,7 +100,7 @@ export async function getPageForSprint(): Promise<void> {
     sprintStorage.currentPageWords = words;
     return;
   }
- 
+
   const words = await getRandomWords(sprintStorage.currentChapter, '20', sprintStorage.currentPage);
   sprintStorage.currentPageWords = words;
 }
@@ -104,23 +108,23 @@ export async function getPageForSprint(): Promise<void> {
 async function updateSprintStoragePage() {
   if (+sprintStorage.currentPage - 1 < 0) {
     const highestTimeoutId = setTimeout(";");
-    for (let i = 0 ; i < highestTimeoutId ; i++) {
+    for (let i = 0; i < highestTimeoutId; i++) {
       clearTimeout(i);
     }
     await showSprintResult();
     return;
   }
-    const num = (+sprintStorage.currentPage - 1).toString();
-    sprintStorage.currentPage = num;
-    await getPageForSprint();
+  const num = (+sprintStorage.currentPage - 1).toString();
+  sprintStorage.currentPage = num;
+  await getPageForSprint();
 }
 
 export async function getSprintWordsFromPage() {
   if ((sprintStorage.currentPageWords as Array<_IWord>).length === 0) {
     if (+sprintStorage.currentPage - 1 < 0) {
       const highestTimeoutId = setTimeout(";");
-      for (let i = 0 ; i < highestTimeoutId ; i++) {
-          clearTimeout(i);
+      for (let i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i);
       }
       await showSprintResult();
       return;
@@ -146,7 +150,7 @@ export async function getSprintWordsFromPage() {
     const word = wordsArr[0];
     sprintStorage.originWord = word;
     sprintStorage.translateWord = word;
-    
+
     wordsArr.pop();
 
     sprintStorage.currentPageWords = wordsArr;
@@ -178,8 +182,8 @@ export async function getSprintWordsFromPage() {
   // console.log(word1.id, word2.id)
 
   const newWordsArr = wordsArr.filter((item) => (item.word !== word1.word));
-//  const newWordsArr = wordsArr;
-  
+  //  const newWordsArr = wordsArr;
+
   sprintStorage.currentPageWords = newWordsArr;
   console.log(sprintStorage.level, sprintStorage.levelProgressBar)
 }
