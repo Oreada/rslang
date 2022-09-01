@@ -1,13 +1,21 @@
-import { BASE_API, AMOUNT_PAGES_AUDIOCHALLENGE, NUMBER_OF_OPTIONS_AUDIOCHALLENGE } from '../../constants/constants';
-import { getWordById, createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
+import {
+    BASE_API,
+    AMOUNT_CARDS_AUDIOCHALLENGE,
+    NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
+    LOCAL_STORAGE_DATA,
+    AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
+} from '../../constants/constants';
+import { createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
 import {
     getRandomWords,
     getRandomCardsAudiochallenge,
     getRandomWordsWithExcluded,
     getRandomCardsAudiochallengeWithExcluded,
 } from '../api/api-games';
-import { getRandomIdWord } from '../../general-functions/random';
 import { shuffle } from '../../general-functions/shuffle';
+
+import { ICardAudiochallenge } from '../../types/types';
+
 import { IWord } from '../../types/types';
 import { Modal } from '../modalWindow/modal';
 
@@ -30,14 +38,32 @@ export function playWordAudioForGame(event: Event) {
 
 //! =====================================================================================================================
 
-// console.log(await getRandomWords('1', '3'));
-// console.log(await getRandomCardsAudiochallenge('10', '1', '5'));
-
-export async function renderAudiochallenge(amountCards: string, group: string, num: string): Promise<string> {
+export async function renderAudiochallengeTextbook(
+    amountCards: string,
+    group: string,
+    num: string,
+    page = '-1'
+): Promise<string> {
     let counter = 0;
     let allAudiochallengeCards = ``;
 
-    const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num);
+    const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
+    let cardsForGame;
+    if (isAuthorized) {
+        const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
+        const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
+        cardsForGame = (await getRandomCardsAudiochallengeWithExcluded(
+            userId,
+            userToken,
+            'easy',
+            amountCards,
+            group,
+            num,
+            page
+        )) as ICardAudiochallenge[];
+    } else {
+        cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num, page);
+    }
 
     for (let i = 0; i < cardsForGame.length; i += 1) {
         counter += 1;
@@ -64,7 +90,8 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
             cardsForGame[i].correct._id,
             optionsAudiochallenge,
             counter,
-            counter < 10 ? cardsForGame[i + 1].correct.audio : ''
+            counter < cardsForGame.length ? cardsForGame[i + 1].correct.audio : '',
+            counter === cardsForGame.length ? 'last-card' : ''
         );
 
         allAudiochallengeCards += page;
@@ -73,15 +100,78 @@ export async function renderAudiochallenge(amountCards: string, group: string, n
     return allAudiochallengeCards;
 }
 
-export async function contentAudiochallengeWithWrapper(group: string) {
-    const content = `<div class="audiochallenge__slider">
-        <div class="audiochallenge__row">
-            ${await renderAudiochallenge(AMOUNT_PAGES_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE)}
-            <div class="audiochallenge__results results">
+export async function renderAudiochallenge(
+    amountCards: string,
+    group: string,
+    num: string,
+    page = '-1'
+): Promise<string> {
+    let counter = 0;
+    let allAudiochallengeCards = ``;
 
-            </div>
+    const cardsForGame = await getRandomCardsAudiochallenge(amountCards, group, num, page);
+
+    for (let i = 0; i < cardsForGame.length; i += 1) {
+        counter += 1;
+
+        const optionsAudiochallenge = [];
+        optionsAudiochallenge.push({
+            wordRussian: cardsForGame[i].correct.wordTranslate,
+            idWord: cardsForGame[i].correct._id,
+        });
+
+        for (let j = 0; j < Number(num) - 1; j += 1) {
+            optionsAudiochallenge.push({
+                wordRussian: cardsForGame[i].incorrect[j].wordTranslate,
+                idWord: cardsForGame[i].incorrect[j]._id,
+            });
+        }
+
+        shuffle(optionsAudiochallenge); //! перемешиваю объекты-опции, иначе правильный вариант всегда первый
+
+        const page = drawAudiochallengePage(
+            cardsForGame[i].correct.image,
+            cardsForGame[i].correct.word,
+            cardsForGame[i].correct.audio,
+            cardsForGame[i].correct._id,
+            optionsAudiochallenge,
+            counter,
+            counter < cardsForGame.length ? cardsForGame[i + 1].correct.audio : '',
+            counter === cardsForGame.length ? 'last-card' : ''
+        );
+
+        allAudiochallengeCards += page;
+    }
+
+    return allAudiochallengeCards;
+}
+
+export async function contentAudiochallengeWithWrapperTextbook(group: string, page = '-1') {
+    const content = `
+    <div class="audiochallenge__slider">
+        <div class="audiochallenge__row">
+    ${await renderAudiochallengeTextbook(
+        AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
+        group,
+        NUMBER_OF_OPTIONS_AUDIOCHALLENGE,
+        page
+    )}
+        <div class="audiochallenge__results results"></div>
         </div>
-    </div>`;
+    </div>
+    `;
+    return Modal(content);
+}
+
+export async function contentAudiochallengeWithWrapper(group: string, page = '-1') {
+    const content = `
+    <div class="audiochallenge__slider">
+        <div class="audiochallenge__row">
+            ${await renderAudiochallenge(AMOUNT_CARDS_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE, page)}
+            <div class="audiochallenge__results results"></div>
+        </div>
+    </div>
+    `;
     return Modal(content);
 }
 
@@ -132,7 +222,8 @@ function drawAudiochallengePage(
     idCorrectWord: string,
     optionsList: Array<Record<string, string>>,
     counter: number,
-    wordAudioPathForVoicing: string
+    wordAudioPathForVoicing: string,
+    markForLastPage: string
 ): string {
     return `<div class="audiochallenge__page">
                 <div class="audiochallenge__page-wrapper">
@@ -163,8 +254,8 @@ function drawAudiochallengePage(
                         ${drawAudiochallengeList(optionsList, idCorrectWord)}
                     </div>
                     <div class="audiochallenge__bottom-ac bottom-ac">
-                        <button class="bottom-ac__next-btn" data-counter="${counter}" data-idcorrect="${idCorrectWord}"
-                                            data-audiopath="${wordAudioPathForVoicing}" disabled>следующее слово</button>
+                        <button class="bottom-ac__next-btn" data-mark="${markForLastPage}" data-counter="${counter}"
+                        data-idcorrect="${idCorrectWord}" data-audiopath="${wordAudioPathForVoicing}" disabled>следующее слово</button>
                     </div>
                 </div>
             </div>`;

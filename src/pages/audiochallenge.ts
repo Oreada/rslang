@@ -1,12 +1,11 @@
 import {
     playWordAudioForGame,
     contentAudiochallengeWithWrapper,
+    contentAudiochallengeWithWrapperTextbook,
 } from '../components/game-audiochallenge/audiochallenge-render';
-import { AMOUNT_PAGES_AUDIOCHALLENGE } from '../constants/constants';
-import { renderResultsPage } from '../components/games-results-of-games/games-results';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 import { storage } from '../storage/storage';
-import { getAllUserWords, getUserWord, createUserWord, updateUserWord } from '../components/api/api';
+import { getAllUserWords, getUserWord, updateUserWord } from '../components/api/api';
 import { IUserWordCard } from '../types/types';
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
 import { LOCAL_STORAGE_DATA } from '../constants/constants';
@@ -42,32 +41,32 @@ export const AudiochallengeContent6 = async (): Promise<string> => {
 
 export const AudiochallengeTextbookContent1 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('0');
+    return await contentAudiochallengeWithWrapperTextbook('0', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent2 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('1');
+    return await contentAudiochallengeWithWrapperTextbook('1', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent3 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('2');
+    return await contentAudiochallengeWithWrapperTextbook('2', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent4 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('3');
+    return await contentAudiochallengeWithWrapperTextbook('3', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent5 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('4');
+    return await contentAudiochallengeWithWrapperTextbook('4', storage.pageCount);
 };
 
 export const AudiochallengeTextbookContent6 = async (): Promise<string> => {
     console.log(storage.chapterCount);
-    return await contentAudiochallengeWithWrapper('5');
+    return await contentAudiochallengeWithWrapperTextbook('5', storage.pageCount);
 };
 
 export const AudiochallengeCallback = () => {
@@ -87,9 +86,7 @@ export const AudiochallengeCallback = () => {
 
     const nextButtons = document.querySelectorAll('.bottom-ac__next-btn') as NodeListOf<HTMLButtonElement>;
 
-    const nextButtonLast = document.querySelector(
-        `.bottom-ac__next-btn[data-counter="${AMOUNT_PAGES_AUDIOCHALLENGE}"]`
-    ) as HTMLButtonElement;
+    const nextButtonLast = document.querySelector(`.bottom-ac__next-btn[data-mark="last-card"]`) as HTMLButtonElement;
 
     const inputsOptions = document.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
 
@@ -146,7 +143,7 @@ export const AudiochallengeCallback = () => {
 
                 inputsOptions.forEach((input) => input.removeAttribute('disabled'));
 
-                if (Number(counter) < Number(AMOUNT_PAGES_AUDIOCHALLENGE)) {
+                if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
                             const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
@@ -161,7 +158,6 @@ export const AudiochallengeCallback = () => {
 
     nextButtonLast.addEventListener('click', function () {
         renderAndProcessAudiochallenge(resultsElement, resultsObj);
-        // renderResultsPage(resultsElement, resultsObj);
         console.log(resultsObj);
     });
 };
@@ -221,18 +217,18 @@ const resultsEntries = [
 //     )
 // );
 
-const tempAllUserWords = await getAllUserWords(
-    '62fe0020d755e24640edaabd',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTkzMjg0OSwiZXhwIjoxNjYxOTQ3MjQ5fQ.AgPQVVFakGNuH-QFOPc1PqKotAItOd5F6HPvQ8zcU8I'
-);
-
-console.log(tempAllUserWords);
-
 const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
 if (isAuthorized) {
     const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
     const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
     console.log('userId =', userId, 'userToken =', userToken);
+
+    const tempAllUserWords = await getAllUserWords(
+        '62fe0020d755e24640edaabd',
+        JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
+    );
+
+    console.log(tempAllUserWords);
 } else {
     console.log('Пользователь не авторизован');
 }
