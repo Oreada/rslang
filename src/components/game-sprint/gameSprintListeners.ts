@@ -79,7 +79,7 @@ export function addEndSprintListener() {
   }
 
   result.addEventListener('click', (event: Event) => {
-    if ((event.target as HTMLButtonElement).classList.contains('sprint-result-button')) {
+    if ((event.target as HTMLButtonElement).classList.contains('results__end-btn')) {
       start.classList.remove('hidden')
       result.classList.add('hidden');
     }

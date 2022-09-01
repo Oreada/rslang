@@ -4,7 +4,7 @@ import { sprintStorage, storage} from "../../storage/storage";
 import { IAuthorizationResult, IWord, _IWord } from "../../types/types";
 import { getWordById, getWords } from "../api/api";
 import { getRandomWords, getRandomWordsWithExcluded } from "../api/api-games";
-import { renderSprintResultsPage } from "../results-of-games/games-results";
+import { renderAndProcessSprint } from "../games-results-of-games/wrapper-sprint-results";
 import { renderBestSprintResult, renderSprintTimer, renderUsualSprintResult } from "./renderSprintGame";
 
 async function showSprintResult(): Promise<void> {
@@ -21,7 +21,8 @@ async function showSprintResult(): Promise<void> {
     target.innerHTML = renderUsualSprintResult();
   }
   const statContainer = document.querySelector('.sprint-result-statistic') as HTMLElement;
-  await renderSprintResultsPage(statContainer, sprintStorage.gameResult);
+  await renderAndProcessSprint(statContainer, sprintStorage.gameResult);
+  sprintStorage.gameResult = {};
 
   target.classList.remove('hidden');
   game.classList.add('hidden');
@@ -100,6 +101,20 @@ export async function getPageForSprint(): Promise<void> {
   sprintStorage.currentPageWords = words;
 }
 
+async function updateSprintStoragePage() {
+  if (+sprintStorage.currentPage - 1 < 0) {
+    const highestTimeoutId = setTimeout(";");
+    for (let i = 0 ; i < highestTimeoutId ; i++) {
+      clearTimeout(i);
+    }
+    await showSprintResult();
+    return;
+  }
+    const num = (+sprintStorage.currentPage - 1).toString();
+    sprintStorage.currentPage = num;
+    await getPageForSprint();
+}
+
 export async function getSprintWordsFromPage() {
   if ((sprintStorage.currentPageWords as Array<_IWord>).length === 0) {
     if (+sprintStorage.currentPage - 1 < 0) {
@@ -110,10 +125,19 @@ export async function getSprintWordsFromPage() {
       await showSprintResult();
       return;
     }
-    const num = (+sprintStorage.currentPage - 1).toString();
-    sprintStorage.currentPage = num;
-    await getPageForSprint();
+    while ((sprintStorage.currentPageWords as Array<_IWord>).length === 0) {
+      if (+sprintStorage.currentPage - 1 < 0) {
+        break;
+      }
+      const num = (+sprintStorage.currentPage - 1).toString();
+      sprintStorage.currentPage = num;
+      await getPageForSprint();
+      // console.log(sprintStorage.currentPageWords, 'uppppp')
+    }
   }
+  // while ((sprintStorage.currentPageWords as Array<_IWord>).length === 0 && +sprintStorage.currentPage > 0) {
+  //   await updateSprintStoragePage();
+  // }
 
   const wordsArr = [...(sprintStorage.currentPageWords as Array<_IWord>)];
   console.log(wordsArr, 'ww')
