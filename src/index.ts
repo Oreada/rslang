@@ -47,7 +47,7 @@ import { listenLoginForm } from './components/modalWindow/switchForm';
 // import { listenersTextbook } from './electronic-textbook/textbookListeners';
 import { listenAuth } from './components/modalWindow/authListener';
 
-type routesKey = keyof typeof routes;
+export type routesKey = keyof typeof routes;
 
 const routes = {
     '/': Home,
@@ -125,7 +125,6 @@ const callbacks = {
 
 const body = document.getElementById('root') as HTMLBodyElement;
 const path = window.location.pathname as routesKey;
-console.log(path);
 const content = await routes[path]();
 body.innerHTML = HomePage(content);
 const rootDiv = document.getElementById('main') as HTMLDivElement;
@@ -144,11 +143,10 @@ links.forEach((link) => {
     });
 });
 
-const onNavigate = async (pathname: routesKey) => {
+export const onNavigate = async (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
     const content = await routes[pathname]();
     rootDiv.innerHTML = content; //! тут отрисовался определённый контент
-    console.log(pathname);
     if (pathname === '/games') {
         const gameLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.game');
         gameLinks.forEach((link) => {
@@ -200,8 +198,9 @@ const onNavigate = async (pathname: routesKey) => {
 };
 
 window.onpopstate = async () => {
-    const content = await routes[window.location.pathname as routesKey]();
-    rootDiv.innerHTML = content;
+    // const content = await routes[window.location.pathname as routesKey]();
+    // rootDiv.innerHTML = content;
+    location.reload(); // TODO вернуться к window.location.pathnam. Сейчас при back/forward теряются listeners поэтому справляемся перезагрузкой.
 };
 
 // listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,

@@ -13,7 +13,11 @@ import {
     getRandomCardsAudiochallengeWithExcluded,
 } from '../api/api-games';
 import { shuffle } from '../../general-functions/shuffle';
+
 import { ICardAudiochallenge } from '../../types/types';
+
+import { IWord } from '../../types/types';
+import { Modal } from '../modalWindow/modal';
 
 console.log('audiochallenge loaded');
 
@@ -143,7 +147,7 @@ export async function renderAudiochallenge(
 }
 
 export async function contentAudiochallengeWithWrapperTextbook(group: string, page = '-1') {
-    return `
+    const content = `
     <div class="audiochallenge__slider">
         <div class="audiochallenge__row">
     ${await renderAudiochallengeTextbook(
@@ -156,10 +160,11 @@ export async function contentAudiochallengeWithWrapperTextbook(group: string, pa
         </div>
     </div>
     `;
+    return Modal(content);
 }
 
 export async function contentAudiochallengeWithWrapper(group: string, page = '-1') {
-    return `
+    const content = `
     <div class="audiochallenge__slider">
         <div class="audiochallenge__row">
             ${await renderAudiochallenge(AMOUNT_CARDS_AUDIOCHALLENGE, group, NUMBER_OF_OPTIONS_AUDIOCHALLENGE, page)}
@@ -167,6 +172,7 @@ export async function contentAudiochallengeWithWrapper(group: string, page = '-1
         </div>
     </div>
     `;
+    return Modal(content);
 }
 
 //! =====================================================================================================================

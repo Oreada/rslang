@@ -1,8 +1,9 @@
-import {deleteUserWord, getUserAggregatedWordsFiltered, getWords} from "../components/api/api";
+import {deleteUserWord, getUserAggregatedWordsFiltered, getUserWord, getWords} from "../components/api/api";
 import { updateTextbookGameLinks } from "../components/game-sprint/gameSprintFunctions";
 import { addUserWord } from "../general-functions/userWord";
 import { sprintStorage, storage } from "../storage/storage";
 import { IAuthorizationResult, IStorage, IUserWordsAggregated, IWord, IWordUser, IWordWithDifficulty } from "../types/types";
+import { renderWordStatistic } from "./renderTextbook";
 import { renderAuthorizedPage, renderDifficultPage, renderPage } from "./renderTextbookPage";
 import { checkLearningPage, updatePageState } from "./textbookFunctions";
 
@@ -246,6 +247,59 @@ export function addAudioListener(): void {
   });
 }
 
+export function addStatisticListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('word-statistic-button')) {
+      console.log('stat')
+      const container = document.querySelector('.textbook-popup') as HTMLElement;
+      if (!container) {
+        return;
+      }
+
+      const id = target.id.slice(10);
+
+      let sprintWins = '0';
+      let sprintLoses = '0';
+      let audioChallengeWins = '0';
+      let audioChallengeLoses = '0';
+
+      const isAuthorized = localStorage.getItem('rslang_currentUser#');
+      if (!isAuthorized) {
+        return;
+      }
+
+      const user: IAuthorizationResult = JSON.parse(localStorage.getItem('rslang_currentUser#') as string);
+      const userId = user.userId;
+      const userToken = user.token;
+
+      const word = await getUserWord(userId, id, userToken);
+      if (word) {
+        sprintWins = word.optional.totalCorrectSprint.toString();
+        sprintLoses = word.optional.totalIncorrectSprint.toString();
+        audioChallengeWins = word.optional.totalCorrectAudiochallenge.toString();
+        audioChallengeLoses = word.optional.totalIncorrectAudiochallenge.toString();
+      }
+
+      container.innerHTML = renderWordStatistic(sprintWins, sprintLoses, audioChallengeWins, audioChallengeLoses);
+      container.classList.remove('hidden');
+    }
+  });
+}
+
+export function addCloseStatisticListener(): void {
+  document.addEventListener('click', async (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('word-statistic-close')) {
+      const container = document.querySelector('.textbook-popup') as HTMLElement;
+      if (!container) {
+        return;
+      }
+      container.classList.add('hidden');
+    }
+  });
+}
+
 export function addAudioControlListener(): void {
   document.addEventListener('click', (event: Event) => {
     const target = event.target as HTMLButtonElement;
@@ -396,4 +450,6 @@ export function listenersTextbook(): void {
   addRemoveDifficultWordListener();
   addStorageEvents();
   addSprintGameListener();
+  addStatisticListener();
+  addCloseStatisticListener();
 }
