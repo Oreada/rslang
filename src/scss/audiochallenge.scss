@@ -17,9 +17,9 @@
 
 .audiochallenge__page {
 	height: 100%;
-	background-color: rgb(93, 118, 134);
-	// border: 1px solid rgb(0, 0, 0);
-
+	border-radius: 15px;
+	background-color: rgb(123, 157, 184);
+	// border: 2px solid white;
 	font-size: 20px;
 	color: rgb(7, 25, 37);
 	// width: 100%;
@@ -35,6 +35,15 @@
 	align-items: center;
 	justify-content: center;
 	gap: 50px;
+}
+
+a.group-selection__link-audiochallenge.nav__link,
+a.group-selection__link-sprint.nav__link {
+	padding: 5px 11px;
+	// border: 2px solid rgb(205, 75, 60);
+	border-radius: 50%;
+  color: rgb(205, 75, 60);
+	background-color: rgb(229, 241, 248);
 }
 
 .audiochallenge__top-ac {
@@ -321,6 +330,7 @@
 
 .group-selection__title {
 	font-size: 1.2em;
+	color: rgb(42, 80, 119)
 }
 
 .group-selection__link {
