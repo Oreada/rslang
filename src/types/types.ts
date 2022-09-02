@@ -107,26 +107,13 @@ export interface IUserWordsAggregated {
 
 export interface IOptionsForStatistics {
     lastDayStatistics: {
-        audiochallenge: {
-            latestDate: string;
-            totalAnswers: number;
-            correctAnswers: number;
-            incorrectAnswers: number;
-            firstTimeInGame: number;
-            bestSeriesOfAnswers: number;
-        };
-        sprint: {
-            latestDate: string;
-            totalAnswers: number;
-            correctAnswers: number;
-            incorrectAnswers: number;
-            firstTimeInGame: number;
-            bestSeriesOfAnswers: number;
-            bestScore: number;
-        };
+        audiochallenge: IDataForStatistics;
+        sprint: IDataForStatistics;
     };
-    allDaysStatistics: Array<string>; //! в боди-запросе нужно дописывать двойные кавычки вокруг массива
-    // allDaysStatistics: "['31.08.2022:20:12:8', '01.09.2022: 50:33:17']";
+    allDaysStatistics: Record<string, Array<number>>;
+    // allDaysStatistics: string;
+    // allDaysStatistics: Array<string>;
+    // allDaysStatistics: "['31.08.2022:33:12:11:550', '01.09.2022:50:36:14:400']"; // дата:всегоОтветов:правильные:неправильные:bestScoreSprint
 }
 
 export interface IStatisticsBodyForPutting {
@@ -138,6 +125,16 @@ export interface IStatisticsResult {
     id: string; //! это ID статистической записи
     learnedWords: number;
     optional: IOptionsForStatistics;
+}
+
+export interface IDataForStatistics {
+    latestDate: string;
+    totalAnswers: number;
+    correctAnswers: number;
+    incorrectAnswers: number;
+    firstTimeInGame: number;
+    bestSeriesOfAnswers: number;
+    bestScore: number | undefined;
 }
 
 //! временно такой тип, т.к. мы не знаем, какие опции этих записей (settings) нам будут нужны
