@@ -1,16 +1,17 @@
-import { sprintStorage } from "../../storage/storage";
-import { IWord } from "../../types/types";
+import { sprintStorage } from '../../storage/storage';
+import { IWord } from '../../types/types';
+import { Modal } from '../modalWindow/modal';
 
 export function renderSprintTimer(count: number): string {
-  const str = `<div class="sprint-timer-container">
-    <div class="sprint-timer-counter">${count}</div>
+    const str = `<div class="sprint-timer-container">
+    <div class="sprint-timer-counter">${count < 10 ? '&nbsp' : ''}${count}</div>
   </div>`;
-  
-  return str;
+
+    return str;
 }
 
 export function renderUsualSprintResult(): string {
-  const str = `<div class="sprint-result">
+    const str = `<div class="sprint-result">
     <div class="sprint-current-result">
       Твой результат ${sprintStorage.currentScore}!
     </div>
@@ -23,11 +24,11 @@ export function renderUsualSprintResult(): string {
     <div class="sprint-result-statistic"></div>
   </div>`;
 
-  return str;
+    return str;
 }
 
 export function renderBestSprintResult(): string {
-  const str = `<div class="sprint-result">
+    const str = `<div class="sprint-result">
     <div class="sprint-current-result">
       Твой результат ${sprintStorage.currentScore}!
     </div>
@@ -40,21 +41,21 @@ export function renderBestSprintResult(): string {
     <div class="sprint-result-statistic"></div>
   </div>`;
 
-  return str;
+    return str;
 }
 
 function renderSprintProgressBar(): string {
-  let str = '';
+    let str = '';
 
-  for (let i = 0; i < sprintStorage.levelProgressBar; i++) {
-    str += `<div class="sprint-progress-counter"></div>`;
-  }
+    for (let i = 0; i < sprintStorage.levelProgressBar; i++) {
+        str += `<div class="sprint-progress-counter"></div>`;
+    }
 
-  return str;
+    return str;
 }
 
 export function renderSprintGame(): string {
-  const str = `
+    const str = `
       <div class="sprint-score">
         ${sprintStorage.currentScore}
       </div>
@@ -75,19 +76,22 @@ export function renderSprintGame(): string {
         </div>
       </div>`;
 
-  return str;
+    return str;
 }
 
-
 export function renderSprint(): string {
-  const str = `<section class="sprint-container">
+    const str = `<section class="sprint-container">
     <div class="sprint-start">
-      <div class="sprint-text">Текст про спринт</div>
-      <button class="sprint-start-button">Начать спринт</button>
+      <div class="sprint-text">Спринт длится 60 секунд. Are you ready?</div>
+      <button class="sprint-start-button">START</button>
     </div>
     <div class="sprint-result-container hidden"></div>
     <div class="sprint-game-container hidden">
-      <div class="sprint-timer">
+      <div class="timer-wrapper">
+        <svg class="circle-svg" width="100" height="100">
+          <circle class="circle" cx="50" cy="50" r="30"  />
+        </svg>
+        <div class="sprint-timer"></div>
       </div>
       <div class="sprint-main">
         ${renderSprintGame()}
@@ -100,5 +104,5 @@ export function renderSprint(): string {
     </div>
   </section>`;
 
-  return str;
+    return Modal(str);
 }
