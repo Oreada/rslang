@@ -53,3 +53,7 @@ export const sprintStorage: ISprintStorage = {
   currentPageWords: null,
   gameResult: {},
 };
+
+export const AudioChallengeStorage = {
+  currentAudioPage: 1
+}

@@ -169,3 +169,7 @@ export interface ISprintStorage {
     currentPageWords: Array<_IWord> | null;
     gameResult: Record<string, string>;
 }
+
+export interface IAudioChallengeStorage {
+  currentAudioPage: number;
+}

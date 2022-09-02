@@ -108,20 +108,6 @@ export async function getPageForSprint(): Promise<void> {
     sprintStorage.currentPageWords = words;
 }
 
-async function updateSprintStoragePage() {
-    if (+sprintStorage.currentPage - 1 < 0) {
-        const highestTimeoutId = setTimeout(';');
-        for (let i = 0; i < highestTimeoutId; i++) {
-            clearTimeout(i);
-        }
-        await showSprintResult();
-        return;
-    }
-    const num = (+sprintStorage.currentPage - 1).toString();
-    sprintStorage.currentPage = num;
-    await getPageForSprint();
-}
-
 export async function getSprintWordsFromPage() {
     if ((sprintStorage.currentPageWords as Array<_IWord>).length === 0) {
         if (+sprintStorage.currentPage - 1 < 0) {

@@ -1,6 +1,7 @@
 import {
     addEndSprintListener,
     addGameButtonListener,
+    addKeyboardListeners,
     addSprintListener,
     addSprintOptionListener,
     addStartSprintListener,
@@ -92,4 +93,5 @@ export const SprintCallback = async () => {
     addGameButtonListener();
     addEndSprintListener();
     addSprintOptionListener();
+    addKeyboardListeners();
 };
