@@ -122,6 +122,7 @@ export interface IOptionsForStatistics {
             incorrectAnswers: number;
             firstTimeInGame: number;
             bestSeriesOfAnswers: number;
+            bestScore: number;
         };
     };
     allDaysStatistics: Array<string>; //! в боди-запросе нужно дописывать двойные кавычки вокруг массива
