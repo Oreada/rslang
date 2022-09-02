@@ -98,17 +98,45 @@ export interface IUserWordsAggregated {
 }
 
 //! временно такой тип, т.к. мы не знаем, какие опции статистики нам будут нужны
-export type TOptionsForStatistics = Record<string, unknown>;
+// export type TOptionsForStatistics = Record<string, unknown>;
+
+// export interface IStatisticsBodyForPutting {
+//     learnedWords: number;
+//     optional: TOptionsForStatistics;
+// }
+
+export interface IOptionsForStatistics {
+    lastDayStatistics: {
+        audiochallenge: {
+            latestDate: string;
+            totalAnswers: number;
+            correctAnswers: number;
+            incorrectAnswers: number;
+            firstTimeInGame: number;
+            bestSeriesOfAnswers: number;
+        };
+        sprint: {
+            latestDate: string;
+            totalAnswers: number;
+            correctAnswers: number;
+            incorrectAnswers: number;
+            firstTimeInGame: number;
+            bestSeriesOfAnswers: number;
+        };
+    };
+    allDaysStatistics: Array<string>; //! в боди-запросе нужно дописывать двойные кавычки вокруг массива
+    // allDaysStatistics: "['31.08.2022:20:12:8', '01.09.2022: 50:33:17']";
+}
 
 export interface IStatisticsBodyForPutting {
     learnedWords: number;
-    optional: TOptionsForStatistics;
+    optional: IOptionsForStatistics;
 }
 
 export interface IStatisticsResult {
     id: string; //! это ID статистической записи
     learnedWords: number;
-    optional: TOptionsForStatistics;
+    optional: IOptionsForStatistics;
 }
 
 //! временно такой тип, т.к. мы не знаем, какие опции этих записей (settings) нам будут нужны
