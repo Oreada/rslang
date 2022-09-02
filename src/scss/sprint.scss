@@ -1,30 +1,29 @@
 .sprint-timer {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
 }
 
 .sprint-timer-container {
-  width: 60px;
-  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  border: solid 5px red;
+
 }
 
 .sprint-timer-counter {
   font-size: 30px;
+  color:  rgb(17, 27, 55);;
+  position: absolute;
+  top: 34px;
+  left: calc(50% - 16px);
 }
 
 .sprint-container {
   display: flex;
-  background-color: rgb(156, 221, 221);
-  border: 5px solid rgb(61, 101, 123);
-  width: 80%;
-  height: 600px;
-  margin: 30px auto;
+  position: relative;
+  background-color: rgb(123, 157, 184);
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
   justify-content: center;
   align-items: center;
@@ -34,20 +33,17 @@
 .sprint-game-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 500px;
-  margin: 30px auto;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
   border-radius: 15px;
-  border: 5px solid rgb(61, 101, 123);
-  background-color: rgb(186, 219, 227);
 }
 
 .sprint-progress-counter {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background-color: orangered;
+  background-color: rgba(205, 75, 60);;
   position: relative;
 }
 
@@ -75,6 +71,7 @@
 
 .sprint-text {
   font-size: 20px;
+  color: white;
 }
 
 .sprint-start-button {
@@ -85,7 +82,8 @@
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: rgb(49, 223, 104);
+  background-color: rgb(73, 97, 119);
+  color: white;
 }
 
 .sprint-select {
@@ -119,6 +117,7 @@
 .sprint-score {
   font-size: 30px;
   font-weight: bold;
+  color: white;
 }
 
 .sprint-text {
@@ -154,6 +153,7 @@
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
+  color:white;
 }
 
 .sprint-true-button {
@@ -161,27 +161,49 @@
 }
 
 .sprint-false-button {
-  background-color: rgb(156, 34, 53);
+  background-color: rgb(205, 75, 60);
 }
 
 .sprint-result-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  height: 100%;
 }
 
 .sprint-result {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
   gap: 20px;
   padding: 20px;
   margin: 0 auto;
-  background-color: rgb(121, 168, 180);
-  border: 5px solid rgb(61, 101, 123);
   font-size: 20px;
   font-weight: bold;
   border-radius: 15px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 5px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.sprint-current-result,
+.sprint-best-result,
+.sprint-new-best-result {
+  color: white;
 }
 
 .sprint-result-button {
@@ -192,10 +214,10 @@
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
-  background-color: rgb(49, 223, 104);
+  background-color: rgb(61, 101, 123);
+  color: white;
 }
 
 .hidden {
   display: none;
 }
-
