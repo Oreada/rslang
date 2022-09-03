@@ -132,7 +132,6 @@ export interface IDataForStatistics {
     totalAnswers: number;
     correctAnswers: number;
     incorrectAnswers: number;
-    firstTimeInGame: number;
     bestSeriesOfAnswers: number;
     bestScore: number | undefined;
 }
