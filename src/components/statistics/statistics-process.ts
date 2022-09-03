@@ -4,7 +4,6 @@ import { IStatisticsResult, IDataForStatistics } from '../../types/types';
 
 //* TODO: переделать "allDaysStatistics" из объекта в массив - ???
 //* TODO: нужен ли параметр "learnedWords" - ???
-//* TODO: обнулять данные дня, если он не является СЕГОДНЯШНИМ (lastDayStatistics)
 
 export async function processStatistics(game: 'audiochallenge' | 'sprint', resultsObj: IDataForStatistics) {
     const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
@@ -21,14 +20,11 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
             const allDaysStatistics = oldStatistics.optional.allDaysStatistics as Record<string, Array<number>>;
 
             //! вынесла константу сюда, чтобы её можно было использовать при работе с долгосрочной статистикой
-            const bestScore =
-                (lastDayStatisticsSprint.bestScore as number) >= (resultsObj.bestScore as number)
-                    ? lastDayStatisticsSprint.bestScore
-                    : resultsObj.bestScore; //! это свойство есть только у Спринта
+            let bestScore;
 
             if (game === 'audiochallenge') {
                 //! game === 'audiochallenge' -----------------------------------------------------------------
-                const latestDate = lastDayStatisticsAudio.latestDate;
+                let latestDate = lastDayStatisticsAudio.latestDate;
                 let totalAnswers = lastDayStatisticsAudio.totalAnswers;
                 let correctAnswers = lastDayStatisticsAudio.correctAnswers;
                 let incorrectAnswers = lastDayStatisticsAudio.incorrectAnswers;
@@ -43,6 +39,12 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                         bestSeriesOfAnswers >= resultsObj.bestSeriesOfAnswers
                             ? bestSeriesOfAnswers
                             : resultsObj.bestSeriesOfAnswers;
+                } else {
+                    latestDate = resultsObj.latestDate; //! в latestDate записывается новая дата - СЕГОДНЯ
+                    totalAnswers = resultsObj.totalAnswers;
+                    correctAnswers = resultsObj.correctAnswers;
+                    incorrectAnswers = resultsObj.incorrectAnswers;
+                    bestSeriesOfAnswers = resultsObj.bestSeriesOfAnswers;
                 }
 
                 //! В ИТОГЕ ПОЛУЧАЕТСЯ НОВЫЙ lastDayStatisticsAudio:
@@ -56,7 +58,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                 };
             } else if (game === 'sprint') {
                 //! game === 'sprint' -----------------------------------------------------------------
-                const latestDate = lastDayStatisticsSprint.latestDate;
+                let latestDate = lastDayStatisticsSprint.latestDate;
                 let totalAnswers = lastDayStatisticsSprint.totalAnswers;
                 let correctAnswers = lastDayStatisticsSprint.correctAnswers;
                 let incorrectAnswers = lastDayStatisticsSprint.incorrectAnswers;
@@ -71,6 +73,17 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                         bestSeriesOfAnswers >= resultsObj.bestSeriesOfAnswers
                             ? bestSeriesOfAnswers
                             : resultsObj.bestSeriesOfAnswers;
+                    bestScore =
+                        (lastDayStatisticsSprint.bestScore as number) >= (resultsObj.bestScore as number)
+                            ? lastDayStatisticsSprint.bestScore
+                            : resultsObj.bestScore; //! это свойство есть только у Спринта
+                } else {
+                    latestDate = resultsObj.latestDate; //! в latestDate записывается новая дата - СЕГОДНЯ
+                    totalAnswers = resultsObj.totalAnswers;
+                    correctAnswers = resultsObj.correctAnswers;
+                    incorrectAnswers = resultsObj.incorrectAnswers;
+                    bestSeriesOfAnswers = resultsObj.bestSeriesOfAnswers;
+                    bestScore = resultsObj.bestScore; //! это свойство есть только у Спринта
                 }
 
                 //! В ИТОГЕ ПОЛУЧАЕТСЯ НОВЫЙ lastDayStatisticsSprint:
@@ -87,7 +100,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
             }
 
             if (Object.keys(allDaysStatistics).includes(resultsObj.latestDate)) {
-                //! если такая дата уже ЕСТЬ в долгосрочной статистике, то добавляем в неё новые значения:
+                //! если такая дата уже ЕСТЬ в долгосрочной статистике, то редактируем значения из этой даты:
                 // дата:[всегоОтветов, правильные, неправильные, bestScoreSprint]
                 allDaysStatistics[resultsObj.latestDate] = [
                     allDaysStatistics[resultsObj.latestDate][0] + resultsObj.totalAnswers,
@@ -96,7 +109,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                     allDaysStatistics[resultsObj.latestDate][3] + game === 'audiochallenge' ? 0 : (bestScore as number),
                 ];
             } else {
-                //! если такой даты ещё НЕТ в долгосрочной статистике, то создаём в ней новые значения:
+                //! если такой даты ещё НЕТ в долгосрочной статистике, то создаём новую дату с новыми значениями:
                 allDaysStatistics[resultsObj.latestDate] = [
                     resultsObj.totalAnswers,
                     resultsObj.correctAnswers,
