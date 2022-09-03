@@ -20,7 +20,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
             const allDaysStatistics = oldStatistics.optional.allDaysStatistics as Record<string, Array<number>>;
 
             //! вынесла константу сюда, чтобы её можно было использовать при работе с долгосрочной статистикой
-            let bestScore;
+            let bestScore = lastDayStatisticsSprint.bestScore as number;
 
             if (game === 'audiochallenge') {
                 //! game === 'audiochallenge' -----------------------------------------------------------------
@@ -75,15 +75,15 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                             : resultsObj.bestSeriesOfAnswers;
                     bestScore =
                         (lastDayStatisticsSprint.bestScore as number) >= (resultsObj.bestScore as number)
-                            ? lastDayStatisticsSprint.bestScore
-                            : resultsObj.bestScore; //! это свойство есть только у Спринта
+                            ? (lastDayStatisticsSprint.bestScore as number)
+                            : (resultsObj.bestScore as number); //! это свойство есть только у Спринта
                 } else {
                     latestDate = resultsObj.latestDate; //! в latestDate записывается новая дата - СЕГОДНЯ
                     totalAnswers = resultsObj.totalAnswers;
                     correctAnswers = resultsObj.correctAnswers;
                     incorrectAnswers = resultsObj.incorrectAnswers;
                     bestSeriesOfAnswers = resultsObj.bestSeriesOfAnswers;
-                    bestScore = resultsObj.bestScore; //! это свойство есть только у Спринта
+                    bestScore = resultsObj.bestScore as number; //! это свойство есть только у Спринта
                 }
 
                 //! В ИТОГЕ ПОЛУЧАЕТСЯ НОВЫЙ lastDayStatisticsSprint:
@@ -106,8 +106,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                     allDaysStatistics[resultsObj.latestDate][0] + resultsObj.totalAnswers,
                     allDaysStatistics[resultsObj.latestDate][1] + resultsObj.correctAnswers,
                     allDaysStatistics[resultsObj.latestDate][2] + resultsObj.incorrectAnswers,
-                    allDaysStatistics[resultsObj.latestDate][3] +
-                    (game === 'audiochallenge' ? 0 : (bestScore as number)), //! не могу это исправить, ЕСЛинт с ВСКодом мешают друг другу
+                    bestScore as number,
                 ];
             } else {
                 //! если такой даты ещё НЕТ в долгосрочной статистике, то создаём новую дату с новыми значениями:
@@ -210,8 +209,8 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
     }
 }
 
-const oldStatisticsTest = (await getStatistics(
-    '62fe0020d755e24640edaabd',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjIxMTE0MCwiZXhwIjoxNjYyMjI1NTQwfQ.Pdeg_yPLPlXiOcw0Ia9p-_w3DBXItk4NacYTZ03Mk30'
-)) as IStatisticsResult;
-console.log(oldStatisticsTest);
+// const oldStatisticsTest = (await getStatistics(
+//     '63138dd879d28845e47eff22',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTM4ZGQ4NzlkMjg4NDVlNDdlZmYyMiIsImlhdCI6MTY2MjIyNTg4MSwiZXhwIjoxNjYyMjQwMjgxfQ.8I0pKmyNX_eO-yROPEwt_jtMtAjQ6pHh8H1Q_UHlXw4'
+// )) as IStatisticsResult;
+// console.log(oldStatisticsTest);

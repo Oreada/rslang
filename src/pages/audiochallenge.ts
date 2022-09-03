@@ -306,18 +306,9 @@ if (isAuthorized) {
     const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
     console.log('userId =', userId, 'userToken =', userToken);
 
-    const tempAllUserWords = await getAllUserWords(
-        '62fe0020d755e24640edaabd',
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
-    );
+    const tempAllUserWords = await getAllUserWords(userId, userToken);
 
     console.log(tempAllUserWords);
 } else {
     console.log('Пользователь не авторизован');
 }
-
-// const oldStatistics = (await getStatistics(
-//     '62fe0020d755e24640edaabd',
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjIxMTE0MCwiZXhwIjoxNjYyMjI1NTQwfQ.Pdeg_yPLPlXiOcw0Ia9p-_w3DBXItk4NacYTZ03Mk30'
-// )) as IStatisticsResult;
-// console.log(oldStatistics);
