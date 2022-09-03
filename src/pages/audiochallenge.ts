@@ -4,9 +4,10 @@ import {
     contentAudiochallengeWithWrapperTextbook,
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
-import { storage } from '../storage/storage';
 import { getAllUserWords, getUserWord, updateUserWord, getStatistics } from '../components/api/api';
 import { IUserWordCard, IStatisticsResult } from '../types/types';
+import { AudioChallengeStorage, storage } from '../storage/storage';
+
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
 import { LOCAL_STORAGE_DATA } from '../constants/constants';
 import { renderAndProcessAudiochallenge } from '../components/games-results-of-games/wrapper-audiochallenge-results';
@@ -171,13 +172,77 @@ export const AudiochallengeCallback = () => {
                     }, 700);
                 }
             }
+            AudioChallengeStorage.currentAudioPage += 1;
         })
     );
 
     nextButtonLast.addEventListener('click', function () {
+        AudioChallengeStorage.currentAudioPage = 1;
         renderAndProcessAudiochallenge(resultsElement, resultsObj);
         console.log(resultsObj);
     });
+
+    function addKeyboardListeners() {
+        document.addEventListener('keyup', (event: KeyboardEvent) => {
+            const code = event.code;
+            const end = document.querySelector('.results__end-btn') as HTMLButtonElement;
+
+            if (end) {
+                if (code === 'Enter') {
+                    end.click();
+                }
+                return;
+            }
+
+            const pages = document.querySelectorAll('.audiochallenge__page');
+            if (!pages) {
+                return;
+            }
+
+            const currentPage = pages[AudioChallengeStorage.currentAudioPage - 1];
+            if (!currentPage) {
+                return;
+            }
+            const audioButton = currentPage.querySelector('.question-card__audio-btn') as HTMLButtonElement;
+            const checkboxes = currentPage.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
+            const nextButton = currentPage.querySelector('.bottom-ac__next-btn') as HTMLButtonElement;
+            if (!audioButton || !checkboxes || !nextButton) {
+                return;
+            }
+
+            if (code === 'Enter' && nextButton.disabled === false) {
+                nextButton.click();
+            }
+
+            if (code === 'Space') {
+                audioButton.click();
+            }
+
+            if (code === 'Digit1') {
+                checkboxes[0].click();
+            }
+
+            if (code === 'Digit2') {
+                checkboxes[1].click();
+            }
+
+            if (code === 'Digit3') {
+                checkboxes[2].click();
+            }
+
+            if (code === 'Digit4') {
+                checkboxes[3].click();
+            }
+
+            if (code === 'Digit5') {
+                checkboxes[4].click();
+            }
+            return;
+            return;
+            return;
+        });
+    }
+    addKeyboardListeners();
 };
 
 //! ================================================================================

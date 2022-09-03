@@ -202,15 +202,15 @@ function drawAudiochallengeAnswerCard(wordImagePath: string, wordEnglish: string
             </div>`;
 }
 
-function drawAudiochallengeOption(wordRussian: string, idWord: string, idCorrectWord: string): string {
+function drawAudiochallengeOption(wordRussian: string, idWord: string, idCorrectWord: string, counter: number): string {
     return `<input class="medium-ac__input" type="radio" id="${idWord}" name="list-options" value="${wordRussian}" data-idword="${idWord}" data-idcorrect="${idCorrectWord}">
-            <label class="medium-ac__label" for="${idWord}">${wordRussian}</label>`;
+            <label class="medium-ac__label" for="${idWord}">${counter + 1} ${wordRussian}</label>`;
 }
 
 function drawAudiochallengeList(array: Array<Record<string, string>>, idCorrectWord: string): string {
     let listHtml = '';
     for (let i = 0; i < array.length; i += 1) {
-        listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord, idCorrectWord);
+        listHtml += drawAudiochallengeOption(array[i].wordRussian, array[i].idWord, idCorrectWord, i);
     }
     return listHtml;
 }
@@ -225,7 +225,7 @@ function drawAudiochallengePage(
     wordAudioPathForVoicing: string,
     markForLastPage: string
 ): string {
-    return `<div class="audiochallenge__page">
+    return `<div class="audiochallenge__page" data-pageNumber="${counter}">
                 <div class="audiochallenge__page-wrapper">
                     <div class="audiochallenge__top-ac top-ac">
                         <div class="top-ac__question-card question-card _active" data-idcorrect="${idCorrectWord}">
