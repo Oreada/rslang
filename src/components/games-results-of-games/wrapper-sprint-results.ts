@@ -42,7 +42,7 @@ export async function renderAndProcessSprint(
             bestScore: sprintStorage.bestScore,
         };
 
-        await processStatistics('audiochallenge', dataForStatistics);
+        await processStatistics('sprint', dataForStatistics);
     } else {
         console.log('Пользователь не авторизован, результаты игры не сохранятся');
     }
