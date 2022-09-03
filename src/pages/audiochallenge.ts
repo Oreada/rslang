@@ -4,9 +4,10 @@ import {
     contentAudiochallengeWithWrapperTextbook,
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
+import { getAllUserWords, getUserWord, updateUserWord, getStatistics } from '../components/api/api';
+import { IUserWordCard, IStatisticsResult } from '../types/types';
 import { AudioChallengeStorage, storage } from '../storage/storage';
-import { getAllUserWords, getUserWord, updateUserWord } from '../components/api/api';
-import { IUserWordCard } from '../types/types';
+
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
 import { LOCAL_STORAGE_DATA } from '../constants/constants';
 import { renderAndProcessAudiochallenge } from '../components/games-results-of-games/wrapper-audiochallenge-results';
@@ -105,10 +106,14 @@ export const AudiochallengeCallback = () => {
 
     inputsOptions.forEach((input) =>
         input.addEventListener('change', function (event: Event) {
-            const targetButton = event.target as HTMLInputElement;
+            const targetButton = event.target as HTMLInputElement; //! сменить target на currentTarget - ???
             if (targetButton.classList.contains('medium-ac__input')) {
-                inputsOptions.forEach((input) => input.setAttribute('disabled', 'disabled'));
-                targetButton.removeAttribute('disabled');
+                //! сменила логику disabled для инпутов:
+                const optionsCurrent = targetButton.parentElement?.querySelectorAll(
+                    '.medium-ac__input'
+                ) as NodeListOf<HTMLInputElement>;
+                optionsCurrent.forEach((input) => input.setAttribute('disabled', 'disabled'));
+                // targetButton.removeAttribute('disabled');
 
                 if (targetButton.dataset.idword === targetButton.dataset.idcorrect) {
                     targetButton.style.backgroundColor = 'rgb(34, 104, 31)';
@@ -149,12 +154,13 @@ export const AudiochallengeCallback = () => {
         btn.addEventListener('click', function (event: Event) {
             const carousel = document.querySelector('.audiochallenge__row') as HTMLElement;
             const targetButton = event.target as HTMLButtonElement;
+
             if (targetButton.classList.contains('bottom-ac__next-btn')) {
                 const counter = targetButton.dataset.counter;
                 const shift = Number(counter) * 100;
                 carousel.style.transform = `translateX(-${shift}%)`;
 
-                inputsOptions.forEach((input) => input.removeAttribute('disabled'));
+                // inputsOptions.forEach((input) => input.removeAttribute('disabled')); //! сменила логику disabled для инпутов
 
                 if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
@@ -177,67 +183,66 @@ export const AudiochallengeCallback = () => {
     });
 
     function addKeyboardListeners() {
-      document.addEventListener('keyup', (event: KeyboardEvent) => {
-        const code = event.code;        
-        const end = document.querySelector('.results__end-btn') as HTMLButtonElement;
+        document.addEventListener('keyup', (event: KeyboardEvent) => {
+            const code = event.code;
+            const end = document.querySelector('.results__end-btn') as HTMLButtonElement;
 
-        if (end) {
-          if (code === 'Enter') {
-            end.click();
-          }
-          return;
-        }
+            if (end) {
+                if (code === 'Enter') {
+                    end.click();
+                }
+                return;
+            }
 
-        const pages = document.querySelectorAll('.audiochallenge__page');
-        if (!pages) {
-          return;
-        }
+            const pages = document.querySelectorAll('.audiochallenge__page');
+            if (!pages) {
+                return;
+            }
 
-        const currentPage = pages[AudioChallengeStorage.currentAudioPage - 1];
-        if (!currentPage) {
-          return;
-        }
-        const audioButton = currentPage.querySelector('.question-card__audio-btn') as HTMLButtonElement;
-        const checkboxes = currentPage.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
-        const nextButton = currentPage.querySelector('.bottom-ac__next-btn') as HTMLButtonElement;
-        if (!audioButton || !checkboxes || !nextButton) {
-          return;
-        }
+            const currentPage = pages[AudioChallengeStorage.currentAudioPage - 1];
+            if (!currentPage) {
+                return;
+            }
+            const audioButton = currentPage.querySelector('.question-card__audio-btn') as HTMLButtonElement;
+            const checkboxes = currentPage.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
+            const nextButton = currentPage.querySelector('.bottom-ac__next-btn') as HTMLButtonElement;
+            if (!audioButton || !checkboxes || !nextButton) {
+                return;
+            }
 
-        if (code === 'Enter' && nextButton.disabled === false) {
-          nextButton.click();
-        }
+            if (code === 'Enter' && nextButton.disabled === false) {
+                nextButton.click();
+            }
 
-        if (code === 'Space') {
-          audioButton.click();
-        }
+            if (code === 'Space') {
+                audioButton.click();
+            }
 
-        if (code === 'Digit1') {
-          checkboxes[0].click();
-        }
+            if (code === 'Digit1') {
+                checkboxes[0].click();
+            }
 
-        if (code === 'Digit2') {
-          checkboxes[1].click();
-        }
+            if (code === 'Digit2') {
+                checkboxes[1].click();
+            }
 
-        if (code === 'Digit3') {
-          checkboxes[2].click();
-        }
+            if (code === 'Digit3') {
+                checkboxes[2].click();
+            }
 
-        if (code === 'Digit4') {
-          checkboxes[3].click();
-        }
+            if (code === 'Digit4') {
+                checkboxes[3].click();
+            }
 
-        if (code === 'Digit5') {
-          checkboxes[4].click();
-        }
-        return;
-        return;
-        return;
-      })
+            if (code === 'Digit5') {
+                checkboxes[4].click();
+            }
+            return;
+            return;
+            return;
+        });
     }
     addKeyboardListeners();
-    
 };
 
 //! ================================================================================
@@ -301,10 +306,7 @@ if (isAuthorized) {
     const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
     console.log('userId =', userId, 'userToken =', userToken);
 
-    const tempAllUserWords = await getAllUserWords(
-        '62fe0020d755e24640edaabd',
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token
-    );
+    const tempAllUserWords = await getAllUserWords(userId, userToken);
 
     console.log(tempAllUserWords);
 } else {
