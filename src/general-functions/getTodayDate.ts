@@ -4,9 +4,10 @@ export function getTodayDate() {
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
 
-    const todayFormatted = `
-    ${String(day).length === 1 ? `0${day}` : `${day}`}.${String(month).length === 1 ? `0${month}` : `${month}`}.${year}
-    `;
+    const d = `${String(day).length === 1 ? `0${day}` : `${day}`}`;
+    const m = `${String(month).length === 1 ? `0${month}` : `${month}`}`;
+
+    const todayFormatted = `${d}.${m}.${year}`;
 
     return todayFormatted;
 }
