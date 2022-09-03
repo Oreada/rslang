@@ -105,10 +105,14 @@ export const AudiochallengeCallback = () => {
 
     inputsOptions.forEach((input) =>
         input.addEventListener('change', function (event: Event) {
-            const targetButton = event.target as HTMLInputElement;
+            const targetButton = event.target as HTMLInputElement; //! сменить target на currentTarget - ???
             if (targetButton.classList.contains('medium-ac__input')) {
-                inputsOptions.forEach((input) => input.setAttribute('disabled', 'disabled'));
-                targetButton.removeAttribute('disabled');
+                //! сменила логику disabled для инпутов:
+                const optionsCurrent = targetButton.parentElement?.querySelectorAll(
+                    '.medium-ac__input'
+                ) as NodeListOf<HTMLInputElement>;
+                optionsCurrent.forEach((input) => input.setAttribute('disabled', 'disabled'));
+                // targetButton.removeAttribute('disabled');
 
                 if (targetButton.dataset.idword === targetButton.dataset.idcorrect) {
                     targetButton.style.backgroundColor = 'rgb(34, 104, 31)';
@@ -149,12 +153,13 @@ export const AudiochallengeCallback = () => {
         btn.addEventListener('click', function (event: Event) {
             const carousel = document.querySelector('.audiochallenge__row') as HTMLElement;
             const targetButton = event.target as HTMLButtonElement;
+
             if (targetButton.classList.contains('bottom-ac__next-btn')) {
                 const counter = targetButton.dataset.counter;
                 const shift = Number(counter) * 100;
                 carousel.style.transform = `translateX(-${shift}%)`;
 
-                inputsOptions.forEach((input) => input.removeAttribute('disabled'));
+                // inputsOptions.forEach((input) => input.removeAttribute('disabled')); //! сменила логику disabled для инпутов
 
                 if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
