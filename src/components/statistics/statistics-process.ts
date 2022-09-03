@@ -19,46 +19,66 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
             let lastDayStatisticsAudio = oldStatistics.optional.lastDayStatistics.audiochallenge as IDataForStatistics;
             let lastDayStatisticsSprint = oldStatistics.optional.lastDayStatistics.sprint as IDataForStatistics;
             const allDaysStatistics = oldStatistics.optional.allDaysStatistics as Record<string, Array<number>>;
+
+            //! вынесла константу сюда, чтобы её можно было использовать при работе с долгосрочной статистикой
+            const bestScore =
+                (lastDayStatisticsSprint.bestScore as number) >= (resultsObj.bestScore as number)
+                    ? lastDayStatisticsSprint.bestScore
+                    : resultsObj.bestScore; //! это свойство есть только у Спринта
+
             if (game === 'audiochallenge') {
                 //! game === 'audiochallenge' -----------------------------------------------------------------
                 const latestDate = lastDayStatisticsAudio.latestDate;
-                const totalAnswers = lastDayStatisticsAudio.totalAnswers;
-                const correctAnswers = lastDayStatisticsAudio.correctAnswers;
-                const incorrectAnswers = lastDayStatisticsAudio.incorrectAnswers;
-                const firstTimeInGame = lastDayStatisticsAudio.firstTimeInGame;
-                const bestSeriesOfAnswers = lastDayStatisticsAudio.bestSeriesOfAnswers;
+                let totalAnswers = lastDayStatisticsAudio.totalAnswers;
+                let correctAnswers = lastDayStatisticsAudio.correctAnswers;
+                let incorrectAnswers = lastDayStatisticsAudio.incorrectAnswers;
+                let bestSeriesOfAnswers = lastDayStatisticsAudio.bestSeriesOfAnswers;
 
-                //! ТУТ МЕНЯЮ ЗНАЧЕНИЯ ПЕРЕМЕННЫХ В СООТВЕТСТВИИ С НОВЫМИ ДАННЫМИ ИЗ ИГРЫ
+                //! ТУТ МЕНЯЮ ЗНАЧЕНИЯ ПЕРЕМЕННЫХ В СООТВЕТСТВИИ С НОВЫМИ ДАННЫМИ ИЗ ИГРЫ: - дублирование кода - ???
+                if (latestDate === resultsObj.latestDate) {
+                    totalAnswers += resultsObj.totalAnswers;
+                    correctAnswers += resultsObj.correctAnswers;
+                    incorrectAnswers += resultsObj.incorrectAnswers;
+                    bestSeriesOfAnswers =
+                        bestSeriesOfAnswers >= resultsObj.bestSeriesOfAnswers
+                            ? bestSeriesOfAnswers
+                            : resultsObj.bestSeriesOfAnswers;
+                }
 
-                //! В ИТОГЕ БУДЕТ НОВЫЙ lastDayStatisticsAudio:
+                //! В ИТОГЕ ПОЛУЧАЕТСЯ НОВЫЙ lastDayStatisticsAudio:
                 lastDayStatisticsAudio = {
                     latestDate: latestDate,
                     totalAnswers: totalAnswers,
                     correctAnswers: correctAnswers,
                     incorrectAnswers: incorrectAnswers,
-                    firstTimeInGame: firstTimeInGame,
                     bestSeriesOfAnswers: bestSeriesOfAnswers,
                     bestScore: undefined,
                 };
             } else if (game === 'sprint') {
                 //! game === 'sprint' -----------------------------------------------------------------
                 const latestDate = lastDayStatisticsSprint.latestDate;
-                const totalAnswers = lastDayStatisticsSprint.totalAnswers;
-                const correctAnswers = lastDayStatisticsSprint.correctAnswers;
-                const incorrectAnswers = lastDayStatisticsSprint.incorrectAnswers;
-                const firstTimeInGame = lastDayStatisticsSprint.firstTimeInGame;
-                const bestSeriesOfAnswers = lastDayStatisticsSprint.bestSeriesOfAnswers;
-                const bestScore = lastDayStatisticsSprint.bestScore; //! это свойство есть только у Спринта
+                let totalAnswers = lastDayStatisticsSprint.totalAnswers;
+                let correctAnswers = lastDayStatisticsSprint.correctAnswers;
+                let incorrectAnswers = lastDayStatisticsSprint.incorrectAnswers;
+                let bestSeriesOfAnswers = lastDayStatisticsSprint.bestSeriesOfAnswers;
 
-                //! ТУТ МЕНЯЮ ЗНАЧЕНИЯ ПЕРЕМЕННЫХ В СООТВЕТСТВИИ С НОВЫМИ ДАННЫМИ ИЗ ИГРЫ
+                //! ТУТ МЕНЯЮ ЗНАЧЕНИЯ ПЕРЕМЕННЫХ В СООТВЕТСТВИИ С НОВЫМИ ДАННЫМИ ИЗ ИГРЫ: - дублирование кода - ???
+                if (latestDate === resultsObj.latestDate) {
+                    totalAnswers += resultsObj.totalAnswers;
+                    correctAnswers += resultsObj.correctAnswers;
+                    incorrectAnswers += resultsObj.incorrectAnswers;
+                    bestSeriesOfAnswers =
+                        bestSeriesOfAnswers >= resultsObj.bestSeriesOfAnswers
+                            ? bestSeriesOfAnswers
+                            : resultsObj.bestSeriesOfAnswers;
+                }
 
-                //! В ИТОГЕ БУДЕТ НОВЫЙ lastDayStatisticsSprint:
+                //! В ИТОГЕ ПОЛУЧАЕТСЯ НОВЫЙ lastDayStatisticsSprint:
                 lastDayStatisticsSprint = {
                     latestDate: latestDate,
                     totalAnswers: totalAnswers,
                     correctAnswers: correctAnswers,
                     incorrectAnswers: incorrectAnswers,
-                    firstTimeInGame: firstTimeInGame,
                     bestSeriesOfAnswers: bestSeriesOfAnswers,
                     bestScore: bestScore,
                 };
@@ -73,9 +93,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                     allDaysStatistics[resultsObj.latestDate][0] + resultsObj.totalAnswers,
                     allDaysStatistics[resultsObj.latestDate][1] + resultsObj.correctAnswers,
                     allDaysStatistics[resultsObj.latestDate][2] + resultsObj.incorrectAnswers,
-                    allDaysStatistics[resultsObj.latestDate][3] + game === 'audiochallenge'
-                        ? 0
-                        : (resultsObj.bestScore as number),
+                    allDaysStatistics[resultsObj.latestDate][3] + game === 'audiochallenge' ? 0 : (bestScore as number),
                 ];
             } else {
                 //! если такой даты ещё НЕТ в долгосрочной статистике, то создаём в ней новые значения:
@@ -111,16 +129,14 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                                 totalAnswers: resultsObj.totalAnswers,
                                 correctAnswers: resultsObj.correctAnswers,
                                 incorrectAnswers: resultsObj.incorrectAnswers,
-                                firstTimeInGame: resultsObj.firstTimeInGame,
                                 bestSeriesOfAnswers: resultsObj.bestSeriesOfAnswers,
-                                bestScore: 0,
+                                bestScore: undefined,
                             },
                             sprint: {
                                 latestDate: resultsObj.latestDate,
                                 totalAnswers: 0,
                                 correctAnswers: 0,
                                 incorrectAnswers: 0,
-                                firstTimeInGame: 0,
                                 bestSeriesOfAnswers: 0,
                                 bestScore: 0,
                             },
@@ -147,16 +163,14 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                                 totalAnswers: 0,
                                 correctAnswers: 0,
                                 incorrectAnswers: 0,
-                                firstTimeInGame: 0,
                                 bestSeriesOfAnswers: 0,
-                                bestScore: 0,
+                                bestScore: undefined,
                             },
                             sprint: {
                                 latestDate: resultsObj.latestDate,
                                 totalAnswers: resultsObj.totalAnswers,
                                 correctAnswers: resultsObj.correctAnswers,
                                 incorrectAnswers: resultsObj.incorrectAnswers,
-                                firstTimeInGame: resultsObj.firstTimeInGame,
                                 bestSeriesOfAnswers: resultsObj.bestSeriesOfAnswers,
                                 bestScore: resultsObj.bestScore,
                             },
