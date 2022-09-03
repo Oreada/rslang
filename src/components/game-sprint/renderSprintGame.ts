@@ -18,9 +18,6 @@ export function renderUsualSprintResult(): string {
     <div class="sprint-best-result">
       Твой рекорд: ${sprintStorage.bestScore}
     </div>
-    <button class="sprint-result-button">
-      Закрыть
-    </button>
     <div class="sprint-result-statistic"></div>
   </div>`;
 
@@ -35,9 +32,6 @@ export function renderBestSprintResult(): string {
     <div class="sprint-new-best-result">
       Поздравляем! Это новый рекорд!
     </div>
-    <button class="sprint-result-button">
-      Закрыть
-    </button>
     <div class="sprint-result-statistic"></div>
   </div>`;
 
@@ -97,8 +91,8 @@ export function renderSprint(): string {
         ${renderSprintGame()}
       </div>
       <div class="sprint-buttons-container">
-        <button class="sprint-button sprint-true-button" data-correctly="true">Верно</button>
-        <button class="sprint-button sprint-false-button" data-correctly="false">Неверно</button>
+        <button class="sprint-button sprint-true-button" data-correctly="true">◂ Верно</button>
+        <button class="sprint-button sprint-false-button" data-correctly="false">Неверно ▸</button>
       </div>
       </div>
     </div>
