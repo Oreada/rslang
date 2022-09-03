@@ -106,7 +106,8 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                     allDaysStatistics[resultsObj.latestDate][0] + resultsObj.totalAnswers,
                     allDaysStatistics[resultsObj.latestDate][1] + resultsObj.correctAnswers,
                     allDaysStatistics[resultsObj.latestDate][2] + resultsObj.incorrectAnswers,
-                    allDaysStatistics[resultsObj.latestDate][3] + game === 'audiochallenge' ? 0 : (bestScore as number),
+                    allDaysStatistics[resultsObj.latestDate][3] +
+                    (game === 'audiochallenge' ? 0 : (bestScore as number)), //! не могу это исправить, ЕСЛинт с ВСКодом мешают друг другу
                 ];
             } else {
                 //! если такой даты ещё НЕТ в долгосрочной статистике, то создаём новую дату с новыми значениями:
@@ -208,3 +209,9 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
         console.log('Пользователь не авторизован, статистика не сохранится');
     }
 }
+
+const oldStatisticsTest = (await getStatistics(
+    '62fe0020d755e24640edaabd',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjIxMTE0MCwiZXhwIjoxNjYyMjI1NTQwfQ.Pdeg_yPLPlXiOcw0Ia9p-_w3DBXItk4NacYTZ03Mk30'
+)) as IStatisticsResult;
+console.log(oldStatisticsTest);

@@ -5,8 +5,8 @@ import {
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
 import { storage } from '../storage/storage';
-import { getAllUserWords, getUserWord, updateUserWord } from '../components/api/api';
-import { IUserWordCard } from '../types/types';
+import { getAllUserWords, getUserWord, updateUserWord, getStatistics } from '../components/api/api';
+import { IUserWordCard, IStatisticsResult } from '../types/types';
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
 import { LOCAL_STORAGE_DATA } from '../constants/constants';
 import { renderAndProcessAudiochallenge } from '../components/games-results-of-games/wrapper-audiochallenge-results';
@@ -250,3 +250,9 @@ if (isAuthorized) {
 } else {
     console.log('Пользователь не авторизован');
 }
+
+// const oldStatistics = (await getStatistics(
+//     '62fe0020d755e24640edaabd',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjIxMTE0MCwiZXhwIjoxNjYyMjI1NTQwfQ.Pdeg_yPLPlXiOcw0Ia9p-_w3DBXItk4NacYTZ03Mk30'
+// )) as IStatisticsResult;
+// console.log(oldStatistics);
