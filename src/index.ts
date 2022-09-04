@@ -22,7 +22,7 @@ import {
 import { GamesContent, GamesCallback } from './pages/games';
 import { Home, HomeCallback } from './pages/home';
 import { HomePage } from './pages/homePage';
-import { Statistic } from './pages/statistic';
+import { Statistic, StatisticCallback } from './pages/statistic';
 import { Team } from './pages/team';
 import { Textbook, TextbookCallback } from './pages/textbook';
 import {
@@ -119,7 +119,7 @@ const callbacks = {
     '/textbook/sprint/4': SprintCallback,
     '/textbook/sprint/5': SprintCallback,
     '/textbook/sprint/6': SprintCallback,
-    '/statistic': fooCallback,
+    '/statistic': StatisticCallback,
     '/team': fooCallback,
 };
 

@@ -210,7 +210,7 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
 }
 
 // const oldStatisticsTest = (await getStatistics(
-//     '63138dd879d28845e47eff22',
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTM4ZGQ4NzlkMjg4NDVlNDdlZmYyMiIsImlhdCI6MTY2MjIyNTg4MSwiZXhwIjoxNjYyMjQwMjgxfQ.8I0pKmyNX_eO-yROPEwt_jtMtAjQ6pHh8H1Q_UHlXw4'
+//     '62fe0020d755e24640edaabd',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjI5ODAyOCwiZXhwIjoxNjYyMzEyNDI4fQ.1EMjs5CrDZeJmrBksY1VH7JfB96VcYb7_P2m2iCwIoo'
 // )) as IStatisticsResult;
 // console.log(oldStatisticsTest);

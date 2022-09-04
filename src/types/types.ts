@@ -196,5 +196,5 @@ export interface ISprintStorage {
 }
 
 export interface IAudioChallengeStorage {
-  currentAudioPage: number;
+    currentAudioPage: number;
 }
