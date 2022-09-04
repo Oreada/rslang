@@ -5,8 +5,7 @@ export const Modal = (content = ''): string => {
         location.pathname === '/'
             ? `document.querySelector('.information').remove(); 
               this.closest('.modal').style='display: none';`
-            : `document.location.replace(window.location.origin + '/games');
-          this.closest('.modal').style='display: none;'`;
+            : `this.closest('.modal').style='display: none;'`;
     return `
     <div class="modal">
       <div class="modal-content">
