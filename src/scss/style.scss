@@ -47,7 +47,6 @@ body {
 	// overflow-x: hidden;
 	font-family: "Roboto", sans-serif;
 	color: $grey1;
-	// background: $eggshell; // Eggshell
 }
 
 img {
@@ -65,10 +64,12 @@ img {
 	flex: 1 0 100%;
 	display: flex;
 	flex-direction: column;
-	background-image: url(../asset/images/homepage.png);
+	// background-color: rgb(86, 165, 210);
+	background: rgb(86, 165, 210) url(../asset/images/homepage.png);
 	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
+	background-position: center start;
+	background-size: 100% auto;
+	background-attachment: fixed;
 }
 
 .main {
@@ -81,59 +82,27 @@ img {
 	margin: 0 auto;
 }
 
-// .modal {
-// 	display: none;
-//   position: fixed;
-//   z-index: 1;
-//   padding-top: 2%;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   overflow: auto;
-//   background-color: rgb(0,0,0);
-//   background-color: rgba(0,0,0,0.7);
-// }
+@media (max-width: 1200px) {
+	.wrapper {
+		width: 780px;
+	}
+}
 
+@media (max-width: 780px) {
+	.wrapper {
+		width: 320px;
+	}
+	.game__box {
+		background-color: white;
+		opacity: 0.75;
+	}
 
-// .modal-content {
-// 	position: relative;
-//   color: darkblue;
-//   background-color: white;
-//   margin: auto;
-//   padding: 20px;
-//   border: 1px solid #888;
-//   width: 700px;
-//   text-align: center;
-// }
+	.heading-img {
+		display: none;
+	}
 
-
-// .close {
-// 	position: absolute;
-//   top: -7px;
-//   right: -7px;
-//   border: none;
-//   background: none;
-//   .material-icons {
-// 		background-color: gray;
-//     border-radius: 50%;
-//     border: 2px solid white;
-//     &:hover {
-// 			transition: all 0.3s;
-//       transform: scale(1.1);
-// 		}
-// 	}
-// }
-
-
-// @media (max-width: 1200px) {
-// 	.wrapper {
-// 		width: 780px;
-// 	}
-// }
-
-// @media (max-width: 780px) {
-// 	.wrapper {
-// 		width: 320px;
-// 	}
-// }
+	.description-text {
+		color: #2c3e4f;
+		text-shadow: 2px 2px 2px white;
+	}
+}
