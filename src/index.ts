@@ -20,7 +20,7 @@ import {
     AudiochallengeTextbookContent6,
 } from './pages/audiochallenge';
 import { GamesContent, GamesCallback } from './pages/games';
-import { Home } from './pages/home';
+import { Home, HomeCallback } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic } from './pages/statistic';
 import { Team } from './pages/team';
@@ -90,7 +90,7 @@ function fooCallback() {
 
 const callbacks = {
     //! здесь прописываем функции-листенеры для каждой отдельной страницы
-    '/': fooCallback,
+    '/': HomeCallback,
     '/textbook': TextbookCallback,
     '/games': GamesCallback,
     '/games/audiochallenge': fooCallback,
@@ -198,8 +198,8 @@ export const onNavigate = async (pathname: routesKey) => {
 };
 
 window.onpopstate = async () => {
-    // const content = await routes[window.location.pathname as routesKey]();
-    // rootDiv.innerHTML = content;
+    //const content = await routes[window.location.pathname as routesKey]();
+    //rootDiv.innerHTML = content;
     location.reload(); // TODO вернуться к window.location.pathnam. Сейчас при back/forward теряются listeners поэтому справляемся перезагрузкой.
 };
 

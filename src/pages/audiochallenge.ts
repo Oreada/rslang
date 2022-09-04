@@ -177,67 +177,76 @@ export const AudiochallengeCallback = () => {
     });
 
     function addKeyboardListeners() {
-      document.addEventListener('keyup', (event: KeyboardEvent) => {
-        const code = event.code;        
-        const end = document.querySelector('.results__end-btn') as HTMLButtonElement;
+        document.addEventListener('keyup', (event: KeyboardEvent) => {
+            const code = event.code;
+            const end = document.querySelector('.results__end-btn') as HTMLButtonElement;
 
-        if (end) {
-          if (code === 'Enter') {
-            end.click();
-          }
-          return;
-        }
+            if (end) {
+                if (code === 'Enter') {
+                    end.click();
+                }
+                return;
+            }
 
-        const pages = document.querySelectorAll('.audiochallenge__page');
-        if (!pages) {
-          return;
-        }
+            const pages = document.querySelectorAll('.audiochallenge__page');
+            if (!pages) {
+                return;
+            }
 
-        const currentPage = pages[AudioChallengeStorage.currentAudioPage - 1];
-        if (!currentPage) {
-          return;
-        }
-        const audioButton = currentPage.querySelector('.question-card__audio-btn') as HTMLButtonElement;
-        const checkboxes = currentPage.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
-        const nextButton = currentPage.querySelector('.bottom-ac__next-btn') as HTMLButtonElement;
-        if (!audioButton || !checkboxes || !nextButton) {
-          return;
-        }
+            const currentPage = pages[AudioChallengeStorage.currentAudioPage - 1];
+            if (!currentPage) {
+                return;
+            }
+            const audioButton = currentPage.querySelector('.question-card__audio-btn') as HTMLButtonElement;
+            const checkboxes = currentPage.querySelectorAll('.medium-ac__input') as NodeListOf<HTMLInputElement>;
+            const nextButton = currentPage.querySelector('.bottom-ac__next-btn') as HTMLButtonElement;
+            if (!audioButton || !checkboxes || !nextButton) {
+                return;
+            }
 
-        if (code === 'Enter' && nextButton.disabled === false) {
-          nextButton.click();
-        }
+            if (code === 'Enter' && nextButton.disabled === false) {
+                nextButton.click();
+            }
 
-        if (code === 'Space') {
-          audioButton.click();
-        }
+            if (code === 'Space') {
+                audioButton.click();
+            }
 
-        if (code === 'Digit1') {
-          checkboxes[0].click();
-        }
+            if (code === 'Digit1') {
+                checkboxes[0].click();
+            }
 
-        if (code === 'Digit2') {
-          checkboxes[1].click();
-        }
+            if (code === 'Digit2') {
+                checkboxes[1].click();
+            }
 
-        if (code === 'Digit3') {
-          checkboxes[2].click();
-        }
+            if (code === 'Digit3') {
+                checkboxes[2].click();
+            }
 
-        if (code === 'Digit4') {
-          checkboxes[3].click();
-        }
+            if (code === 'Digit4') {
+                checkboxes[3].click();
+            }
 
-        if (code === 'Digit5') {
-          checkboxes[4].click();
-        }
-        return;
-        return;
-        return;
-      })
+            if (code === 'Digit5') {
+                checkboxes[4].click();
+            }
+            return;
+            return;
+            return;
+        });
     }
     addKeyboardListeners();
-    
+
+    const result = document.querySelector('.audiochallenge__results') as HTMLElement;
+    if (!result) {
+        return;
+    }
+    result.addEventListener('click', (event: Event) => {
+        if ((event.target as HTMLButtonElement).classList.contains('results__end-btn')) {
+            document.location.replace(window.location.origin + '/games');
+        }
+    });
 };
 
 //! ================================================================================
