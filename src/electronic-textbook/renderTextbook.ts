@@ -2,7 +2,7 @@ import { storage } from '../storage/storage';
 import { IWord } from '../types/types';
 import { renderPage } from './renderTextbookPage';
 
-function textbookNavRender(): string {
+export function textbookNavRender(): string {
     const isAuthorized = localStorage.getItem('rslang_currentUser#');
     const strAdd = isAuthorized
         ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
