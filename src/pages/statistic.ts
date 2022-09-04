@@ -1,3 +1,9 @@
-export const Statistic = (): string => {
-    return `<p style="font-size: 24px;">Here should be page Statistic</p>`;
+import { contentStatisticsPage } from '../components/statistics/statistics-render';
+
+export const Statistic = async (): Promise<string> => {
+    return contentStatisticsPage();
+};
+
+export const StatisticCallback = () => {
+    // место для листенеров
 };
