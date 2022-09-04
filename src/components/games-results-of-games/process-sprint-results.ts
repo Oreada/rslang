@@ -1,10 +1,13 @@
 import { getUserWord, createUserWord, updateUserWord } from '../api/api';
 
 export async function processSprintResults(idUser: string, tokenUser: string, resultsPairs: Array<Array<string>>) {
+    let gameNewCnt = 0;
+
     for await (const pair of resultsPairs) {
         const word = await getUserWord(idUser, pair[0], tokenUser);
 
         if (word === undefined) {
+            gameNewCnt += 1;
             console.log('Создание нового слова пользователя (Sprint)');
             await createUserWord(
                 idUser,
@@ -98,6 +101,15 @@ export async function processSprintResults(idUser: string, tokenUser: string, re
                 },
                 tokenUser
             );
+
+            const isNew =
+                newTotalCorrect +
+                newTotalIncorrect +
+                word.optional.totalCorrectAudiochallenge +
+                word.optional.totalIncorrectAudiochallenge ===
+                1;
+            gameNewCnt += isNew ? 1 : 0;
         }
     }
+    return { gameNewCnt: gameNewCnt };
 }

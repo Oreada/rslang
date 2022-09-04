@@ -5,10 +5,13 @@ export async function processAudiochallengeResults(
     tokenUser: string,
     resultsPairs: Array<Array<string>>
 ) {
+    let gameNewCnt = 0;
+
     for await (const pair of resultsPairs) {
         const word = await getUserWord(idUser, pair[0], tokenUser);
 
         if (word === undefined) {
+            gameNewCnt += 1;
             console.log('Создание нового слова пользователя (Audiochallenge)');
             await createUserWord(
                 idUser,
@@ -102,6 +105,15 @@ export async function processAudiochallengeResults(
                 },
                 tokenUser
             );
+
+            const isNew =
+                newTotalCorrect +
+                newTotalIncorrect +
+                word.optional.totalCorrectSprint +
+                word.optional.totalIncorrectSprint ===
+                1;
+            gameNewCnt += isNew ? 1 : 0;
         }
     }
+    return { gameNewCnt: gameNewCnt };
 }
