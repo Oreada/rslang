@@ -32,6 +32,7 @@ function textbookNavRender(): string {
 }
 
 //* TODO: разобраться с актуализацией значения storage.chapterCount + актуальное значение после перезагрузки страницы (localStorage?)
+
 function textbookFooterRender(): string {
     const str = `
     <button class="game-btn audio-game-btn">
@@ -61,16 +62,23 @@ export function renderWordStatistic(sprintWins: string, sprintLoses: string, aud
   const str = `<div class="textbook-statistic-container">
     <button class="word-statistic-close">Close</button>
     <div class="word-statistic-content">
-      <div class="word-statistic-row">
-        <div class="word-statistic-game">Sprint:</div>
-        <div class="word-statistic-counter">${sprintWins}</div>
-        <div class="word-statistic-counter">${sprintLoses}</div>
-      </div>
-      <div class="word-statistic-row">
-        <div class="word-statistic-game">AudioChallenge</div>
-        <div class="word-statistic-counter">${audioChallengeWins}</div>
-        <div class="word-statistic-counter">${audioChallengeLoses}</div>
-    </div>
+      <table class="word-statistic-table">
+        <tr>
+          <th>Игра</th>
+          <th>Верно</th>
+          <th>Неверно</th>
+        </tr>
+        <tr>
+          <td>Sprint</td>
+          <td>${sprintWins}</td>
+          <td>${sprintLoses}</td>
+        </tr>
+        <tr>
+          <td>AudioChallenge</td>
+          <td>${audioChallengeWins}</td>
+          <td>${audioChallengeLoses}</td>
+        </tr>
+      </table>
     </div>
   </div>`;
 
