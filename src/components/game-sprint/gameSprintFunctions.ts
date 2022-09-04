@@ -57,6 +57,12 @@ export function sprintTimer() {
       return;
     }
 
+    const game = document.querySelector('.sprint-game-container') as HTMLElement;
+    if (!game) {
+      clearInterval(sprintTimer as NodeJS.Timer);
+      return;
+    }
+
     timerLimit -= 1;
     console.log(timerLimit);
     target.innerHTML = renderSprintTimer(timerLimit);
