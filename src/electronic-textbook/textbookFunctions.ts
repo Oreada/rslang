@@ -57,6 +57,7 @@ export async function startTextbook() {
       storage.difficultWords = res[0].paginatedResults;
       container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
       footer.classList.add('hidden');
+      updateTextbookGroupStyle();
       return;
     }
 
@@ -70,6 +71,7 @@ export async function startTextbook() {
     // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
     updatePageCounter();
     updatePagButtonState();
+    updateTextbookGroupStyle();
     await updatePageState();
     checkLearningPage();
     return;
@@ -91,6 +93,7 @@ export async function startTextbook() {
   // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
   updatePageCounter();
   updatePagButtonState();
+  updateTextbookGroupStyle();
 }
 
 export function checkLearningPage() {
@@ -129,4 +132,19 @@ export function checkLearningPage() {
   gameBtns.forEach((item) => {
     item.disabled = false;
   })
+}
+
+export function updateTextbookGroupStyle() {
+  const groupButtons = document.querySelectorAll('.textbook-nav-btn') as NodeListOf<HTMLButtonElement>;
+  const container = document.querySelector('.textbook-container')as HTMLElement;
+  if (!groupButtons) {
+    return;
+  }
+  groupButtons.forEach((item) => {
+    item.classList.remove('current-group-btn')
+    if (item.dataset.group === storage.chapterCount) {
+      item.classList.add('current-group-btn');
+    }
+  });
+  container.dataset.groupStyle = storage.chapterCount;
 }

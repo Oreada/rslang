@@ -86,7 +86,7 @@ export function renderWordStatistic(sprintWins: string, sprintLoses: string, aud
 }
 
 export function textbookRender(): string {
-    const str = `<div class="textbook-container">
+    const str = `<div class="textbook-container" data-groupStyle="0">
         <div class="textbook-popup hidden"></div>
         <section class="textbook-nav">
             ${textbookNavRender()}

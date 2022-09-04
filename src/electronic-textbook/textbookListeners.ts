@@ -5,7 +5,7 @@ import { sprintStorage, storage } from "../storage/storage";
 import { IAuthorizationResult, IStorage, IUserWordsAggregated, IWord, IWordUser, IWordWithDifficulty } from "../types/types";
 import { renderWordStatistic } from "./renderTextbook";
 import { renderAuthorizedPage, renderDifficultPage, renderPage } from "./renderTextbookPage";
-import { checkLearningPage, updatePageState } from "./textbookFunctions";
+import { checkLearningPage, updatePageState, updateTextbookGroupStyle } from "./textbookFunctions";
 
 export function updatePageCounter(): void {
   const counter = document.querySelector('.page-number') as HTMLElement;
@@ -89,6 +89,7 @@ async function groupEventHandler(item: HTMLElement): Promise<void> {
       console.log(storage.chapterCount, storage.pageCount, 'change chapter');
       updatePageCounter();
       updatePagButtonState();
+      updateTextbookGroupStyle();
       updateTextbookGameLinks();
 }
 
@@ -113,6 +114,7 @@ async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
 
         container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
         footer.classList.add('hidden');
+        updateTextbookGroupStyle();
         return;
       }
 
@@ -128,6 +130,7 @@ async function groupEventHandlerAuthorized(item: HTMLElement): Promise<void> {
       console.log(storage.chapterCount, storage.pageCount, 'change chapter');
       updatePageCounter();
       updatePagButtonState();
+      updateTextbookGroupStyle();
       updateTextbookGameLinks();
       await updatePageState();
       checkLearningPage();
