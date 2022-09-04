@@ -21,7 +21,6 @@ export const GamesCallback = () => {
     games.forEach((game) => {
         const rout = game.dataset.rout as routesKey;
         game.addEventListener('click', () => {
-            console.log('Вот', rout);
             onNavigate(rout);
         });
     });
