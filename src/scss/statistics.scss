@@ -1,27 +1,79 @@
 .statistics {
+	width: 100%;
 	font-size: 20px;
+
+	padding-top: 40px;
 }
 
 .daystatistics__title,
 .longtermstatistics__title {
+	text-align: center;
 	font-weight: 600;
 	text-transform: uppercase;
 }
 
 .audiochallenge-day__title,
 .sprint-day__title {
+	text-align: center;
 	font-weight: 600;
 }
 
 .statistics__page {
+	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 100%;
+	justify-content: stretch;
+	grid-template-columns: 1fr 0.7fr;
+	// grid-template-rows: 100%;
 	gap: 20px;
+
+	@media (max-width: 1250px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .daystatistics {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
 }
 
 .longtermstatistics {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 20px;
+}
+
+.daystatistics__body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.longtermstatistics__body {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 20px;
+}
+
+.allgames-day__number,
+.audiochallenge-day__number,
+.sprint-day__number {
+	color: rgb(205, 75, 60);
+	font-weight: 600;
+}
+
+.daystatistics__allgames,
+.daystatistics__audiochallenge,
+.daystatistics__sprint {
+	display: flex;
+	flex-direction: column;
+	// align-items: stretch;
+	gap: 5px;
+
+	background-color: rgb(229, 241, 248);
+	padding: 10px;
 }
