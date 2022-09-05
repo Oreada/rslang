@@ -1,4 +1,5 @@
-export const BASE_API = 'http://localhost:45741';
+// export const BASE_API = 'http://localhost:45741';
+export const BASE_API = 'https://rs-lang-iso.herokuapp.com';
 
 export const PAGES_IN_GROUP = 30;
 
