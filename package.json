@@ -1,5 +1,5 @@
 {
-    "name": "OnlineStore",
+    "name": "RSLang",
     "version": "1.0.0",
     "description": "",
     "main": "webpack.base.config.js",
@@ -14,7 +14,7 @@
         "url": ""
     },
     "keywords": [],
-    "author": "Dmitry Belov",
+    "author": "IliyaSashaOlya",
     "license": "ISC",
     "homepage": "",
     "devDependencies": {
