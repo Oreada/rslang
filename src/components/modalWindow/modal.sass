@@ -1,0 +1,37 @@
+.modal
+  display: flex
+  position: fixed
+  padding-top: 2%
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  overflow: auto
+  background-color: rgba(0,0,0,0.7)
+
+.modal-content
+  position: relative
+  color: darkblue
+  margin: auto
+  border: 1px solid #888
+  width: 80%
+  height: 90vh
+  text-align: center
+  border-radius: 15px
+
+.close
+  position: absolute
+  z-index: 1000
+  top: -25px
+  right: -25px
+  border: none
+  background: none
+  .material-icons
+    background-color: rgb(123, 157, 184)
+    border-radius: 50%
+    border: 2px solid gray
+    color: white
+    transform: scale(0.5)
+    &:hover
+      transition: all 0.3s
+      transform: scale(0.6)
