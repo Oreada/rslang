@@ -23,13 +23,11 @@ export const HomeCallback = () => {
 export const Home = (): string => {
     return `<section class="home-page">
       <div class="home-heading">
-        <img class="heading-img one" src="../asset/images/puzzle-machine-learning-1.png" alt="">
         <p class="description-text">
           Запоминание английских слов может быть увлекательным. 
           Играй в игры, слушай произношение носителей языка, совершенствуй свои знания. 
           С нашим приложением обучение становится радостью.
         </p>
-        <img class="heading-img two" src="../asset/images/puzzle-machine-learning-2.png" alt="">
       </div>
       <div class="btn__set">
         <button class="home-btn learn-more">Узнай больше</bitton>

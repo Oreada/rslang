@@ -9,7 +9,7 @@ import { IUserWordCard, IStatisticsResult, IUserWordsAggregated } from '../types
 import { AudioChallengeStorage, storage } from '../storage/storage';
 
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
-import { LOCAL_STORAGE_DATA } from '../constants/constants';
+import { BASE_API, LOCAL_STORAGE_DATA } from '../constants/constants';
 import { renderAndProcessAudiochallenge } from '../components/games-results-of-games/wrapper-audiochallenge-results';
 
 export const AudiochallengeContent = (): string => {
@@ -77,7 +77,7 @@ export const AudiochallengeCallback = () => {
     ) as NodeListOf<HTMLButtonElement>;
 
     setTimeout(() => {
-        const path = `http://localhost:45741/${questionAudioButtons[0].dataset.audiopath as string}`;
+        const path = `${BASE_API}${questionAudioButtons[0].dataset.audiopath as string}`;
         const audio = new Audio(path);
         // try {
         //     (audio as HTMLAudioElement).play();
@@ -165,7 +165,7 @@ export const AudiochallengeCallback = () => {
                 if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
-                            const path = `http://localhost:45741/${targetButton.dataset.audiopath as string}`;
+                            const path = `${BASE_API}${targetButton.dataset.audiopath as string}`;
                             const audio = new Audio(path);
                             (audio as HTMLAudioElement).play();
                         }
@@ -253,7 +253,6 @@ export const AudiochallengeCallback = () => {
             document.location.replace(window.location.origin + '/games');
         }
     });
-
 };
 
 //! ================================================================================
