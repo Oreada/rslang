@@ -4,7 +4,7 @@ import { sprintStorage, storage } from "../storage/storage";
 import { IAuthorizationResult, IUserWordsAggregated, IWord, IWordWithDifficulty } from "../types/types";
 import { textbookNavRender } from "./renderTextbook";
 import { renderAuthorizedPage, renderDifficultPage, renderPage } from "./renderTextbookPage";
-import { updatePagButtonState, updatePageCounter } from "./textbookListeners";
+import { addCommonChaptersListener, updatePagButtonState, updatePageCounter } from "./textbookListeners";
 
 export async function updateTextbook(group: string, page: string) {
   const words = await getWords(group, page);
@@ -60,6 +60,7 @@ export async function startTextbook() {
       container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
       footer.classList.add('hidden');
       header.innerHTML = textbookNavRender();
+      addCommonChaptersListener();
       updateTextbookGroupStyle();
       return;
     }
@@ -72,6 +73,7 @@ export async function startTextbook() {
     container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
     footer.classList.remove('hidden');
     header.innerHTML = textbookNavRender();
+    addCommonChaptersListener();
     // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
     updatePageCounter();
     updatePagButtonState();
@@ -95,6 +97,8 @@ export async function startTextbook() {
   container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
   footer.classList.remove('hidden');
   header.innerHTML = textbookNavRender();
+  addCommonChaptersListener();
+  
   // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
   updatePageCounter();
   updatePagButtonState();

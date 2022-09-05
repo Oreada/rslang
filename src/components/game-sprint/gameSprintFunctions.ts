@@ -5,7 +5,7 @@ import { IAuthorizationResult, IWord, _IWord } from "../../types/types";
 import { getWordById, getWords } from "../api/api";
 import { getRandomWords, getRandomWordsWithExcluded } from "../api/api-games";
 import { renderAndProcessSprint } from "../games-results-of-games/wrapper-sprint-results";
-import { renderBestSprintResult, renderSprintTimer, renderUsualSprintResult } from "./renderSprintGame";
+import { renderSprintTimer, renderUsualSprintResult } from "./renderSprintGame";
 
 async function showSprintResult(): Promise<void> {
   const target = document.querySelector('.sprint-result-container') as HTMLElement;
@@ -21,10 +21,8 @@ async function showSprintResult(): Promise<void> {
 
   if (sprintStorage.currentScore >= sprintStorage.bestScore) {
     sprintStorage.bestScore = sprintStorage.currentScore;
-    target.innerHTML = renderBestSprintResult();
-  } else {
-    target.innerHTML = renderUsualSprintResult();
   }
+  target.innerHTML = renderUsualSprintResult();
 
   const statContainer = document.querySelector('.sprint-result-statistic') as HTMLElement;
   await renderAndProcessSprint(statContainer, sprintStorage.gameResult, function () {
