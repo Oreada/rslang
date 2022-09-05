@@ -110,7 +110,7 @@ export interface IOptionsForStatistics {
         audiochallenge: IDataForStatistics;
         sprint: IDataForStatistics;
     };
-    allDaysStatistics: Record<string, Array<number>>;
+    allDaysStatistics: Record<string, Array<Array<string | number>>>;
     // allDaysStatistics: string;
     // allDaysStatistics: Array<string>;
     // allDaysStatistics: "['31.08.2022:33:12:11:550', '01.09.2022:50:36:14:400']"; // дата:всегоОтветов:правильные:неправильные:bestScoreSprint
@@ -129,6 +129,7 @@ export interface IStatisticsResult {
 
 export interface IDataForStatistics {
     latestDate: string;
+    firstTimeInGame: number;
     totalAnswers: number;
     correctAnswers: number;
     incorrectAnswers: number;

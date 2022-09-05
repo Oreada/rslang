@@ -4,8 +4,8 @@ import {
     contentAudiochallengeWithWrapperTextbook,
 } from '../components/game-audiochallenge/audiochallenge-render';
 import { drawGroupSelectionPage } from '../components/games-group-selection/group-selection';
-import { getAllUserWords, getUserWord, updateUserWord, getStatistics } from '../components/api/api';
-import { IUserWordCard, IStatisticsResult } from '../types/types';
+import { getAllUserWords, getStatistics, getUserAggregatedWordsFiltered } from '../components/api/api';
+import { IUserWordCard, IStatisticsResult, IUserWordsAggregated } from '../types/types';
 import { AudioChallengeStorage, storage } from '../storage/storage';
 
 import { processAudiochallengeResults } from '../components/games-results-of-games/process-audiochallenge-results';
@@ -311,15 +311,23 @@ const resultsEntries = [
 //     )
 // );
 
-const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
-if (isAuthorized) {
-    const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
-    const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
-    console.log('userId =', userId, 'userToken =', userToken);
+// const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
+// if (isAuthorized) {
+//     const userId = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
+//     const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
+//     console.log('userId =', userId, 'userToken =', userToken);
 
-    const tempAllUserWords = await getAllUserWords(userId, userToken);
+//     const tempAllUserWords = await getAllUserWords(userId, userToken);
+//     const easyWordsAll = (await getUserAggregatedWordsFiltered(
+//         userId,
+//         userToken,
+//         'easy',
+//         '0',
+//         '1'
+//     )) as IUserWordsAggregated[];
 
-    console.log(tempAllUserWords);
-} else {
-    console.log('Пользователь не авторизован');
-}
+//     console.log(easyWordsAll[0].totalCount[0].count);
+//     console.log(tempAllUserWords);
+// } else {
+//     console.log('Пользователь не авторизован');
+// }

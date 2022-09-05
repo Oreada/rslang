@@ -20,10 +20,12 @@ export async function renderAndProcessAudiochallenge(container: HTMLElement, gam
         const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
         console.log('userId in game Audiochallenge =', userId, 'userToken in game Audiochallenge =', userToken);
 
-        await processAudiochallengeResults(userId, userToken, entries);
+        const processedResult = await processAudiochallengeResults(userId, userToken, entries);
+        console.log('processedResult', processedResult);
 
         const dataForStatistics = {
             latestDate: getTodayDate(),
+            firstTimeInGame: processedResult.gameNewCnt,
             totalAnswers: entries.length,
             correctAnswers: correctAnswers.length,
             incorrectAnswers: incorrectAnswers.length,

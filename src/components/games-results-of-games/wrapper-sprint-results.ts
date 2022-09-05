@@ -31,10 +31,12 @@ export async function renderAndProcessSprint(
         const userToken = await JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).token;
         console.log('userId in game Sprint =', userId, 'userToken in game Sprint =', userToken);
 
-        await processSprintResults(userId, userToken, entries);
+        const processedResult = await processSprintResults(userId, userToken, entries);
+        console.log('processedResult', processedResult);
 
         const dataForStatistics = {
             latestDate: getTodayDate(),
+            firstTimeInGame: processedResult.gameNewCnt,
             totalAnswers: entries.length,
             correctAnswers: correctAnswers.length,
             incorrectAnswers: incorrectAnswers.length,
