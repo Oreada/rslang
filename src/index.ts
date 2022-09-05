@@ -1,7 +1,6 @@
 import { listenLogon } from './components/modalWindow/logonListener';
 
 import './scss/style.scss';
-import './components/api/test-api-functions';
 
 import {
     AudiochallengeContent,
@@ -216,8 +215,3 @@ window.onpopstate = async () => {
     rootDiv.innerHTML = content;
     // location.reload(); // TODO вернуться к window.location.pathnam. Сейчас при back/forward теряются listeners поэтому справляемся перезагрузкой.
 };
-
-// listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
-// пока что оставил ее тут, чтоб была возможность у всех проверять работу словаря
-
-// listenersTextbook();

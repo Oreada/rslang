@@ -43,8 +43,6 @@ export async function processAudiochallengeResults(
             const oldConsecutiveCorrect = word.optional.consecutiveCorrectAll;
             const oldConsecutiveIncorrect = word.optional.consecutiveIncorrectAll;
 
-            console.log(pair[0], oldTotalCorrect, oldTotalIncorrect, oldConsecutiveCorrect, oldConsecutiveIncorrect);
-
             let newDifficulty = word.difficulty;
             let newTotalCorrect = oldTotalCorrect;
             let newTotalIncorrect = oldTotalIncorrect;

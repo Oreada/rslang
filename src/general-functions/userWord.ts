@@ -1,7 +1,6 @@
 import { createUserWord, getUserAggregatedWordsFiltered, getUserWord, updateUserWord } from '../components/api/api';
 import { processStatistics } from '../components/statistics/statistics-process';
-import { storage } from '../storage/storage';
-import { IAuthorizationResult, IUserWordsAggregated } from '../types/types';
+import { IAuthorizationResult } from '../types/types';
 import { getTodayDate } from './getTodayDate';
 
 export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {

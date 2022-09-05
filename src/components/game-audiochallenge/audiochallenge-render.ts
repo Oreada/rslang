@@ -5,24 +5,14 @@ import {
     LOCAL_STORAGE_DATA,
     AMOUNT_CARDS_AUDIOCHALLENGE_TEXTBOOK,
 } from '../../constants/constants';
-import { createUserWord, getUserAggregatedWordsFiltered } from '../api/api';
-import {
-    getRandomWords,
-    getRandomCardsAudiochallenge,
-    getRandomWordsWithExcluded,
-    getRandomCardsAudiochallengeWithExcluded,
-} from '../api/api-games';
+import { getRandomCardsAudiochallenge, getRandomCardsAudiochallengeWithExcluded } from '../api/api-games';
 import { shuffle } from '../../general-functions/shuffle';
 
 import { ICardAudiochallenge } from '../../types/types';
 
-import { IWord } from '../../types/types';
 import { Modal } from '../modalWindow/modal';
 
-console.log('audiochallenge loaded');
-
 export function playWordAudioForGame(event: Event) {
-    console.log('audio works!');
     const targetButton = event.currentTarget as HTMLButtonElement;
     if (
         targetButton.classList.contains('answer-card__audio-btn') ||
@@ -260,44 +250,3 @@ function drawAudiochallengePage(
                 </div>
             </div>`;
 }
-
-// console.log(
-//     await createUserWord(
-//         '62fe0020d755e24640edaabd',
-//         '5e9f5ee35eb9e72bc21af6b5',
-//         { difficulty: 'easy', optional: { test: 'ttt' } },
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4'
-//     )
-// );
-
-// console.log(
-//     await getUserAggregatedWordsFiltered(
-//         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
-//         'easy'
-//     )
-// );
-
-// console.log(
-//     await getRandomWordsWithExcluded(
-//         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTY4OTU1OSwiZXhwIjoxNjYxNzAzOTU5fQ.V7AI1VCOhr8FQR6JNwpr69ZCjWv_E45dmqvxdnXIHOQ',
-//         'easy',
-//         '0',
-//         '600',
-//         '9'
-//     )
-// );
-
-// console.log(
-//     await getRandomCardsAudiochallengeWithExcluded(
-//         '62fe0020d755e24640edaabd',
-//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MTUxNDMwNywiZXhwIjoxNjYxNTI4NzA3fQ.MAXY3bcOQR7E6lfwB07jLr5lr-xhXNnShfXn9Ck_lc4',
-//         'easy',
-//         '10',
-//         '0',
-//         '5'
-//     )
-// );
-
-// console.log(await getRandomWords('0', '600', '9'));

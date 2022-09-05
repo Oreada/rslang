@@ -1,11 +1,9 @@
 import { onNavigate } from '../..';
 import { sprintStorage } from '../../storage/storage';
-import { IWord, _IWord } from '../../types/types';
+import { _IWord } from '../../types/types';
 import {
     getPageForSprint,
-    getSprintWords,
     getSprintWordsFromPage,
-    getStartSprintWords,
     resetSprintProgress,
     sprintTimer,
     updateSprintProgressRender,
