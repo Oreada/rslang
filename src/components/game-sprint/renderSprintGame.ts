@@ -13,24 +13,7 @@ export function renderSprintTimer(count: number): string {
 export function renderUsualSprintResult(): string {
     const str = `<div class="sprint-result">
     <div class="sprint-current-result">
-      Твой результат ${sprintStorage.currentScore}!
-    </div>
-    <div class="sprint-best-result">
-      Твой рекорд: ${sprintStorage.bestScore}
-    </div>
-    <div class="sprint-result-statistic"></div>
-  </div>`;
-
-    return str;
-}
-
-export function renderBestSprintResult(): string {
-    const str = `<div class="sprint-result">
-    <div class="sprint-current-result">
-      Твой результат ${sprintStorage.currentScore}!
-    </div>
-    <div class="sprint-new-best-result">
-      Поздравляем! Это новый рекорд!
+      Твой счет: ${sprintStorage.currentScore}!
     </div>
     <div class="sprint-result-statistic"></div>
   </div>`;
