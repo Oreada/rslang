@@ -1,4 +1,4 @@
-import { onNavigate, routesKey } from '..';
+import { onNavigate, routesKey } from '../index';
 import './games.sass';
 
 export const GamesContent = () => {
