@@ -2,6 +2,7 @@ import { getUserAggregatedWordsFiltered, getWords } from "../components/api/api"
 import { WORDS_PER_PAGE } from "../constants/constants";
 import { sprintStorage, storage } from "../storage/storage";
 import { IAuthorizationResult, IUserWordsAggregated, IWord, IWordWithDifficulty } from "../types/types";
+import { textbookNavRender } from "./renderTextbook";
 import { renderAuthorizedPage, renderDifficultPage, renderPage } from "./renderTextbookPage";
 import { updatePagButtonState, updatePageCounter } from "./textbookListeners";
 
@@ -45,6 +46,7 @@ export async function updatePageState() {
 export async function startTextbook() {
   const container = document.querySelector('.textbook-page-container') as HTMLElement;
   const footer = document.querySelector('.textbook-footer') as HTMLElement;
+  const header = document.querySelector('.textbook-nav') as HTMLElement;
   const isAuthorized = localStorage.getItem('rslang_currentUser#');
   if (isAuthorized) {
     if (storage.chapterCount === 'difficult') {
@@ -57,6 +59,7 @@ export async function startTextbook() {
       storage.difficultWords = res[0].paginatedResults;
       container.innerHTML = renderDifficultPage(storage.difficultWords as Array<IWordWithDifficulty>);
       footer.classList.add('hidden');
+      header.innerHTML = textbookNavRender();
       updateTextbookGroupStyle();
       return;
     }
@@ -68,6 +71,7 @@ export async function startTextbook() {
 
     container.innerHTML = renderAuthorizedPage(storage.currentPage as Array<IWord>);
     footer.classList.remove('hidden');
+    header.innerHTML = textbookNavRender();
     // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
     updatePageCounter();
     updatePagButtonState();
@@ -90,6 +94,7 @@ export async function startTextbook() {
 
   container.innerHTML = renderPage(storage.currentPage as Array<IWord>);
   footer.classList.remove('hidden');
+  header.innerHTML = textbookNavRender();
   // console.log(storage.chapterCount, storage.pageCount, 'change chapter');
   updatePageCounter();
   updatePagButtonState();
