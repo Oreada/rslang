@@ -97,23 +97,12 @@ export interface IUserWordsAggregated {
     totalCount: Array<Record<string, number>>;
 }
 
-//! временно такой тип, т.к. мы не знаем, какие опции статистики нам будут нужны
-// export type TOptionsForStatistics = Record<string, unknown>;
-
-// export interface IStatisticsBodyForPutting {
-//     learnedWords: number;
-//     optional: TOptionsForStatistics;
-// }
-
 export interface IOptionsForStatistics {
     lastDayStatistics: {
         audiochallenge: IDataForStatistics;
         sprint: IDataForStatistics;
     };
     allDaysStatistics: Record<string, Array<Array<string | number>>>;
-    // allDaysStatistics: string;
-    // allDaysStatistics: Array<string>;
-    // allDaysStatistics: "['31.08.2022:33:12:11:550', '01.09.2022:50:36:14:400']"; // дата:всегоОтветов:правильные:неправильные:bestScoreSprint
 }
 
 export interface IStatisticsBodyForPutting {
