@@ -12,3 +12,16 @@
 .sprint-day__title {
 	font-weight: 600;
 }
+
+.statistics__page {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 100%;
+	gap: 20px;
+}
+
+.daystatistics {
+}
+
+.longtermstatistics {
+}
