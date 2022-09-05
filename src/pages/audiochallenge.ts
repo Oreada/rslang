@@ -165,7 +165,7 @@ export const AudiochallengeCallback = () => {
                 if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
-                            const path = `${BASE_API}${targetButton.dataset.audiopath as string}`;
+                            const path = `${BASE_API}/${targetButton.dataset.audiopath as string}`;
                             const audio = new Audio(path);
                             (audio as HTMLAudioElement).play();
                         }
