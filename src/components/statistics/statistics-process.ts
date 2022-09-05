@@ -4,7 +4,10 @@ import { IStatisticsResult, IDataForStatistics, IUserWordsAggregated } from '../
 
 //* TODO: нужен ли параметр "learnedWords" - ???
 
-export async function processStatistics(game: 'audiochallenge' | 'sprint', resultsObj: IDataForStatistics) {
+export async function processStatistics(
+    game: 'audiochallenge' | 'sprint' | 'textbook',
+    resultsObj: IDataForStatistics
+) {
     const isAuthorized = localStorage.getItem(LOCAL_STORAGE_DATA);
     if (isAuthorized) {
         const userId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA) as string).userId;
@@ -255,6 +258,46 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
                         },
                     },
                 })) as IStatisticsResult;
+            } else if (game === 'textbook') {
+                (await putStatistics(userId, userToken, {
+                    learnedWords: 0,
+                    optional: {
+                        lastDayStatistics: {
+                            audiochallenge: {
+                                latestDate: resultsObj.latestDate,
+                                firstTimeInGame: 0,
+                                totalAnswers: 0,
+                                correctAnswers: 0,
+                                incorrectAnswers: 0,
+                                bestSeriesOfAnswers: 0,
+                                bestScore: undefined,
+                            },
+                            sprint: {
+                                latestDate: resultsObj.latestDate,
+                                firstTimeInGame: 0,
+                                totalAnswers: 0,
+                                correctAnswers: 0,
+                                incorrectAnswers: 0,
+                                bestSeriesOfAnswers: 0,
+                                bestScore: 0,
+                            },
+                        },
+
+                        allDaysStatistics: {
+                            days: [
+                                [
+                                    resultsObj.totalAnswers,
+                                    resultsObj.correctAnswers,
+                                    resultsObj.incorrectAnswers,
+                                    resultsObj.bestScore as number,
+                                    resultsObj.firstTimeInGame,
+                                    amountEasyWordsAll,
+                                    resultsObj.latestDate,
+                                ],
+                            ],
+                        },
+                    },
+                })) as IStatisticsResult;
             } else {
                 console.log('Неверное значение параметра "game"');
             }
@@ -264,8 +307,8 @@ export async function processStatistics(game: 'audiochallenge' | 'sprint', resul
     }
 }
 
-const oldStatisticsTest = (await getStatistics(
-    '62fe0020d755e24640edaabd',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjMyNjc4MCwiZXhwIjoxNjYyMzQxMTgwfQ.bKqq5e7fKGvpUqHy0RqkOpez8kR9XlU6rxrvsN6fXyA'
-)) as IStatisticsResult;
-console.log(oldStatisticsTest);
+// const oldStatisticsTest = (await getStatistics(
+//     '62fe0020d755e24640edaabd',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmUwMDIwZDc1NWUyNDY0MGVkYWFiZCIsImlhdCI6MTY2MjMyNjc4MCwiZXhwIjoxNjYyMzQxMTgwfQ.bKqq5e7fKGvpUqHy0RqkOpez8kR9XlU6rxrvsN6fXyA'
+// )) as IStatisticsResult;
+// console.log(oldStatisticsTest);

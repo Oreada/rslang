@@ -1,6 +1,8 @@
 import { createUserWord, getUserAggregatedWordsFiltered, getUserWord, updateUserWord } from '../components/api/api';
+import { processStatistics } from '../components/statistics/statistics-process';
 import { storage } from '../storage/storage';
 import { IAuthorizationResult, IUserWordsAggregated } from '../types/types';
+import { getTodayDate } from './getTodayDate';
 
 export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {
     const user: IAuthorizationResult = JSON.parse(localStorage.getItem('rslang_currentUser#') as string);
@@ -28,6 +30,15 @@ export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {
             userToken
         );
         console.log('слово обновлено');
+        await processStatistics('textbook', {
+            latestDate: getTodayDate(),
+            firstTimeInGame: 0,
+            totalAnswers: 0,
+            correctAnswers: 0,
+            incorrectAnswers: 0,
+            bestSeriesOfAnswers: 0,
+            bestScore: 0,
+        });
         return;
     }
 
@@ -53,4 +64,14 @@ export async function addUserWord(wordId: string, difficulty: 'easy' | 'hard') {
         userToken
     );
     console.log('слово добавлено');
+
+    await processStatistics('textbook', {
+        latestDate: getTodayDate(),
+        firstTimeInGame: 0,
+        totalAnswers: 0,
+        correctAnswers: 0,
+        incorrectAnswers: 0,
+        bestSeriesOfAnswers: 0,
+        bestScore: 0,
+    });
 }
