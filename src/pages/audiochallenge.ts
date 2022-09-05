@@ -243,6 +243,17 @@ export const AudiochallengeCallback = () => {
         });
     }
     addKeyboardListeners();
+
+    const result = document.querySelector('.audiochallenge__results') as HTMLElement;
+    if (!result) {
+        return;
+    }
+    result.addEventListener('click', (event: Event) => {
+        if ((event.target as HTMLButtonElement).classList.contains('results__end-btn')) {
+            document.location.replace(window.location.origin + '/games');
+        }
+    });
+
 };
 
 //! ================================================================================

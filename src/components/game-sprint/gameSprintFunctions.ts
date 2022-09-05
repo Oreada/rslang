@@ -10,9 +10,14 @@ import { renderBestSprintResult, renderSprintTimer, renderUsualSprintResult } fr
 async function showSprintResult(): Promise<void> {
   const target = document.querySelector('.sprint-result-container') as HTMLElement;
   const game = document.querySelector('.sprint-game-container') as HTMLElement;
-  if (!target || !game) {
+  const buttons = document.querySelectorAll('.sprint-button') as NodeListOf<HTMLButtonElement>;
+  if (!target || !game || !buttons) {
     return;
   }
+
+  buttons.forEach((item) => {
+    item.disabled = true;
+  })
 
   if (sprintStorage.currentScore >= sprintStorage.bestScore) {
     sprintStorage.bestScore = sprintStorage.currentScore;
@@ -30,6 +35,9 @@ async function showSprintResult(): Promise<void> {
 
   sprintStorage.currentScore = 0;
   resetSprintProgress();
+  buttons.forEach((item) => {
+    item.disabled = false;
+  })
 }
 
 export function sprintTimer() {
@@ -46,6 +54,12 @@ export function sprintTimer() {
       clearInterval(sprintTimer as NodeJS.Timer);
       showSprintResult();
       sprintStorage.gameResult = {};
+      return;
+    }
+
+    const game = document.querySelector('.sprint-game-container') as HTMLElement;
+    if (!game) {
+      clearInterval(sprintTimer as NodeJS.Timer);
       return;
     }
 

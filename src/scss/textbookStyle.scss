@@ -217,6 +217,37 @@ button:disabled {
   border: solid 2px rgb(148, 27, 12);
 }
 
+.current-group-btn {
+  text-transform: uppercase;
+}
+
+.textbook-container[data-group-style='0']{
+  background-color: #ff0000;
+}
+
+.textbook-container[data-group-style='1']{
+  background-color: #ff8000;
+}
+
+.textbook-container[data-group-style='2']{
+  background-color: #ffff00;
+}
+
+.textbook-container[data-group-style='3']{
+  background-color: #00ff00;
+}
+
+.textbook-container[data-group-style='4']{
+  background-color: #00ffff;
+}
+
+.textbook-container[data-group-style='5']{
+  background-color: #0000ff;
+}
+.textbook-container[data-group-style='difficult']{
+  background-color: #ff00ff;
+}
+
 .hidden {
   display: none;
 }

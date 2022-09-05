@@ -1,3 +1,4 @@
+import { onNavigate } from '../..';
 import { sprintStorage } from '../../storage/storage';
 import { IWord, _IWord } from '../../types/types';
 import {
@@ -97,6 +98,7 @@ export function addEndSprintListener() {
         ) {
             start.classList.remove('hidden');
             result.classList.add('hidden');
+            onNavigate('/games');
         }
     });
 }
@@ -116,54 +118,54 @@ export function addSprintOptionListener() {
 }
 
 export function addKeyboardListeners() {
-  document.addEventListener('keyup', (event: KeyboardEvent) => {
-    const start = document.querySelector('.sprint-start') as HTMLElement;
-    const main = document.querySelector('.sprint-game-container') as HTMLElement;
-    const result = document.querySelector('.sprint-result-container') as HTMLElement;
+    document.addEventListener('keyup', (event: KeyboardEvent) => {
+        const start = document.querySelector('.sprint-start') as HTMLElement;
+        const main = document.querySelector('.sprint-game-container') as HTMLElement;
+        const result = document.querySelector('.sprint-result-container') as HTMLElement;
 
-    if (!start || !main || !result) {
-      return;
-    }
-    const code = event.code;
+        if (!start || !main || !result) {
+            return;
+        }
+        const code = event.code;
 
-    if (!(start.classList.contains('hidden'))) {
-      if (code === 'Enter') {
-        const button = document.querySelector('.sprint-start-button') as HTMLElement;
-        if (!button) {
-          return;
+        if (!start.classList.contains('hidden')) {
+            if (code === 'Enter') {
+                const button = document.querySelector('.sprint-start-button') as HTMLElement;
+                if (!button) {
+                    return;
+                }
+                button.click();
+            }
+            return;
         }
-        button.click();
-      }
-      return;
-    }
 
-    if (!(main.classList.contains('hidden'))) {
-      if (code === 'ArrowLeft') {
-        const button = document.querySelector('.sprint-true-button') as HTMLElement;
-        if (!button) {
-          return;
+        if (!main.classList.contains('hidden')) {
+            if (code === 'ArrowLeft') {
+                const button = document.querySelector('.sprint-true-button') as HTMLElement;
+                if (!button) {
+                    return;
+                }
+                button.click();
+            }
+            if (code === 'ArrowRight') {
+                const button = document.querySelector('.sprint-false-button') as HTMLElement;
+                if (!button) {
+                    return;
+                }
+                button.click();
+            }
+            return;
         }
-        button.click();
-      }
-      if (code === 'ArrowRight') {
-        const button = document.querySelector('.sprint-false-button') as HTMLElement;
-        if (!button) {
-          return;
-        }
-        button.click();
-      }
-      return;
-    }
 
-    if (!(result.classList.contains('hidden'))) {
-      if (code === 'Enter') {
-        const button = document.querySelector('.results__end-btn') as HTMLElement;
-        if (!button) {
-          return;
+        if (!result.classList.contains('hidden')) {
+            if (code === 'Enter') {
+                const button = document.querySelector('.results__end-btn') as HTMLElement;
+                if (!button) {
+                    return;
+                }
+                button.click();
+            }
+            return;
         }
-        button.click();
-      }
-      return;
-    }
-  })
+    });
 }

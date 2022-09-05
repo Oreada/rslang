@@ -48,7 +48,6 @@ body {
 	// overflow-x: hidden;
 	font-family: "Roboto", sans-serif;
 	color: $grey1;
-	// background: $eggshell; // Eggshell
 }
 
 img {
@@ -66,10 +65,12 @@ img {
 	flex: 1 0 100%;
 	display: flex;
 	flex-direction: column;
-	background-image: url(../asset/images/homepage.png);
+	// background-color: rgb(86, 165, 210);
+	background: rgb(86, 165, 210) url(../asset/images/homepage.png);
 	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
+	background-position: center start;
+	background-size: 100% auto;
+	background-attachment: fixed;
 }
 
 .main {
@@ -135,3 +136,35 @@ img {
 // 		width: 320px;
 // 	}
 // }
+
+@media (max-width: 1200px) {
+	.wrapper {
+		width: 780px;
+	}
+	.member {
+		width: 80%;
+	}
+}
+
+@media (max-width: 780px) {
+	.wrapper {
+		width: 320px;
+	}
+	.game__box {
+		background-color: white;
+		opacity: 0.75;
+	}
+
+	.heading-img {
+		display: none;
+	}
+
+	.description-text {
+		color: #2c3e4f;
+		text-shadow: 2px 2px 2px white;
+	}
+
+	.member {
+		width: 100%;
+	}
+}

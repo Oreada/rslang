@@ -2,7 +2,7 @@ import { storage } from '../storage/storage';
 import { IWord } from '../types/types';
 import { renderPage } from './renderTextbookPage';
 
-function textbookNavRender(): string {
+export function textbookNavRender(): string {
     const isAuthorized = localStorage.getItem('rslang_currentUser#');
     const strAdd = isAuthorized
         ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
@@ -86,7 +86,7 @@ export function renderWordStatistic(sprintWins: string, sprintLoses: string, aud
 }
 
 export function textbookRender(): string {
-    const str = `<div class="textbook-container">
+    const str = `<div class="textbook-container" data-groupStyle="0">
         <div class="textbook-popup hidden"></div>
         <section class="textbook-nav">
             ${textbookNavRender()}

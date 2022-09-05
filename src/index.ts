@@ -20,7 +20,7 @@ import {
     AudiochallengeTextbookContent6,
 } from './pages/audiochallenge';
 import { GamesContent, GamesCallback } from './pages/games';
-import { Home } from './pages/home';
+import { Home, HomeCallback } from './pages/home';
 import { HomePage } from './pages/homePage';
 import { Statistic, StatisticCallback } from './pages/statistic';
 import { Team } from './pages/team';
@@ -49,7 +49,7 @@ import { listenAuth } from './components/modalWindow/authListener';
 
 export type routesKey = keyof typeof routes;
 
-const routes = {
+export const routes = {
     '/': Home,
     '/textbook': Textbook,
     '/games': GamesContent,
@@ -90,7 +90,7 @@ function fooCallback() {
 
 const callbacks = {
     //! здесь прописываем функции-листенеры для каждой отдельной страницы
-    '/': fooCallback,
+    '/': HomeCallback,
     '/textbook': TextbookCallback,
     '/games': GamesCallback,
     '/games/audiochallenge': fooCallback,
@@ -169,6 +169,13 @@ export const onNavigate = async (pathname: routesKey) => {
             });
         });
     }
+    if (pathname.slice(0, -1) === '/games/audiochallenge/') {
+        const close = document.querySelector('.close');
+        close?.addEventListener('click', (e) => {
+            e.preventDefault();
+            onNavigate('/games');
+        });
+    }
     if (pathname === '/games/sprint') {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll(
             '.nav__link.group-selection__link-sprint'
@@ -179,6 +186,13 @@ export const onNavigate = async (pathname: routesKey) => {
                 e.preventDefault();
                 onNavigate(rout);
             });
+        });
+    }
+    if (pathname.slice(0, -1) === '/games/sprint/') {
+        const close = document.querySelector('.close');
+        close?.addEventListener('click', (e) => {
+            e.preventDefault();
+            onNavigate('/games');
         });
     }
     if (pathname === '/textbook') {
@@ -198,9 +212,9 @@ export const onNavigate = async (pathname: routesKey) => {
 };
 
 window.onpopstate = async () => {
-    // const content = await routes[window.location.pathname as routesKey]();
-    // rootDiv.innerHTML = content;
-    location.reload(); // TODO вернуться к window.location.pathnam. Сейчас при back/forward теряются listeners поэтому справляемся перезагрузкой.
+    const content = await routes[window.location.pathname as routesKey]();
+    rootDiv.innerHTML = content;
+    // location.reload(); // TODO вернуться к window.location.pathnam. Сейчас при back/forward теряются listeners поэтому справляемся перезагрузкой.
 };
 
 // listenersTextbook() - функция, добавляющая слушатели событий для элементов словаря. Позже ее переместим в другое, более подходящее место,
