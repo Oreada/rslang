@@ -104,9 +104,9 @@ export async function processSprintResults(idUser: string, tokenUser: string, re
 
             const isNew =
                 newTotalCorrect +
-                newTotalIncorrect +
-                word.optional.totalCorrectAudiochallenge +
-                word.optional.totalIncorrectAudiochallenge ===
+                    newTotalIncorrect +
+                    word.optional.totalCorrectAudiochallenge +
+                    word.optional.totalIncorrectAudiochallenge ===
                 1;
             gameNewCnt += isNew ? 1 : 0;
         }

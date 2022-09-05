@@ -106,9 +106,9 @@ export async function processAudiochallengeResults(
 
             const isNew =
                 newTotalCorrect +
-                newTotalIncorrect +
-                word.optional.totalCorrectSprint +
-                word.optional.totalIncorrectSprint ===
+                    newTotalIncorrect +
+                    word.optional.totalCorrectSprint +
+                    word.optional.totalIncorrectSprint ===
                 1;
             gameNewCnt += isNew ? 1 : 0;
         }
