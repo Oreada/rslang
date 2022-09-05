@@ -30,7 +30,7 @@ export function playWordAudioForGame(event: Event) {
         targetButton.classList.contains('correct-list__audio-btn') ||
         targetButton.classList.contains('incorrect-list__audio-btn')
     ) {
-        const path = `${BASE_API}${targetButton.dataset.audiopath as string}`;
+        const path = `${BASE_API}/${targetButton.dataset.audiopath as string}`;
         const audio = new Audio(path);
         (audio as HTMLAudioElement).play();
     }

@@ -77,7 +77,7 @@ export const AudiochallengeCallback = () => {
     ) as NodeListOf<HTMLButtonElement>;
 
     setTimeout(() => {
-        const path = `${BASE_API}${questionAudioButtons[0].dataset.audiopath as string}`;
+        const path = `${BASE_API}/${questionAudioButtons[0].dataset.audiopath as string}`;
         const audio = new Audio(path);
         // try {
         //     (audio as HTMLAudioElement).play();
@@ -165,7 +165,7 @@ export const AudiochallengeCallback = () => {
                 if (targetButton.dataset.mark !== 'last-card') {
                     setTimeout(() => {
                         if (targetButton.dataset.audiopath !== '') {
-                            const path = `${BASE_API}${targetButton.dataset.audiopath as string}`;
+                            const path = `${BASE_API}/${targetButton.dataset.audiopath as string}`;
                             const audio = new Audio(path);
                             (audio as HTMLAudioElement).play();
                         }

@@ -47,7 +47,7 @@ const baseConfig = {
         // publicPath: 'dist', // стили ломаются
         publicPath: '/',
         filename: 'index.js',
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
