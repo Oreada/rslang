@@ -3,25 +3,25 @@ import { Modal } from '../components/modalWindow/modal';
 import './home.sass';
 
 export const HomeCallback = () => {
-    const rootDiv = document.getElementById('main') as HTMLDivElement;
-    const buttons: NodeListOf<HTMLElement> = document.querySelectorAll('.home-btn');
-    buttons.forEach((btn) => {
-        const rout = btn.dataset.rout as routesKey;
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if ((e.target as HTMLElement).classList.contains('play-now')) {
-                onNavigate(rout);
-            } else if ((e.target as HTMLElement).classList.contains('learn-more')) {
-                const content = document.createElement('section');
-                content.innerHTML = Modal(LearnMore());
-                rootDiv.appendChild(content);
-            }
-        });
+  const rootDiv = document.getElementById('main') as HTMLDivElement;
+  const buttons: NodeListOf<HTMLElement> = document.querySelectorAll('.home-btn');
+  buttons.forEach((btn) => {
+    const rout = btn.dataset.rout as routesKey;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if ((e.target as HTMLElement).classList.contains('play-now')) {
+        onNavigate(rout);
+      } else if ((e.target as HTMLElement).classList.contains('learn-more')) {
+        const content = document.createElement('section');
+        content.innerHTML = Modal(LearnMore());
+        rootDiv.appendChild(content);
+      }
     });
+  });
 };
 
 export const Home = (): string => {
-    return `<section class="home-page">
+  return `<section class="home-page">
       <div class="home-heading">
         <img class="heading-img one" src="../asset/images/puzzle-machine-learning-1.png" alt="">
         <p class="description-text">
@@ -33,13 +33,13 @@ export const Home = (): string => {
       </div>
       <div class="btn__set">
         <button class="home-btn learn-more">Узнай больше</bitton>
-        <button class="home-btn play-now" data-rout="/games">Играй сразу</bitton>
+        <button class="home-btn play-now" data-rout="/rslang/games">Играй сразу</bitton>
       </div>    
     </section>`;
 };
 
 export const LearnMore = (): string => {
-    return `<div class="information">
+  return `<div class="information">
       <div class="info-container">
         <div class="info-box">
           <svg class="info-box__icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="color: rgb(2, 82, 204); font-size: 56px;"><path d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"></path></svg>

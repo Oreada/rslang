@@ -37,7 +37,7 @@ function textbookFooterRender(): string {
     const str = `
     <button class="game-btn audio-game-btn">
         <a href="" class="textbook__game-link nav__link"
-        data-rout="/textbook/audiochallenge/${Number(storage.chapterCount) + 1}">Аудиовызов</a>
+        data-rout="/rslang/textbook/audiochallenge/${Number(storage.chapterCount) + 1}">Аудиовызов</a>
     </button>
     <div class="page-nav-container">
         <button class="page-nav-btn prev-btn">
@@ -52,14 +52,14 @@ function textbookFooterRender(): string {
     </div>
     <button class="game-btn sprint-game-btn">
         <a href="" class="textbook__game-link nav__link"
-        data-rout="/textbook/sprint/${Number(storage.chapterCount) + 1}">Спринт</a>
+        data-rout="/rslang/textbook/sprint/${Number(storage.chapterCount) + 1}">Спринт</a>
     </button>`;
 
     return str;
 }
 
 export function renderWordStatistic(sprintWins: string, sprintLoses: string, audioChallengeWins: string, audioChallengeLoses: string): string {
-  const str = `<div class="textbook-statistic-container">
+    const str = `<div class="textbook-statistic-container">
     <button class="word-statistic-close">Close</button>
     <div class="word-statistic-content">
       <table class="word-statistic-table">
@@ -82,7 +82,7 @@ export function renderWordStatistic(sprintWins: string, sprintLoses: string, aud
     </div>
   </div>`;
 
-  return str;
+    return str;
 }
 
 export function textbookRender(): string {
