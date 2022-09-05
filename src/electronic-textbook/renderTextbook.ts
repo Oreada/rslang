@@ -6,7 +6,7 @@ export function textbookNavRender(): string {
     const isAuthorized = localStorage.getItem('rslang_currentUser#');
     const strAdd = isAuthorized
         ? `  <button class="textbook-nav-btn difficult-chapter-btn" data-group="difficult">
-    Седьмой
+    СЛОЖНЫЕ
     </button>`
         : '';
     const str = `<button class="textbook-nav-btn regular-chapter-btn" data-group="0">
@@ -58,8 +58,13 @@ function textbookFooterRender(): string {
     return str;
 }
 
-export function renderWordStatistic(sprintWins: string, sprintLoses: string, audioChallengeWins: string, audioChallengeLoses: string): string {
-  const str = `<div class="textbook-statistic-container">
+export function renderWordStatistic(
+    sprintWins: string,
+    sprintLoses: string,
+    audioChallengeWins: string,
+    audioChallengeLoses: string
+): string {
+    const str = `<div class="textbook-statistic-container">
     <button class="word-statistic-close">Close</button>
     <div class="word-statistic-content">
       <table class="word-statistic-table">
@@ -82,7 +87,7 @@ export function renderWordStatistic(sprintWins: string, sprintLoses: string, aud
     </div>
   </div>`;
 
-  return str;
+    return str;
 }
 
 export function textbookRender(): string {

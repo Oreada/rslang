@@ -2,6 +2,8 @@
   background-color: rgb(83, 153, 178);
   border-radius: 10px;
   padding: 10px;
+  width: 100%;
+  min-width: 768px;
 }
 
 .textbook-nav {
@@ -13,17 +15,19 @@
 .textbook-nav-btn {
   width: 100px;
   height: 30px;
-  font-weight: bold;
+  font-weight: 400;
   border: solid 2px black;
   border-radius: 5px;
 }
 
 .regular-chapter-btn {
   background-color: rgb(11, 128, 79);
+  text-transform: uppercase;
 }
 
 .difficult-chapter-btn {
   background-color: rgb(118, 36, 234);
+  font-weight: 900;
 }
 
 .world-list-container {
@@ -31,6 +35,8 @@
   flex-direction: column;
   margin: 30px;
   gap: 20px;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .word-container {
@@ -52,6 +58,7 @@
   border-radius: 5px;
   padding: 5px;
   border: solid 2px rgb(148, 27, 12);
+  width: 500px;
 }
 
 .word-audio-button {
@@ -165,7 +172,7 @@
 }
 
 .learned-page {
-  background-color: rgb(98, 254, 7);
+  background-color:  rgb(205, 75, 60);
 }
 
 button:disabled {
@@ -218,34 +225,35 @@ button:disabled {
 }
 
 .current-group-btn {
-  text-transform: uppercase;
+  color: white;
+  font-weight: 900;
 }
 
 .textbook-container[data-group-style='0']{
-  background-color: #ff0000;
+  background-color: #bfd8f0;
 }
 
 .textbook-container[data-group-style='1']{
-  background-color: #ff8000;
+  background-color: #79b9f6;
 }
 
 .textbook-container[data-group-style='2']{
-  background-color: #ffff00;
+  background-color: #4899e4;
 }
 
 .textbook-container[data-group-style='3']{
-  background-color: #00ff00;
+  background-color: #298ae5;
 }
 
 .textbook-container[data-group-style='4']{
-  background-color: #00ffff;
+  background-color: #0a5fae;
 }
 
 .textbook-container[data-group-style='5']{
-  background-color: #0000ff;
+  background-color: #12477a;
 }
 .textbook-container[data-group-style='difficult']{
-  background-color: #ff00ff;
+  background-color: #02192e;
 }
 
 .hidden {
