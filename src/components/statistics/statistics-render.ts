@@ -2,6 +2,7 @@ import { LOCAL_STORAGE_DATA } from '../../constants/constants';
 import { getStatistics } from '../api/api';
 import { IStatisticsResult } from '../../types/types';
 import { getTodayDate } from '../../general-functions/getTodayDate';
+import { drawGraphic } from './graphics';
 
 const todayDate = getTodayDate();
 console.log(todayDate);
@@ -174,7 +175,22 @@ function drawLongtermStatistics() {
 	    <h2 class="longtermstatistics__title">Долгосрочная статистика</h2>
 
 	    <div class="longtermstatistics__body">
-            МЕСТО ДЛЯ ГРАФИКОВ
+
+            <div class="longtermstatistics__graph" style="background-color: rgb(229, 241, 248);">
+                <canvas id="graph-firstTimeInGame"></canvas>
+            </div>
+
+            <div class="longtermstatistics__graph" style="background-color: rgb(229, 241, 248);">
+                <canvas id="graph-easyPerDay"></canvas>
+            </div>
+
+            <div class="longtermstatistics__graph" style="background-color: rgb(229, 241, 248);">
+                <canvas id="graph-persentage"></canvas>
+            </div>
+
+            <div class="longtermstatistics__graph" style="background-color: rgb(229, 241, 248);">
+                <canvas id="graph-bestScore"></canvas>
+            </div>
 	    </div>
 
 </div>
