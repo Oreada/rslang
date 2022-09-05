@@ -50,37 +50,37 @@ import { listenAuth } from './components/modalWindow/authListener';
 export type routesKey = keyof typeof routes;
 
 export const routes = {
-    '/': Home,
-    '/textbook': Textbook,
-    '/games': GamesContent,
-    '/games/audiochallenge': AudiochallengeContent,
-    '/games/audiochallenge/1': AudiochallengeContent1,
-    '/games/audiochallenge/2': AudiochallengeContent2,
-    '/games/audiochallenge/3': AudiochallengeContent3,
-    '/games/audiochallenge/4': AudiochallengeContent4,
-    '/games/audiochallenge/5': AudiochallengeContent5,
-    '/games/audiochallenge/6': AudiochallengeContent6,
-    '/games/sprint': SprintContent,
-    '/games/sprint/1': SprintContent1,
-    '/games/sprint/2': SprintContent2,
-    '/games/sprint/3': SprintContent3,
-    '/games/sprint/4': SprintContent4,
-    '/games/sprint/5': SprintContent5,
-    '/games/sprint/6': SprintContent6,
-    '/textbook/audiochallenge/1': AudiochallengeTextbookContent1,
-    '/textbook/audiochallenge/2': AudiochallengeTextbookContent2,
-    '/textbook/audiochallenge/3': AudiochallengeTextbookContent3,
-    '/textbook/audiochallenge/4': AudiochallengeTextbookContent4,
-    '/textbook/audiochallenge/5': AudiochallengeTextbookContent5,
-    '/textbook/audiochallenge/6': AudiochallengeTextbookContent6,
-    '/textbook/sprint/1': SprintTextbookContent1,
-    '/textbook/sprint/2': SprintTextbookContent2,
-    '/textbook/sprint/3': SprintTextbookContent3,
-    '/textbook/sprint/4': SprintTextbookContent4,
-    '/textbook/sprint/5': SprintTextbookContent5,
-    '/textbook/sprint/6': SprintTextbookContent6,
-    '/statistic': Statistic,
-    '/team': Team,
+    '/rslang/': Home,
+    '/rslang/textbook': Textbook,
+    '/rslang/games': GamesContent,
+    '/rslang/games/audiochallenge': AudiochallengeContent,
+    '/rslang/games/audiochallenge/1': AudiochallengeContent1,
+    '/rslang/games/audiochallenge/2': AudiochallengeContent2,
+    '/rslang/games/audiochallenge/3': AudiochallengeContent3,
+    '/rslang/games/audiochallenge/4': AudiochallengeContent4,
+    '/rslang/games/audiochallenge/5': AudiochallengeContent5,
+    '/rslang/games/audiochallenge/6': AudiochallengeContent6,
+    '/rslang/games/sprint': SprintContent,
+    '/rslang/games/sprint/1': SprintContent1,
+    '/rslang/games/sprint/2': SprintContent2,
+    '/rslang/games/sprint/3': SprintContent3,
+    '/rslang/games/sprint/4': SprintContent4,
+    '/rslang/games/sprint/5': SprintContent5,
+    '/rslang/games/sprint/6': SprintContent6,
+    '/rslang/textbook/audiochallenge/1': AudiochallengeTextbookContent1,
+    '/rslang/textbook/audiochallenge/2': AudiochallengeTextbookContent2,
+    '/rslang/textbook/audiochallenge/3': AudiochallengeTextbookContent3,
+    '/rslang/textbook/audiochallenge/4': AudiochallengeTextbookContent4,
+    '/rslang/textbook/audiochallenge/5': AudiochallengeTextbookContent5,
+    '/rslang/textbook/audiochallenge/6': AudiochallengeTextbookContent6,
+    '/rslang/textbook/sprint/1': SprintTextbookContent1,
+    '/rslang/textbook/sprint/2': SprintTextbookContent2,
+    '/rslang/textbook/sprint/3': SprintTextbookContent3,
+    '/rslang/textbook/sprint/4': SprintTextbookContent4,
+    '/rslang/textbook/sprint/5': SprintTextbookContent5,
+    '/rslang/textbook/sprint/6': SprintTextbookContent6,
+    '/rslang/statistic': Statistic,
+    '/rslang/team': Team,
 };
 
 //! это функция-заглушка для страниц, которые не имеют коллбэков на данный момент, без неё проблемы с вызовом тут: callbacks[pathname]()
@@ -90,37 +90,37 @@ function fooCallback() {
 
 const callbacks = {
     //! здесь прописываем функции-листенеры для каждой отдельной страницы
-    '/': HomeCallback,
-    '/textbook': TextbookCallback,
-    '/games': GamesCallback,
-    '/games/audiochallenge': fooCallback,
-    '/games/audiochallenge/1': AudiochallengeCallback,
-    '/games/audiochallenge/2': AudiochallengeCallback,
-    '/games/audiochallenge/3': AudiochallengeCallback,
-    '/games/audiochallenge/4': AudiochallengeCallback,
-    '/games/audiochallenge/5': AudiochallengeCallback,
-    '/games/audiochallenge/6': AudiochallengeCallback,
-    '/games/sprint': fooCallback,
-    '/games/sprint/1': SprintCallback,
-    '/games/sprint/2': SprintCallback,
-    '/games/sprint/3': SprintCallback,
-    '/games/sprint/4': SprintCallback,
-    '/games/sprint/5': SprintCallback,
-    '/games/sprint/6': SprintCallback,
-    '/textbook/audiochallenge/1': AudiochallengeCallback,
-    '/textbook/audiochallenge/2': AudiochallengeCallback,
-    '/textbook/audiochallenge/3': AudiochallengeCallback,
-    '/textbook/audiochallenge/4': AudiochallengeCallback,
-    '/textbook/audiochallenge/5': AudiochallengeCallback,
-    '/textbook/audiochallenge/6': AudiochallengeCallback,
-    '/textbook/sprint/1': SprintCallback,
-    '/textbook/sprint/2': SprintCallback,
-    '/textbook/sprint/3': SprintCallback,
-    '/textbook/sprint/4': SprintCallback,
-    '/textbook/sprint/5': SprintCallback,
-    '/textbook/sprint/6': SprintCallback,
-    '/statistic': StatisticCallback,
-    '/team': fooCallback,
+    '/rslang/': HomeCallback,
+    '/rslang/textbook': TextbookCallback,
+    '/rslang/games': GamesCallback,
+    '/rslang/games/audiochallenge': fooCallback,
+    '/rslang/games/audiochallenge/1': AudiochallengeCallback,
+    '/rslang/games/audiochallenge/2': AudiochallengeCallback,
+    '/rslang/games/audiochallenge/3': AudiochallengeCallback,
+    '/rslang/games/audiochallenge/4': AudiochallengeCallback,
+    '/rslang/games/audiochallenge/5': AudiochallengeCallback,
+    '/rslang/games/audiochallenge/6': AudiochallengeCallback,
+    '/rslang/games/sprint': fooCallback,
+    '/rslang/games/sprint/1': SprintCallback,
+    '/rslang/games/sprint/2': SprintCallback,
+    '/rslang/games/sprint/3': SprintCallback,
+    '/rslang/games/sprint/4': SprintCallback,
+    '/rslang/games/sprint/5': SprintCallback,
+    '/rslang/games/sprint/6': SprintCallback,
+    '/rslang/textbook/audiochallenge/1': AudiochallengeCallback,
+    '/rslang/textbook/audiochallenge/2': AudiochallengeCallback,
+    '/rslang/textbook/audiochallenge/3': AudiochallengeCallback,
+    '/rslang/textbook/audiochallenge/4': AudiochallengeCallback,
+    '/rslang/textbook/audiochallenge/5': AudiochallengeCallback,
+    '/rslang/textbook/audiochallenge/6': AudiochallengeCallback,
+    '/rslang/textbook/sprint/1': SprintCallback,
+    '/rslang/textbook/sprint/2': SprintCallback,
+    '/rslang/textbook/sprint/3': SprintCallback,
+    '/rslang/textbook/sprint/4': SprintCallback,
+    '/rslang/textbook/sprint/5': SprintCallback,
+    '/rslang/textbook/sprint/6': SprintCallback,
+    '/rslang/statistic': StatisticCallback,
+    '/rslang/team': fooCallback,
 };
 
 const body = document.getElementById('root') as HTMLBodyElement;
@@ -147,7 +147,7 @@ export const onNavigate = async (pathname: routesKey) => {
     window.history.pushState({}, pathname, window.location.origin + pathname);
     const content = await routes[pathname]();
     rootDiv.innerHTML = content; //! тут отрисовался определённый контент
-    if (pathname === '/games') {
+    if (pathname === '/rslang/games') {
         const gameLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.game');
         gameLinks.forEach((link) => {
             link.addEventListener('click', (e) => {
@@ -157,7 +157,7 @@ export const onNavigate = async (pathname: routesKey) => {
             });
         });
     }
-    if (pathname === '/games/audiochallenge') {
+    if (pathname === '/rslang/games/audiochallenge') {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll(
             '.nav__link.group-selection__link-audiochallenge'
         );
@@ -169,14 +169,14 @@ export const onNavigate = async (pathname: routesKey) => {
             });
         });
     }
-    if (pathname.slice(0, -1) === '/games/audiochallenge/') {
+    if (pathname.slice(0, -1) === '/rslang/games/audiochallenge/') {
         const close = document.querySelector('.close');
         close?.addEventListener('click', (e) => {
             e.preventDefault();
-            onNavigate('/games');
+            onNavigate('/rslang/games');
         });
     }
-    if (pathname === '/games/sprint') {
+    if (pathname === '/rslang/games/sprint') {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll(
             '.nav__link.group-selection__link-sprint'
         );
@@ -188,14 +188,14 @@ export const onNavigate = async (pathname: routesKey) => {
             });
         });
     }
-    if (pathname.slice(0, -1) === '/games/sprint/') {
+    if (pathname.slice(0, -1) === '/rslang/games/sprint/') {
         const close = document.querySelector('.close');
         close?.addEventListener('click', (e) => {
             e.preventDefault();
-            onNavigate('/games');
+            onNavigate('/rslang/games');
         });
     }
-    if (pathname === '/textbook') {
+    if (pathname === '/rslang/textbook') {
         const groupLinks: NodeListOf<HTMLElement> = document.querySelectorAll('.nav__link.textbook__game-link');
         groupLinks.forEach((link) => {
             link.addEventListener('click', (e) => {
