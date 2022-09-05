@@ -98,7 +98,7 @@ export function addEndSprintListener() {
         ) {
             start.classList.remove('hidden');
             result.classList.add('hidden');
-            onNavigate('/games');
+            onNavigate('/rslang/games');
         }
     });
 }
