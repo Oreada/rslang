@@ -5,7 +5,7 @@ import { LOCAL_STORAGE_DATA } from '../constants/constants';
 import { IStatisticsResult } from '../types/types';
 
 export const Statistic = async (): Promise<string> => {
-    return contentStatisticsPage();
+    return await contentStatisticsPage();
 };
 
 export const StatisticCallback = async () => {
