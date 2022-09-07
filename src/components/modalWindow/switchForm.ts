@@ -44,10 +44,14 @@ export function listenLoginForm() {
                 email: registerEmail.value,
                 password: registerPassword.value,
             })) as IAuthorizationResult;
-            if (user) {
+            if (user && authenticated) {
                 localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(authenticated));
                 auth.innerHTML = 'LogOut';
                 auth.dataset.username = authenticated.name;
+                registerEmail.value = '';
+                name.value = '';
+                registerPassword.value = '';
+                registerConfirmPassword.value = '';
                 modal.style.display = 'none';
             } else {
                 const message = document.querySelector('.active .message__incorrect') as HTMLElement;
