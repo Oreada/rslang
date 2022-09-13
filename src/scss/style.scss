@@ -1,0 +1,133 @@
+@import "./textbookStyle.scss";
+@import "./sprint.scss";
+@import "./circle.sass";
+@import "./audiochallenge.scss";
+@import "./statistics.scss";
+
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 300;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-300.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-300.woff") format("woff");
+}
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-regular.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 700;
+	src: local("Roboto"), url("../asset/fonts/roboto-v29-latin_cyrillic-700.woff2") format("woff2"),
+		url("../asset/fonts/roboto-v29-latin_cyrillic-700.woff") format("woff");
+}
+
+// Файл обнуляющих стилей
+@import "_nullstyle";
+
+// Библиотека noUiSlider: range-ползунки
+@import "nouislider/dist/nouislider.css";
+
+// Переменные для цвета
+$grey1: #4e4d4d; // основной для шрифта
+$grey2: #545454; // светлее - под цвет рюкзака-корзины
+$eggshell: #f0ead6; // Eggshell - основной для фона
+$sea-green-dark: #3d5446;
+$green-dark: #272d24; // .noUi-handle
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	height: 100%;
+	// overflow-x: hidden;
+	font-family: "Roboto", sans-serif;
+	color: $grey1;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-width: 768px;
+}
+
+.content {
+	flex: 1 0 100%;
+	display: flex;
+	flex-direction: column;
+	// background-color: rgb(86, 165, 210);
+	background: rgb(86, 165, 210) url(../asset/images/homepage.png);
+	background-repeat: no-repeat;
+	background-position: center start;
+	background-size: 100% auto;
+	background-attachment: fixed;
+	min-width: 768px;
+}
+
+.main {
+	height: 100%;
+}
+
+.wrapper {
+	height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+
+@media (max-width: 1200px) {
+	.wrapper {
+		width: 780px;
+	}
+	.member {
+		width: 80%;
+	}
+}
+
+@media (max-width: 900) {
+	.nav__link, .nav__link:visited {
+		padding: 0 10px;
+    font-weight: 700;
+    font-size: 1.25em;
+	}
+
+  .auth {    
+		padding: 2px 7px;
+		font-size: 1.25em;
+	}
+
+}
+
+@media (max-width: 767px) {
+	.wrapper {
+		width: 320px;
+	}
+	.game__box {
+		background-color: white;
+		opacity: 0.75;
+	}
+
+	.heading-img {
+		display: none;
+	}
+
+	.description-text {
+		color: #2c3e4f;
+		text-shadow: 2px 2px 2px white;
+	}
+
+	.member {
+		width: 100%;
+	}
+}
