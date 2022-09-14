@@ -123,7 +123,7 @@ const callbacks = {
 };
 
 const body = document.getElementById('root') as HTMLBodyElement;
-const path = window.location.pathname as routesKey;
+export const path = window.location.pathname as routesKey;
 const content = await routes[path]();
 body.innerHTML = HomePage(content);
 const rootDiv = document.getElementById('main') as HTMLDivElement;
